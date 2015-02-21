@@ -26,10 +26,10 @@ var createGeoJson = function(data){
 	        	"coordinates": [data[i].longitude, data[i].latitude]
 	        },
 	        properties: {
-		        title: 'Development Name',
-		        description: 'Project description',
+		        title: data[i].address,
+		        description: data[i].description,
 		        'marker-size': 'medium',
-		        'marker-color': '#f44',
+		        'marker-color': '#f44', // color code according to status?
 		        'marker-symbol': 'commercial'
     		}
 		});
@@ -47,27 +47,37 @@ var createGeoJson = function(data){
 
 // TODO: get actual json from api
 var dummyData = [
-	{
+	{	
+		description: 'Expansion of SFMOMA to SE with 40,000-sf gallery wing at Natoma Street, acquisition and replacement of Heald College building on Howard Street with 62,000-sf new construction for back-of-house and admin functions, vacation of portion of Hunt Alley',
+		address: '151 Third Street 94103',
 		latitude: 37.785935700000003,
 		longitude: -122.40076120000001
 	},
-	{
+	{	
+		description: 'THC/Citizens Housing (MOH) proposal for 100% affordable housing project, 15-story, w/ 18 parking spaces and 3,640-gsf retail at ground level.',
+		address: '1400 Mission St',
 		latitude: 37.775286399999999, 
 		longitude: -122.4159598
 	},
-		{
+	{
+		description: 'Convert warehouse building to 9 residential units and 21 off-street parking spaces.',
+		address: '1469 Pacific Av',
 		latitude: 37.795060900000003, 
 		longitude: -122.419425
 	},
-	{
+	{	
+		description: 'The proposed project would include the temporary removal of the existing Golden Gateway Tennis and Swim Club facility and the new construction of two mixed use buildings and outdoor health club facilities. The new buildings would include 170 residential units.',
+		address: '8 Washington Street',
 		latitude: 37.795891599999997, 
 		longitude: -122.4005452
 	},
 	{
+		description: 'Construction of a new 4-story, 2-unit residential building.',
+		address: '2626 Larkin St',
 		latitude: 37.802238000000003, 
 		longitude: -122.42105100000001
 	}
-]
+];
 
 $(document).ready(function() {
 	window.map = initializeMap();
