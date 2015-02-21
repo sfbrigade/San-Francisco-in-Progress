@@ -1,4 +1,3 @@
-
 var initializeMap = function(){
 	L.mapbox.accessToken = 'pk.eyJ1Ijoiam1jZWxyb3kiLCJhIjoiVVg5eHZldyJ9.FFzKtamuKHb_8_b_6fAOFg';
 	var map = L.mapbox.map('map-container', 'jmcelroy.k6hc0kie')
@@ -6,20 +5,32 @@ var initializeMap = function(){
 	return map;
 };
 
-var createGeoJson = function(){
-
-}
+var placeMarkers = function(){
+	var geoJSON = getDummyData();
+	L.mapbox.featureLayer(geoJSON).addTo(window.map);
+};
 
 var getDummyData = function(){
-	return {
-		"address": "2201 8TH AVE", 
-		"latitude": 47.617259979248, 
-		"id": "3018580", 
-		"longitude": -122.339668273926, 
-		"status": "in_review"
+
+	// TODO: get json from api
+	// massage into geojson format
+
+	return { 
+		"type": "FeatureCollection",
+    	"features": [{ 
+    		"type": "Feature",
+	        "geometry": {
+	        	"type": "Point", 
+	        	"coordinates": [-122.4, 37.78]
+	        }, // long/lat
+	        "properties": {
+	        	"prop0": "value0"
+	    	}
+	    }]
 	};
 };
 
 $(document).ready(function() {
-	initializeMap();
+	window.map = initializeMap();
+	placeMarkers();
 });
