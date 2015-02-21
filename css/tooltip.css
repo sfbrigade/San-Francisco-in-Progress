@@ -1,0 +1,36 @@
+
+/*********************\
+    Tooltip
+\*********************/
+
+.tooltip{
+    max-width: 400px;
+    color: #444;
+    font-family: arial, sans-serif;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.tooltip-address {
+    font-size: 20px;
+    text-align: center;
+    margin: auto;
+}
+
+.tooltip-zoning {
+    margin: 20px 0 0 0;
+    font-size: 18px;
+    text-align: center;
+    font-weight: normal;
+}
+.tooltip-contactinfo {
+    text-align: center;
+    font-size: 14px;
+}
+
+.tooltip-description{
+    margin: 20px 20px;
+    font-size: 14px;
+    line-height: 1.5em;
+    color: #888;
+}
