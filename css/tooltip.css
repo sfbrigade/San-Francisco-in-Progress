@@ -2,6 +2,9 @@
 /*********************\
     Tooltip
 \*********************/
+.leaflet-popup-content-wrapper {
+  min-width: 400px;
+}
 
 .tooltip{
     max-width: 400px;
@@ -26,8 +29,16 @@
 .tooltip-contactinfo {
     text-align: center;
     font-size: 14px;
+    margin-bottom: 20px;
 }
 
+.tooltip-date {
+    display: inline;
+    margin: 20px 20px;
+}
+.tooltip-status {
+    display: inline;
+}
 .tooltip-description{
     margin: 20px 20px;
     font-size: 14px;
