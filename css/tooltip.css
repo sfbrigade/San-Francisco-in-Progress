@@ -6,10 +6,10 @@
     width: 400px;
 }
 
-.leaflet-popup-content-wrapper {
+/*.leaflet-popup-content-wrapper {
   min-width: 400px;
 }
-
+*/
 .tooltip{
     max-width: 400px;
     color: #444;

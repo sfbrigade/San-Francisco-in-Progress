@@ -1,11 +1,55 @@
 
- .map-container {
+.leaflet-popup-content {
+    min-width: 400px;
+}
+
+.leaflet-popup-content-wrapper {
+  min-width: 400px;
+}
+
+#filters {
+	z-index: 12;
+	width: 300px;
+	height: 500px;
+	background-color: white;
+}
+
+.map-container {
  	position:absolute;
  	top:0;
  	bottom:0;
  	width:100%;
  }
 
+ /* Legend */
+
+ .map-legend.wax-legend {
+	width: 200px;
+ }
+
+.map-legend > .filter > .key {
+	width:20px;
+	height: 20px;
+	display: inline-block;
+	margin-bottom: -3px;
+}
+
+.map-legend > .filter > .key.blue{
+	background-color: #307de1;
+}
+
+.map-legend > .filter > .key.red{
+	background-color: #ff3b52;
+}
+
+.map-legend > .filter > .key.green{
+	background-color: #04ff54;
+}
+
+.map-legend > .filter > .label {
+	display: inline-block;
+	margin: 5px;
+}
 
 
 

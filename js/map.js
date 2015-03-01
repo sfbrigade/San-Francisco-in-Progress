@@ -1,4 +1,27 @@
-var TOOLTIP = _.template($("#tooltip").html());
+var tooltipTemplate = function(data){
+	var template = _.template($("#tooltip").html());
+	return template(data);
+};
+
+var addLegend = function(){
+	var template = _.template($("#legend").html());
+	var html = template();
+	window.map.legendControl.addLegend(html);
+
+	// Add event listeners to project status filters
+	$(".map-legend > .filter > input").on('change', setStatusFilter);
+};
+
+var setStatusFilter = function(){
+	var checkedBoxes = $(".filter input:checked");
+	var filters = [];
+	_.each(checkedBoxes, function(input){
+		filters.push($(input).attr('name'));
+	});
+	window.map.markers.setFilter(function(marker){
+		return _.contains(filters, marker.properties.statusCategory);
+	});
+};
 
 var initializeMap = function(){
 	L.mapbox.accessToken = 'pk.eyJ1Ijoiam1jZWxyb3kiLCJhIjoiVVg5eHZldyJ9.FFzKtamuKHb_8_b_6fAOFg';
@@ -10,15 +33,15 @@ var initializeMap = function(){
 var placeMarkers = function(data){
 
 	var geoJSON = createGeoJson(data);
-
 	var markerLayer = L.mapbox.featureLayer();
+	// so we can access markers from other components
+	window.map.markers = markerLayer;
 
 	// define custom HTML for popups
 	markerLayer.on('layeradd', function(e){
 		var marker = e.layer;
 		var markerProps = marker.feature.properties;
-
-		var popupContent = TOOLTIP({
+		var popupContent = tooltipTemplate({
 			address: markerProps.address,
 			neighborhood: markerProps.neighborhood,
 			description: markerProps.description,
@@ -26,18 +49,20 @@ var placeMarkers = function(data){
 			units: markerProps.units,
 			status: markerProps.status
 		});
-
 		marker.bindPopup(popupContent);
 	});
 
 	// Add them all to the map 
 	markerLayer.setGeoJSON(geoJSON);
 	markerLayer.addTo(window.map);
+
+	//add legend
+	addLegend();
 };
 
-var getData = function(){
+var getData = function(cb){
 	$.get('https://data.sfgov.org/resource/n5ik-nmm3.json', function(data){
-		placeMarkers(data);
+		cb(data);
 	});
 };
 
@@ -49,7 +74,6 @@ var createGeoJson = function(projects){
 	};
 
 	var markerType;
-
 	for (var i = 0; i < projects.length; i++) {
 
 		switch (projects[i].zoning_generalized) {
@@ -73,19 +97,23 @@ var createGeoJson = function(projects){
 		}
 
 		var markerColor;
-
+		var status;
 		var status = projects[i].beststat_group.trim();
 
 		if (status === "Construction") {
-			markerColor = "#04ff54";
+			statusCategory = "construction";
+			markerColor = "#04ff54"; //green
 		}
 		else if (status.substring(0,2) === "PL" || status.substring(0,2) === "Pl") {
-			markerColor = '#f44';
+			statusCategory = "planning";
+			markerColor = "#307de1"; //blue
 		}
 		else if (status.substring(0,2) === "BP") {
-			markerColor = "#307de1";
+			statusCategory = "building";
+			markerColor = '#ff3b52'; //red
 		}
 
+		// parse address string
 		var address = projects[i].location_1.human_address.split(",");
 		address = address[0].substring(11).replace(/["']/g, "");
 
@@ -102,8 +130,9 @@ var createGeoJson = function(projects){
 		     	zoning: projects[i].zoning_generalized,
 		        units: projects[i].units,
 		        status: projects[i].beststat_group,
+		        statusCategory: statusCategory,
 		        'marker-size': 'medium',
-		        'marker-color': markerColor, // color code according to status?
+		        'marker-color': markerColor, 
 		        'marker-symbol': markerType
     		}
 		});
@@ -114,5 +143,5 @@ var createGeoJson = function(projects){
 
 $(document).ready(function() {
 	window.map = initializeMap();
-	getData();
+	getData(placeMarkers);
 });

@@ -5,13 +5,33 @@
 	<meta charset="UTF-8">
 	<title>SF In Progress</title>
 	<link href='css/main.css' rel='stylesheet'>
-    <link href='css/tooltip.css' rel='stylesheet'>
 	<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
 </head>
 <body>
 
 	<div id="map-container" class="map-container"></div>
+	<div id="filters"></div>
 	
+
+	<script type="text/template" id="legend">
+		<h2> Project Status </h2>
+		<div class="filter">
+			<input type="checkbox" name="planning" checked>
+			<div class="key blue"></div>
+			<div class="label"> Planning Permit phase</div><br>
+		</div>
+		<div class="filter">
+			<input type="checkbox" name="building" checked>
+			<div class="key red"></div>
+			<div class="label"> Building Permit phase</div><br>
+		</div>
+		<div class="filter">
+			<input type="checkbox" name="construction" checked>
+			<div class="key green"></div>
+			<div class="label"> Under Construction</div><br>
+		</div>
+	</script>
+
 	<script type="text/template" id="tooltip">
 		<h1> <%= address %> </h1>
         <p> <strong>Zoning type:</strong> <%= zoning %> </p>
