@@ -11,9 +11,17 @@
 <body>
 
 	<div id="map-container" class="map-container"></div>
-
+	
+	<script type="text/template" id="tooltip">
+		<h1> <%= address %> </h1>
+        <p> <strong>Zoning type:</strong> <%= zoning %> </p>
+        <p> <strong>Status:</strong> <%=  status %> </p>
+        <p> <strong>Net new units:</strong> <%=  units %> </p>
+        <p> <strong>Description:</strong> <%=  description %> </p>
+	</script>
 
 	<script src="js/lib/jquery.js"></script>
+	<script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
 	<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
 	<script src="js/map.js" type="text/javascript"></script>
 </body>

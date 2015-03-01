@@ -1,7 +1,11 @@
-
 /*********************\
     Tooltip
 \*********************/
+
+.leaflet-popup-content {
+    width: 400px;
+}
+
 .leaflet-popup-content-wrapper {
   min-width: 400px;
 }
