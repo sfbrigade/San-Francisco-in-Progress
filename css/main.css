@@ -1,3 +1,27 @@
+#sidebar {
+	position:absolute;
+	top: 0;
+	background-color: #f8f8f8;
+	width: 250px;
+	height: 100%;
+	display: inline-block;
+	padding-left: 40px;
+}
+
+#sidebar li {
+	margin-left: -40px;
+}
+
+#map-container {
+	position: absolute;
+	top: 0;
+	left: 250px;
+	width: 90%; 
+	width: calc(100% - 250px);
+	height: 100%;
+	display: inline-block;
+
+}
 
 .leaflet-popup-content {
     min-width: 400px;
@@ -15,7 +39,7 @@
 }
 
 .map-container {
- 	position:absolute;
+ 	position: absolute;
  	top:0;
  	bottom:0;
  	width:100%;
@@ -27,30 +51,29 @@
 	width: 200px;
  }
 
-.map-legend > .filter > .key {
+.map-legend > .filter-status > .key {
 	width:20px;
 	height: 20px;
 	display: inline-block;
 	margin-bottom: -3px;
 }
 
-.map-legend > .filter > .key.blue{
+.map-legend > .filter-status > .key.blue{
 	background-color: #307de1;
 }
 
-.map-legend > .filter > .key.red{
+.map-legend > .filter-status > .key.red{
 	background-color: #ff3b52;
 }
 
-.map-legend > .filter > .key.green{
+.map-legend > .filter-status > .key.green{
 	background-color: #04ff54;
 }
 
-.map-legend > .filter > .label {
+.map-legend > .filter-status > .label {
 	display: inline-block;
 	margin: 5px;
 }
-
 
 
 /*********************\
@@ -59,4 +82,7 @@
 html, body{
     margin: 0;
     padding: 0;
+}
+ul {
+	list-style-type: none;
 }

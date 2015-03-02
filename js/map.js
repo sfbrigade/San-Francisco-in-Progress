@@ -1,32 +1,73 @@
-var tooltipTemplate = function(data){
+var tooltipTemplate = function tooltipTemplate(data){
 	var template = _.template($("#tooltip").html());
 	return template(data);
 };
 
-var addLegend = function(){
+var addFilters = function addFilters (){
 	var template = _.template($("#legend").html());
 	var html = template();
 	window.map.legendControl.addLegend(html);
 
-	// Add event listeners to project status filters
-	$(".map-legend > .filter > input").on('change', setStatusFilter);
+	// Add event listeners to filter checkboxes
+	$(".map-legend > .filter-status > input").on('change', setStatusFilter);
+	$("#sidebar input").on('change', setNeighborhoodFilter);
+	$("#select-all").on('click', selectAllNeighborhoods);
+	$("#clear-all").on('click', clearAllNeighborhoods);
+
+	//make all neighborhoods look selected
+	$("#sidebar input").prop("checked", true);
 };
 
-var setStatusFilter = function(){
-	var checkedBoxes = $(".filter input:checked");
-	var filters = [];
-	_.each(checkedBoxes, function(input){
-		filters.push($(input).attr('name'));
+var selectAllNeighborhoods = function selectallNeighborhoods(){
+	// TODO: why isn't this working??
+	$("#sidebar input").prop("checked", true);
+	filterMapboxMarkers(NEIGHBORHOODS, 'neighborhood');
+
+};
+
+var clearAllNeighborhoods = function clearAllNeighborhoods(){
+	$("#sidebar input").prop("checked", false);
+	filterMapboxMarkers([], 'neighborhood');
+};
+
+var setNeighborhoodFilter = function setNeighborhoodFilter(){
+	// make new api request or use mapbox to filter markers?
+	// the mapbox filtering way:
+	var checkedHoods = $("#sidebar input:checked");
+	var include = [];
+	_.each(checkedHoods, function(input){
+		include.push($(input).attr('name'));
 	});
+	filterMapboxMarkers(include, 'neighborhood');
+};
+
+var filterMapboxMarkers = function filterMapboxMarkers(include, prop){
+	// include is an array of the categories to keep
+	// prop is the property we're filtering by
 	window.map.markers.setFilter(function(marker){
-		return _.contains(filters, marker.properties.statusCategory);
+		return _.contains(include, marker.properties[prop]);
 	});
 };
 
-var initializeMap = function(){
+var setStatusFilter = function setStatusFilter(){
+	var checkedBoxes = $(".filter-status input:checked");
+	var include = [];
+	_.each(checkedBoxes, function(input){
+		include.push($(input).attr('name'));
+	});
+	filterMapboxMarkers(include, 'statusCategory');
+};
+
+var initializeMap = function initializeMap(){
 	L.mapbox.accessToken = 'pk.eyJ1Ijoiam1jZWxyb3kiLCJhIjoiVVg5eHZldyJ9.FFzKtamuKHb_8_b_6fAOFg';
-	var map = L.mapbox.map('map-container', 'jmcelroy.k6hc0kie')
-		.setView([37.78, -122.40], 12);
+	var map = L.mapbox.map('map-container', 'jmcelroy.k6hc0kie', {
+		zoomControl: false,
+		legendControl: {
+			position: 'bottomright'
+		}
+	}).setView([37.77, -122.44], 13);
+	// putting zoom control in top-right corner
+	new L.Control.Zoom({ position: 'topright' }).addTo(map);
 	return map;
 };
 
@@ -56,17 +97,25 @@ var placeMarkers = function(data){
 	markerLayer.setGeoJSON(geoJSON);
 	markerLayer.addTo(window.map);
 
-	//add legend
-	addLegend();
+	//add filter control panel
+	addFilters();
 };
 
-var getData = function(cb){
-	$.get('https://data.sfgov.org/resource/n5ik-nmm3.json', function(data){
+var getDataFromSocrata = function getDataFromSocrata(options, cb){
+	var url = 'https://data.sfgov.org/resource/n5ik-nmm3.json?$select=';
+	var token = '$$app_token=883SzTf4cdhMIegNNLYOLM0YR'
+	var fields = FIELDS;
+	for (var i = 0; i < fields.length; i++){
+		if (i === 0) url += fields[i];
+		else url += ',' + fields[i];
+	}
+	// url += token;
+	$.get(url, function(data){
 		cb(data);
 	});
 };
 
-var createGeoJson = function(projects){
+var createGeoJson = function createGeoJson(projects){
 
 	var featureCollection = {
 		type: "FeatureCollection",
@@ -141,7 +190,54 @@ var createGeoJson = function(projects){
 	return featureCollection;
 };
 
+// Variable names from dataset
+
+var FIELDS = [
+	'location_1', 
+	'planning_neighborhood', 
+	'planning_project_description', 
+	'dbi_project_description',
+	'zoning_generalized',
+	'units',
+	'beststat_group'
+];
+
+var NEIGHBORHOODS = [
+	"Balboa Park",
+	"Bayshore",
+	"Bernal Heights",
+	"Buena Vista",
+	"BVHP Area A,B", 
+	"Candlestick",
+	"Central",
+	"Central Waterfront",
+	"Downtown",
+	"East SoMa",
+	"Executive Park",
+	"HP Shipyard",
+	"India Basin",
+	"Ingleside, Other",
+	"Inner Sunset",
+	"Japantown",
+	"Marina",
+	"Market Octavia",
+	"Mission",
+	"Mission Bay",
+	"Northeast",
+	"Outer Sunset",
+	"Park Merced",
+	"Richmond",
+	"Rincon Hill",
+	"Showpl/Potrero",
+	"South Central, Other",
+	"South of Market, Other",
+	"TB Combo",
+	"VisVal",
+	"Western Addition",		
+	"WSoMa"
+];
+
 $(document).ready(function() {
 	window.map = initializeMap();
-	getData(placeMarkers);
+	getDataFromSocrata({}, placeMarkers);
 });
