@@ -31,13 +31,13 @@
   min-width: 400px;
 }
 
-#filters {
+/*#filters {
 	z-index: 12;
 	width: 300px;
 	height: 500px;
 	background-color: white;
 }
-
+*/
 .map-container {
  	position: absolute;
  	top:0;
@@ -47,33 +47,45 @@
 
  /* Legend */
 
- .map-legend.wax-legend {
+#legend {
 	width: 200px;
+	padding: 0 15px 10px;
+	position: absolute;
+	z-index: 1000;
+	background-color: white;
+	bottom: 25px;
+	right: 25px;
  }
 
-.map-legend > .filter-status > .key {
+#legend > .filter-status > .key {
 	width:20px;
 	height: 20px;
 	display: inline-block;
 	margin-bottom: -3px;
 }
 
-.map-legend > .filter-status > .key.blue{
+#legend > .filter-status > .key.blue{
 	background-color: #307de1;
 }
 
-.map-legend > .filter-status > .key.red{
+#legend > .filter-status > .key.red{
 	background-color: #ff3b52;
 }
 
-.map-legend > .filter-status > .key.green{
+#legend > .filter-status > .key.green{
 	background-color: #04ff54;
 }
 
-.map-legend > .filter-status > .label {
+#legend .label {
 	display: inline-block;
 	margin: 5px;
 }
+
+#legend > .filter-type > .key {
+	display: inline-block;
+	margin-bottom: -3px;
+}
+
 
 
 /*********************\

@@ -3,26 +3,21 @@ var tooltipTemplate = function tooltipTemplate(data){
 	return template(data);
 };
 
-var addFilters = function addFilters (){
-	var template = _.template($("#legend").html());
-	var html = template();
-	window.map.legendControl.addLegend(html);
-
+var bindFilterEvents = function bindFilterEvents(){
 	// Add event listeners to filter checkboxes
 	$(".map-legend > .filter-status > input").on('change', setStatusFilter);
+	$(".map-legend > .filter-type > input").on('change', setTypeFilter);
 	$("#sidebar input").on('change', setNeighborhoodFilter);
 	$("#select-all").on('click', selectAllNeighborhoods);
 	$("#clear-all").on('click', clearAllNeighborhoods);
 
-	//make all neighborhoods look selected
+	// //make all neighborhoods look selected
 	$("#sidebar input").prop("checked", true);
 };
 
 var selectAllNeighborhoods = function selectallNeighborhoods(){
-	// TODO: why isn't this working??
 	$("#sidebar input").prop("checked", true);
 	filterMapboxMarkers(NEIGHBORHOODS, 'neighborhood');
-
 };
 
 var clearAllNeighborhoods = function clearAllNeighborhoods(){
@@ -34,28 +29,44 @@ var setNeighborhoodFilter = function setNeighborhoodFilter(){
 	// make new api request or use mapbox to filter markers?
 	// the mapbox filtering way:
 	var checkedHoods = $("#sidebar input:checked");
+	// TODO: make this an object w/ all the neighborhoods instead 
 	var include = [];
 	_.each(checkedHoods, function(input){
+		//TODO: instead, mark as true in the object
 		include.push($(input).attr('name'));
 	});
 	filterMapboxMarkers(include, 'neighborhood');
 };
 
-var filterMapboxMarkers = function filterMapboxMarkers(include, prop){
-	// include is an array of the categories to keep
-	// prop is the property we're filtering by
-	window.map.markers.setFilter(function(marker){
-		return _.contains(include, marker.properties[prop]);
-	});
-};
-
 var setStatusFilter = function setStatusFilter(){
 	var checkedBoxes = $(".filter-status input:checked");
-	var include = [];
+	var include = {};
 	_.each(checkedBoxes, function(input){
 		include.push($(input).attr('name'));
 	});
 	filterMapboxMarkers(include, 'statusCategory');
+};
+
+var setTypeFilter = function setTypeFilter(){
+	console.log("type filter called!");
+	var checkedBoxes = $(".filter-type input:checked");
+	var include = {};
+	_.each(checkedBoxes, function(input){
+		include.push($(input).attr('name'));
+	});
+	filterMapboxMarkers(include, 'zoning');
+};
+
+
+var filterMapboxMarkers = function filterMapboxMarkers(include, prop){
+	// include is an array of the categories to keep
+	// prop is the property we're filtering by
+	window.map.markers.setFilter(function(marker){
+		//TODO: need to make this way more efficient
+		// instead, just return whether that property is marked as true in the passed object
+		// (object lookup time way faster than the implicit for-loop in _.contains)
+		return _.contains(include, marker.properties[prop]);
+	});
 };
 
 var initializeMap = function initializeMap(){
@@ -98,7 +109,7 @@ var placeMarkers = function(data){
 	markerLayer.addTo(window.map);
 
 	//add filter control panel
-	addFilters();
+	bindFilterEvents();
 };
 
 var getDataFromSocrata = function getDataFromSocrata(options, cb){
@@ -127,26 +138,30 @@ var createGeoJson = function createGeoJson(projects){
 
 		switch (projects[i].zoning_generalized) {
 			case "Commercial" || "Neighborhood Commercial":
+				zoning = "commercial";
 				markerType = "commercial";
 				break;
 			case "Public":
+				zoning = "public";
 				markerType = "town-hall";
 				break;
 			case "Residential" || "High Density Residential":
+				zoning = "residential";
 				markerType = "building";
 				break;
 			case "Mixed Use":
+				zoning = "mixeduse";
 				markerType = "town";
 				break;
 			case "Industrial":
-				markerType = "warehouse";
+				zoning = "industrial";
+				markerType = "industrial";
 				break;
 			default:
 				markerType = "building";
 		}
 
 		var markerColor;
-		var status;
 		var status = projects[i].beststat_group.trim();
 
 		if (status === "Construction") {
@@ -176,7 +191,7 @@ var createGeoJson = function createGeoJson(projects){
 		        address: address,
 		        neighborhood: projects[i].planning_neighborhood,
 		        description: projects[i].planning_project_description || projects[i].dbi_project_description,
-		     	zoning: projects[i].zoning_generalized,
+		     	zoning: zoning,
 		        units: projects[i].units,
 		        status: projects[i].beststat_group,
 		        statusCategory: statusCategory,
