@@ -5,68 +5,30 @@ var tooltipTemplate = function tooltipTemplate(data){
 
 var bindFilterEvents = function bindFilterEvents(){
 	// Add event listeners to filter checkboxes
-	$(".map-legend > .filter-status > input").on('change', setStatusFilter);
-	$(".map-legend > .filter-type > input").on('change', setTypeFilter);
-	$("#sidebar input").on('change', setNeighborhoodFilter);
-	$("#select-all").on('click', selectAllNeighborhoods);
-	$("#clear-all").on('click', clearAllNeighborhoods);
-
-	// //make all neighborhoods look selected
+	$("#legend .filter-status input").on('click', function(e){
+		var property = $(e.currentTarget).attr('name');
+		var newVal = $(e.currentTarget).prop('checked');
+		filterState.setOne(property, newVal, 'projectStatus');
+	});
+	$("#legend .filter-type input").on('click', function(e){
+		var property = $(e.currentTarget).attr('name');
+		var newVal = $(e.currentTarget).prop('checked');
+		filterState.setOne(property, newVal, 'developmentType');
+	});
+	$("#sidebar input").on('click', function(e){
+		var property = $(e.currentTarget).attr('name');
+		var newVal = $(e.currentTarget).prop('checked');
+		filterState.setOne(property, newVal, 'neighborhood');
+	});
+	$("#select-all").on('click', function(){
+		filterState.setAllNeighborhoods(true);
+	});
+	$("#clear-all").on('click', function(){
+		filterState.setAllNeighborhoods(false);
+	});
+	//make all checkboxes look selected
 	$("#sidebar input").prop("checked", true);
-};
-
-var selectAllNeighborhoods = function selectallNeighborhoods(){
-	$("#sidebar input").prop("checked", true);
-	filterMapboxMarkers(NEIGHBORHOODS, 'neighborhood');
-};
-
-var clearAllNeighborhoods = function clearAllNeighborhoods(){
-	$("#sidebar input").prop("checked", false);
-	filterMapboxMarkers([], 'neighborhood');
-};
-
-var setNeighborhoodFilter = function setNeighborhoodFilter(){
-	// make new api request or use mapbox to filter markers?
-	// the mapbox filtering way:
-	var checkedHoods = $("#sidebar input:checked");
-	// TODO: make this an object w/ all the neighborhoods instead 
-	var include = [];
-	_.each(checkedHoods, function(input){
-		//TODO: instead, mark as true in the object
-		include.push($(input).attr('name'));
-	});
-	filterMapboxMarkers(include, 'neighborhood');
-};
-
-var setStatusFilter = function setStatusFilter(){
-	var checkedBoxes = $(".filter-status input:checked");
-	var include = {};
-	_.each(checkedBoxes, function(input){
-		include.push($(input).attr('name'));
-	});
-	filterMapboxMarkers(include, 'statusCategory');
-};
-
-var setTypeFilter = function setTypeFilter(){
-	console.log("type filter called!");
-	var checkedBoxes = $(".filter-type input:checked");
-	var include = {};
-	_.each(checkedBoxes, function(input){
-		include.push($(input).attr('name'));
-	});
-	filterMapboxMarkers(include, 'zoning');
-};
-
-
-var filterMapboxMarkers = function filterMapboxMarkers(include, prop){
-	// include is an array of the categories to keep
-	// prop is the property we're filtering by
-	window.map.markers.setFilter(function(marker){
-		//TODO: need to make this way more efficient
-		// instead, just return whether that property is marked as true in the passed object
-		// (object lookup time way faster than the implicit for-loop in _.contains)
-		return _.contains(include, marker.properties[prop]);
-	});
+	$("#legend input").prop("checked", true);
 };
 
 var initializeMap = function initializeMap(){
@@ -76,7 +38,7 @@ var initializeMap = function initializeMap(){
 		legendControl: {
 			position: 'bottomright'
 		}
-	}).setView([37.77, -122.44], 13);
+	}).setView([37.77, -122.42], 13);
 	// putting zoom control in top-right corner
 	new L.Control.Zoom({ position: 'topright' }).addTo(map);
 	return map;
@@ -107,9 +69,6 @@ var placeMarkers = function(data){
 	// Add them all to the map 
 	markerLayer.setGeoJSON(geoJSON);
 	markerLayer.addTo(window.map);
-
-	//add filter control panel
-	bindFilterEvents();
 };
 
 var getDataFromSocrata = function getDataFromSocrata(options, cb){
@@ -138,23 +97,23 @@ var createGeoJson = function createGeoJson(projects){
 
 		switch (projects[i].zoning_generalized) {
 			case "Commercial" || "Neighborhood Commercial":
-				zoning = "commercial";
+				zoning = "Commercial";
 				markerType = "commercial";
 				break;
 			case "Public":
-				zoning = "public";
+				zoning = "Public";
 				markerType = "town-hall";
 				break;
 			case "Residential" || "High Density Residential":
-				zoning = "residential";
+				zoning = "Residential";
 				markerType = "building";
 				break;
 			case "Mixed Use":
-				zoning = "mixeduse";
+				zoning = "Mixed Use";
 				markerType = "town";
 				break;
 			case "Industrial":
-				zoning = "industrial";
+				zoning = "Industrial";
 				markerType = "industrial";
 				break;
 			default:
@@ -217,7 +176,7 @@ var FIELDS = [
 	'beststat_group'
 ];
 
-var NEIGHBORHOODS = [
+var neighborhoods = [
 	"Balboa Park",
 	"Bayshore",
 	"Bernal Heights",
@@ -252,7 +211,56 @@ var NEIGHBORHOODS = [
 	"WSoMa"
 ];
 
+var filterState = {
+	neighborhood: {},
+	developmentType: {
+		"Commercial": true,
+		"Industrial": true,
+		"Mixed Use": true,
+		"Public": true,
+		"Residential": true
+	},
+	projectStatus: {
+		"construction": true,
+		"planning": true,
+		"building": true
+	},
+	setOne: function(property, newVal, filterToSet){
+		// newVal is a boolean 
+		this[filterToSet][property] = newVal;
+		filterMapboxMarkers();
+	},
+	setAllNeighborhoods: function(set){
+		// set is a boolean: true to select all and false to clear all
+		$("#sidebar input").prop("checked", set);
+		_.each(this.neighborhood, function(val, key){
+			filterState.neighborhood[key] = set;
+		});
+		filterMapboxMarkers();
+	}
+};
+
+// populating intial neighborhood state because im too lazy 
+// to re-type the list in object form 
+_.each(neighborhoods, function(neighborhood){
+	filterState.neighborhood[neighborhood] = true;
+});
+
+var filterMapboxMarkers = function filterMapboxMarkers(){
+	// this function tells mapbox to filter markers 
+	// to reflect the current filter state
+	window.map.markers.setFilter(function(marker){
+		if (filterState.neighborhood[marker.properties.neighborhood] &&
+			filterState.projectStatus[marker.properties.statusCategory] &&
+			filterState.developmentType[marker.properties.zoning]) {
+			return true;
+		} else return false;
+	});
+	// TODO: make a loading indicator appear bc this is slow
+};
+
 $(document).ready(function() {
 	window.map = initializeMap();
 	getDataFromSocrata({}, placeMarkers);
+	bindFilterEvents();
 });
