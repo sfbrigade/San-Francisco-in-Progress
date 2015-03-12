@@ -29,6 +29,22 @@ var bindFilterEvents = function bindFilterEvents(){
 	//make all checkboxes look selected
 	$("#sidebar input").prop("checked", true);
 	$("#legend input").prop("checked", true);
+
+    (function() {
+        var hidden = false;
+
+        $("#filter_toggle").on('click', function(e) {
+            hidden = !hidden;
+
+            if(hidden) {
+                $("#legend").addClass("minimized");
+                $("#filter_toggle").html("Show");
+            } else {
+                $("#legend").removeClass("minimized");
+                $("#filter_toggle").html("Hide");
+            }
+        });
+    })();
 };
 
 var initializeMap = function initializeMap(){

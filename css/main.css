@@ -48,7 +48,7 @@
  /* Legend */
 
 #legend {
-	width: 200px;
+	width: 220px;
 	padding: 0 15px 10px;
 	position: absolute;
 	z-index: 1000;
@@ -56,6 +56,10 @@
 	bottom: 25px;
 	right: 25px;
  }
+
+#legend > .filter-status {
+    height: 26px;
+}
 
 #legend > .filter-status > .key {
 	width:20px;
@@ -86,6 +90,36 @@
 	margin-bottom: -3px;
 }
 
+#filter_toggle {
+    margin-top: 10px;
+    float: right;
+}
+
+#legend {
+    transition: bottom 0.75s;
+}
+
+#legend.minimized {
+    bottom: -320px;
+}
+
+@media (max-width: 600px) {
+    #sidebar {
+        display: none;
+    }
+
+    #map-container {
+        left: 0px;
+        width: 100%;
+    }
+    .leaflet-popup-content {
+        min-width: 250px;
+    }
+
+    .leaflet-popup-content-wrapper {
+        min-width: 250px;
+    }
+}
 
 
 /*********************\
@@ -97,4 +131,9 @@ html, body{
 }
 ul {
 	list-style-type: none;
+}
+
+h3 {
+    margin-top: 0.9em;
+    margin-bottom: 0.9em;
 }
