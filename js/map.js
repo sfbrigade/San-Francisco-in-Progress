@@ -29,6 +29,16 @@ var bindFilterEvents = function bindFilterEvents(){
 	//make all checkboxes look selected
 	$("#sidebar input").prop("checked", true);
 	$("#legend input").prop("checked", true);
+
+    //set up slider for unit range
+    $("#min_units").on('change', function(e) {
+        filterState.minimumUnits = e.target.value;
+        filterMapboxMarkers();
+    });
+
+    $("#min_units").on('change input', function(e) {
+        $("#min_units_display").html(e.target.value);
+    });
 };
 
 var initializeMap = function initializeMap(){
@@ -213,6 +223,7 @@ var neighborhoods = [
 
 var filterState = {
 	neighborhood: {},
+    minimumUnits: 0,
 	developmentType: {
 		"Commercial": true,
 		"Industrial": true,
@@ -253,7 +264,11 @@ var filterMapboxMarkers = function filterMapboxMarkers(){
 		if (filterState.neighborhood[marker.properties.neighborhood] &&
 			filterState.projectStatus[marker.properties.statusCategory] &&
 			filterState.developmentType[marker.properties.zoning]) {
-			return true;
+            if(parseInt(marker.properties.units) > filterState.minimumUnits) {
+                return true;
+            } else {
+                return false;
+            }
 		} else return false;
 	});
 	// TODO: make a loading indicator appear bc this is slow
