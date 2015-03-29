@@ -12,6 +12,10 @@
 	margin-left: -40px;
 }
 
+#collapse h3 {
+	cursor: pointer;
+}
+
 #map-container {
 	position: absolute;
 	top: 0;
@@ -31,13 +35,7 @@
   min-width: 400px;
 }
 
-/*#filters {
-	z-index: 12;
-	width: 300px;
-	height: 500px;
-	background-color: white;
-}
-*/
+
 .map-container {
  	position: absolute;
  	top:0;
@@ -46,16 +44,6 @@
  }
 
  /* Legend */
-
-#legend {
-	width: 200px;
-	padding: 0 15px 10px;
-	position: absolute;
-	z-index: 1000;
-	background-color: white;
-	bottom: 25px;
-	right: 25px;
- }
 
 #legend > .filter-status > .key {
 	width:20px;
@@ -76,25 +64,55 @@
 	background-color: #04ff54;
 }
 
-#legend .label {
+
+*/
+.filter-type img {
 	display: inline-block;
-	margin: 5px;
 }
 
-#legend > .filter-type > .key {
-	display: inline-block;
-	margin-bottom: -3px;
+/* FA icons */
+i {
+	cursor: pointer;
 }
 
+/* helpers */
 
+.invisible {
+	visibility: hidden;
+}
 
 /*********************\
     Basic reset
 \*********************/
+
 html, body{
     margin: 0;
     padding: 0;
 }
 ul {
 	list-style-type: none;
+}
+
+
+/* ==========================================================================
+   Hoodie Sign In / Sign Up / Sign out stylings
+   ========================================================================== */
+
+/* hide contents until we know if user is signed in or not */
+body .hoodie-account-signedin,
+body .hoodie-account-signedout,
+body .hoodie-account-error {
+  display: none;
+}
+
+html[data-hoodie-account-status=signedin]  .hoodie-account-signedin,
+html[data-hoodie-account-status=error]     .hoodie-account-error,
+html[data-hoodie-account-status=signedout] .hoodie-account-signedout {
+  display: block;
+}
+
+.hoodie-accountbar {
+  position: absolute;
+  top: 20px;
+  right: 10px;
 }

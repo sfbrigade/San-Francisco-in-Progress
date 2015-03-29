@@ -1,3 +1,0 @@
-gem 'sinatra'
-gem 'json'
-gem 'soda-ruby', :require => 'soda'

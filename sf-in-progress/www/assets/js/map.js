@@ -3,7 +3,7 @@ var tooltipTemplate = function tooltipTemplate(data){
 	return template(data);
 };
 
-var bindFilterEvents = function bindFilterEvents(){
+var bindEvents = function bindFilterEvents(){
 	// Add event listeners to filter checkboxes
 	$("#legend .filter-status input").on('click', function(e){
 		var property = $(e.currentTarget).attr('name');
@@ -29,6 +29,20 @@ var bindFilterEvents = function bindFilterEvents(){
 	//make all checkboxes look selected
 	$("#sidebar input").prop("checked", true);
 	$("#legend input").prop("checked", true);
+
+	//add click event to filter group collapser buttons
+	// $(".collapse-neighborhood").on("click", toggleNeighborhoodFilters);
+	$( "#collapse" ).accordion({
+      collapsible: true,
+      active: false,
+      heightStyle: 'content'
+      // icons: { "header": "ui-icon-plus", "activeHeader": "ui-icon-minus" }
+    });
+};
+
+var toggleNeighborhoodFilters = function toggleNeighborhoodFilters() {
+	$('#sidebar .neighborhood-list').toggleClass('invisible');
+	$('.collapse-neighborhood').toggleClass('fa-caret-right fa-caret-down');
 };
 
 var initializeMap = function initializeMap(){
@@ -71,15 +85,13 @@ var placeMarkers = function(data){
 	markerLayer.addTo(window.map);
 };
 
-var getDataFromSocrata = function getDataFromSocrata(options, cb){
-	var url = 'https://data.sfgov.org/resource/n5ik-nmm3.json?$select=';
-	var token = '$$app_token=883SzTf4cdhMIegNNLYOLM0YR'
+var getData = function getData(options, cb){
+	var url = "https://data.sfgov.org/resource/n5ik-nmm3.json?$select=";
 	var fields = FIELDS;
 	for (var i = 0; i < fields.length; i++){
 		if (i === 0) url += fields[i];
 		else url += ',' + fields[i];
 	}
-	// url += token;
 	$.get(url, function(data){
 		cb(data);
 	});
@@ -261,6 +273,8 @@ var filterMapboxMarkers = function filterMapboxMarkers(){
 
 $(document).ready(function() {
 	window.map = initializeMap();
-	getDataFromSocrata({}, placeMarkers);
-	bindFilterEvents();
+	getData({}, placeMarkers);
+	bindEvents();
+
+	
 });
