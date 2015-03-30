@@ -1,11 +1,12 @@
 #sidebar {
-	position:absolute;
-	top: 0;
-	background-color: #f8f8f8;
+	display: inline-block;
+	position: absolute;
+	top: 52px;
+	background-color: black;
+	color: white;
 	width: 250px;
 	height: 100%;
-	display: inline-block;
-	padding-left: 40px;
+	padding-left: 20px;
 }
 
 #sidebar li {
@@ -18,7 +19,8 @@
 
 #map-container {
 	position: absolute;
-	top: 0;
+	/* height of navbar */
+	top: 52px;
 	left: 250px;
 	width: 90%; 
 	width: calc(100% - 250px);
@@ -91,6 +93,70 @@ html, body{
 }
 ul {
 	list-style-type: none;
+}
+
+/* ==========================================================================
+   Overriding Default Bootstrap Navbar Colors
+   ========================================================================== */
+
+.navbar-default {
+  background-color: #ffffff;
+  border-color: #fffeff;
+}
+.navbar-default .navbar-brand {
+  color: #000000;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+  color: #000000;
+}
+.navbar-default .navbar-text {
+  color: #000000;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #000000;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+  color: #000000;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  color: #000000;
+  background-color: #fffeff;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  color: #000000;
+  background-color: #fffeff;
+}
+.navbar-default .navbar-toggle {
+  border-color: #fffeff;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: #fffeff;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #000000;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #000000;
+}
+.navbar-default .navbar-link {
+  color: #000000;
+}
+.navbar-default .navbar-link:hover {
+  color: #000000;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #000000;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #000000;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #000000;
+    background-color: #fffeff;
+  }
 }
 
 

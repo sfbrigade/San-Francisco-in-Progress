@@ -3,10 +3,15 @@
   "version": "3.0.6",
   "type": "app",
   "dependencies": {
+    "body-parser": "^1.12.2",
+    "express": "^4.12.3",
     "hoodie-plugin-appconfig": "^2.0.1",
     "hoodie-plugin-email": "^1.0.0",
+    "hoodie-plugin-global-share": "^3.0.0",
     "hoodie-plugin-users": "^2.2.1",
     "hoodie-server": "^3.0.0",
+    "mongoose": "^4.0.1",
+    "path": "^0.11.14",
     "underscore": "^1.8.2"
   },
   "files": [
@@ -22,7 +27,8 @@
     "plugins": [
       "hoodie-plugin-appconfig",
       "hoodie-plugin-email",
-      "hoodie-plugin-users"
+      "hoodie-plugin-users",
+      "hoodie-plugin-global-share"
     ]
   },
   "gitHead": "90265f3b94ff1b95d80856f9b40d02fd6315623a",

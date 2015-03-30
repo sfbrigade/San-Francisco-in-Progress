@@ -30,13 +30,10 @@ var bindEvents = function bindFilterEvents(){
 	$("#sidebar input").prop("checked", true);
 	$("#legend input").prop("checked", true);
 
-	//add click event to filter group collapser buttons
-	// $(".collapse-neighborhood").on("click", toggleNeighborhoodFilters);
 	$( "#collapse" ).accordion({
       collapsible: true,
       active: false,
       heightStyle: 'content'
-      // icons: { "header": "ui-icon-plus", "activeHeader": "ui-icon-minus" }
     });
 };
 
@@ -47,23 +44,27 @@ var toggleNeighborhoodFilters = function toggleNeighborhoodFilters() {
 
 var initializeMap = function initializeMap(){
 	L.mapbox.accessToken = 'pk.eyJ1Ijoiam1jZWxyb3kiLCJhIjoiVVg5eHZldyJ9.FFzKtamuKHb_8_b_6fAOFg';
-	var map = L.mapbox.map('map-container', 'jmcelroy.k6hc0kie', {
+	var map = L.mapbox.map('map-container', 'jmcelroy.lje09j35', {
 		zoomControl: false,
 		legendControl: {
 			position: 'bottomright'
 		}
-	}).setView([37.77, -122.42], 13);
+	}).setView([37.77, -122.44], 13);
 	// putting zoom control in top-right corner
 	new L.Control.Zoom({ position: 'topright' }).addTo(map);
 	return map;
+};
+
+var fetchData = function(callback) {
+	$.get('/projects', function(projects) {
+		callback(projects);
+	});
 };
 
 var placeMarkers = function(data){
 
 	var geoJSON = createGeoJson(data);
 	var markerLayer = L.mapbox.featureLayer();
-	// so we can access markers from other components
-	window.map.markers = markerLayer;
 
 	// define custom HTML for popups
 	markerLayer.on('layeradd', function(e){
@@ -83,18 +84,9 @@ var placeMarkers = function(data){
 	// Add them all to the map 
 	markerLayer.setGeoJSON(geoJSON);
 	markerLayer.addTo(window.map);
-};
 
-var getData = function getData(options, cb){
-	var url = "https://data.sfgov.org/resource/n5ik-nmm3.json?$select=";
-	var fields = FIELDS;
-	for (var i = 0; i < fields.length; i++){
-		if (i === 0) url += fields[i];
-		else url += ',' + fields[i];
-	}
-	$.get(url, function(data){
-		cb(data);
-	});
+	// so we can access markers from other components
+	window.map.markers = markerLayer;
 };
 
 var createGeoJson = function createGeoJson(projects){
@@ -104,28 +96,22 @@ var createGeoJson = function createGeoJson(projects){
 		features: []
 	};
 
-	var markerType;
-	for (var i = 0; i < projects.length; i++) {
-
-		switch (projects[i].zoning_generalized) {
-			case "Commercial" || "Neighborhood Commercial":
-				zoning = "Commercial";
+	projects.forEach(function(project) {
+		var markerType;
+		switch (project.zoning) {
+			case "Commercial":
 				markerType = "commercial";
 				break;
 			case "Public":
-				zoning = "Public";
 				markerType = "town-hall";
 				break;
-			case "Residential" || "High Density Residential":
-				zoning = "Residential";
+			case "Residential":
 				markerType = "building";
 				break;
 			case "Mixed Use":
-				zoning = "Mixed Use";
 				markerType = "town";
 				break;
 			case "Industrial":
-				zoning = "Industrial";
 				markerType = "industrial";
 				break;
 			default:
@@ -133,48 +119,37 @@ var createGeoJson = function createGeoJson(projects){
 		}
 
 		var markerColor;
-		var status = projects[i].beststat_group.trim();
+		if (project.statusCategory === "construction") markerColor = "#04ff54"; //green
+		else if (project.statusCategory == "planning") markerColor = "#307de1"; //blue
+		else if (project.statusCategory == "building") markerColor = '#ff3b52'; //red
 
-		if (status === "Construction") {
-			statusCategory = "construction";
-			markerColor = "#04ff54"; //green
-		}
-		else if (status.substring(0,2) === "PL" || status.substring(0,2) === "Pl") {
-			statusCategory = "planning";
-			markerColor = "#307de1"; //blue
-		}
-		else if (status.substring(0,2) === "BP") {
-			statusCategory = "building";
-			markerColor = '#ff3b52'; //red
-		}
-
-		// parse address string
-		var address = projects[i].location_1.human_address.split(",");
-		address = address[0].substring(11).replace(/["']/g, "");
-
-		featureCollection.features.push({
+		var markerGeoJson = {
     		type: "Feature",
 	        geometry: {
 	        	"type": "Point", 
-	        	"coordinates": [projects[i].location_1.longitude, projects[i].location_1.latitude]
+	        	"coordinates": project.coordinates
 	        },
 	        properties: {
-		        address: address,
-		        neighborhood: projects[i].planning_neighborhood,
-		        description: projects[i].planning_project_description || projects[i].dbi_project_description,
-		     	zoning: zoning,
-		        units: projects[i].units,
-		        status: projects[i].beststat_group,
-		        statusCategory: statusCategory,
-		        'marker-size': 'medium',
+		        address: project.address,
+		        neighborhood: project.neighborhood,
+		        description: project.description,
+		     	zoning: projects.zoning,
+		        units: project.units,
+		        status: project.status,
+		        statusCategory: project.statusCategory,
+		        'marker-size': 'small',
 		        'marker-color': markerColor, 
 		        'marker-symbol': markerType
     		}
-		});
-	}
+		};
+
+		featureCollection.features.push(markerGeoJson);
+
+	});
 
 	return featureCollection;
 };
+
 
 // Variable names from dataset
 
@@ -273,8 +248,6 @@ var filterMapboxMarkers = function filterMapboxMarkers(){
 
 $(document).ready(function() {
 	window.map = initializeMap();
-	getData({}, placeMarkers);
+	fetchData(placeMarkers);
 	bindEvents();
-
-	
 });
