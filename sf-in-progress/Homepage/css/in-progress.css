@@ -1,181 +1,20 @@
 
 
-body{
-    font-family: Lora,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    color: #fff;
-    font-size:14px;
+body {
+    width: 100%;
+    height: 100%;
+    font-family:sans-serif;
 }
 
-header{
-    font-family: sans-serif;
-
+html {
+    width: 100%;
+    height: 100%;
 }
 
-#intro {
-    width:100%;
-    text-align: center;
-    color: #fff;
-    background: url(../assets/Landing.jpg) no-repeat bottom center scroll;
-    background-color: #000;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-}
-
-
-#intro .intro-title{
-  position:absolute;
-  top:20%;
-  right:15%;
-  left:15%;
-  width: 70%;
-  text-align: center;
-}
-
-
-.carousel-container{
-    position:absolute;
-    top:30%;
-    right:15%;
-    left:15%;
-    width:70%;
+h4{
+    margin:0;
 
 }
-
-
-/********************************************Projects*/
-.latest-projects-wrapper{
-    margin:2% auto 2% auto;
-    max-width: 1280px;
-
-}
-
-.row{
-    margin:2%;
-    padding:1%;
-    background-color: #dfdfdf
-}
-
-
-div.col-md-4.housing{
-    background-color: #dfdfdf;
-    margin-left: 0px;
-    padding-left: 0px;
-}
-
-div.col-md-4.housing>img{
-    max-width: 100%;
-    margin: 10px;
-    background-color: white;
-    padding:7px;
-    box-shadow: 0px 0px 4px rgba(0,0,0,0.7);
-}
-
-.col-md-8{
-
-}
-
-.col-sm-4{
-    /*background-color: blue;*/
-
-}
-
-.col-sm-4>img{
-    max-width: 100%;
-    background-color: white;
-    padding:7px;
-    box-shadow: 0px 0px 4px rgba(0,0,0,0.7);
-}
-
-
-/***************************************************************PROJECT TITLE & DESCRIPTION*/
-
-
-.project-title{
-
-    background-color:grey;
-    height:30px;
-    color:white;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.project-title>h4{
-    margin:0px;
-    padding-top: 7px;
-    font-family: sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.project-description{
-    display:block;
-    text-align: center;
-    color:grey;
-    margin-top: 10px;
-    background-color: white;
-    font-family: sans-serif;
-    font-size: 12;
-    min-height: 160px;
-
-}
-
-.project-description>p{
-    padding:10px;
-}
-
-
-
-
-
-
-
-
-
-/********************************************************************CAROUSEL FADE EFFECT*/
-.carousel-fade .item {
-  opacity: 0;
-  -webkit-transition: opacity ease-in-out 800ms;
-  -moz-transition: opacity ease-in-out 500ms;
-  -o-transition: opacity ease-in-out 500ms;
-  -ms-transition: opacity ease-in-out 500ms;
-  transition: opacity ease-in-out 800ms;
-}
-
-.carousel-fade .active.item {
-  opacity: 1;
-}
-
-.carousel-fade .active.left, .carousel-fade .active.right {
-  left: 0;
-  opacity: 0;
-  z-index: 2;
-}
-
-.call-to-action{
-    margin-top: 0px;
-    padding-top: 0px;
-    position: absolute;
-    top:50%;
-    right:15%;
-    left:15%;
-    width:70%;
-}
-
-
-
-
-
-
-
-
-
-
-
-/*********************************************************MEDIA QUERIES*/
-@media(min-width:768px) {
 
 
 a {
@@ -191,13 +30,14 @@ a:focus {
     color: #1d9b6c;
 }
 
-
+/******************************************************************************NAVBAR*/
 .navbar-custom {
     margin-bottom: 0;
     border-bottom: 1px solid rgba(255,255,255,.3);
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     background-color: #000;
+    color:#fff;
 }
 
 .navbar-custom .navbar-brand {
@@ -267,23 +107,203 @@ a:focus {
     .navbar-custom.top-nav-collapse {
         padding: 0;
         border-bottom: 1px solid rgba(255,255,255,.3);
-        background: #000;
+        background: black;
     }
+}
+
+
+
+
+/******************************************************************INTRO-LANDING*/
+
+#intro {
+    width:100%;
+    text-align: center;
+    color: #fff;
+    background: url(../assets/Landing.jpg) no-repeat bottom center scroll;
+    background-color: #000;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+
+#intro .intro-title{
+  position:absolute;
+  top:20%;
+  right:15%;
+  left:15%;
+  width: 70%;
+  text-align: center;
+}
+
+
+.carousel-container{
+    position:absolute;
+    top:30%;
+    right:15%;
+    left:15%;
+    width:70%;
 
 }
 
 
+/********************************************************************CAROUSEL FADE EFFECT*/
+.carousel-fade .item {
+  opacity: 0;
+  -webkit-transition: opacity ease-in-out 800ms;
+  -moz-transition: opacity ease-in-out 500ms;
+  -o-transition: opacity ease-in-out 500ms;
+  -ms-transition: opacity ease-in-out 500ms;
+  transition: opacity ease-in-out 800ms;
+}
+
+.carousel-fade .active.item {
+  opacity: 1;
+}
+
+.carousel-fade .active.left, .carousel-fade .active.right {
+  left: 0;
+  opacity: 0;
+  z-index: 2;
+}
+
+.call-to-action{
+    margin-top: 0px;
+    padding-top: 0px;
+    position: absolute;
+    top:50%;
+    right:15%;
+    left:15%;
+    width:70%;
+}
+
+
+
+
+/***************************************************************************Projects*/
+.projects-wrapper{
+    margin:2% auto 2% auto;
+    max-width: 1280px;
+
+}
+
+.row{
+    margin:2%;
+    padding:1%;
+    background-color: #dfdfdf
+}
+
+
+div.col-md-4.housing{
+    background-color: #dfdfdf;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+div.col-md-4.housing>img{
+    max-width: 100%;
+    margin: 10px;
+    background-color: white;
+    padding:7px;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.7);
+}
+
+.col-md-8{
+
+}
+
+.col-sm-4{
+    /*background-color: blue;*/
+
+}
+
+.col-sm-4>img{
+    max-width: 100%;
+    background-color: white;
+    padding:7px;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.7);
+}
+
+
+/**********************************************************take two*/
+
+figure{
+    background-color: white;
+    color:black;
+    padding:7px;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.7);
+    font-weight: bolder;
+    letter-spacing: 1px;
+    text-align: center;
+
+}
+
+figure>img{
+    max-width: 100%;
+}
+
+figure>h4{
+    padding-top: 5px;
+}
+
+
+/***************************************************************Take three*/
+
+div.row.take3{
+    background-color: yellow;
+}
+
+
+.img-container{
+    position:relative;
+    margin:auto;
+    max-width:400px;
+    text-align: center;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.7);
+
+}
+
+.img-container>img{
+    max-width: 100%;
+}
+
+.img-container>h4{
+    postion:absolute;
+    background-color:black;
+    padding:15px 0;
+    color:white;
+    letter-spacing: 3px;
+}
+
+div.col-md-2{
+    height:261px;
+    background-color: ;
+}
+
+div.col-md-4.first{
+    background-color: blue;
+    height:261px;
+}
+
+div.col-md-3.second{
+    background-color: green;
+    height:261px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 @media(max-width:768px){
-
-    /*div.col-sm-12.housing{
-        text-align:center;
-    }
-
-    div.col-sm-12.housing img{
-        margin:auto;
-        max-width: 120%;
-    }*/
-
 
      div.col-md-4.housing{
         text-align:center;
@@ -310,6 +330,61 @@ a:focus {
 
 
 }
+
+
+/***************************************************************PROJECT TITLE & DESCRIPTION*/
+
+
+.project-title{
+
+    background-color:grey;
+    height:30px;
+    color:white;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.project-title>h4{
+    margin:0px;
+    padding-top: 7px;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.project-description{
+    display:block;
+    text-align: center;
+    color:grey;
+    margin-top: 10px;
+    background-color: white;
+    font-family: sans-serif;
+    font-size: 12;
+    min-height: 160px;
+
+}
+
+.project-description>p{
+    padding:10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
