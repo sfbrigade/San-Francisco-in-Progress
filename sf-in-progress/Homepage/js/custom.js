@@ -23,8 +23,10 @@ function resizeLanding() {
 $(window).scroll(function() {
     if ($(".navbar").offset().top > 50) {
         $(".navbar-fixed-top").addClass("top-nav-collapse");
+        $("span#logo").removeClass("large");
     } else {
         $(".navbar-fixed-top").removeClass("top-nav-collapse");
+        $("span#logo").addClass("large");
     }
 });
 

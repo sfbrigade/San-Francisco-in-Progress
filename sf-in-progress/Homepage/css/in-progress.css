@@ -93,6 +93,28 @@ a:focus {
     color: #fff;
 }
 
+span#logo.large{
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    padding-top:10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid white;
+
+}
+
+
+@media(max-width:993px){
+    span#logo.large{
+        font-size:17px;
+        font-weight: 800;
+        border-bottom: none;
+
+    }
+
+}
+
+
 @media(min-width:768px) {
     .navbar-custom {
         padding: 20px 0;
@@ -111,6 +133,10 @@ a:focus {
     }
 }
 
+#project-submit{
+
+
+}
 
 
 
@@ -129,23 +155,52 @@ a:focus {
 }
 
 
-#intro .intro-title{
+/*#intro .intro-title{
   position:absolute;
-  top:20%;
+  top:10%;
   right:15%;
   left:15%;
   width: 70%;
   text-align: center;
-}
+}*/
 
 
 .carousel-container{
     position:absolute;
-    top:30%;
+    top:25%;
     right:15%;
     left:15%;
     width:70%;
 
+}
+
+div.item h3{
+    line-height:2;
+    letter-spacing: 2px;
+
+}
+
+div.item h2{
+    line-height:2;
+    letter-spacing: 2px;
+
+}
+
+
+.call-to-action{
+    margin-top: 0px;
+    padding-top: 0px;
+    position: absolute;
+    top:60%;
+    right:15%;
+    left:15%;
+    width:70%;
+}
+
+.call-to-action>h3{
+    /*text-transform: uppercase;*/
+    letter-spacing: 2px;
+    font-weight: 400;
 }
 
 
@@ -169,15 +224,7 @@ a:focus {
   z-index: 2;
 }
 
-.call-to-action{
-    margin-top: 0px;
-    padding-top: 0px;
-    position: absolute;
-    top:50%;
-    right:15%;
-    left:15%;
-    width:70%;
-}
+
 
 
 
