@@ -11,9 +11,9 @@ html {
     height: 100%;
 }
 
-h4{
+h1{
     margin:0;
-
+    padding:0;
 }
 
 
@@ -141,13 +141,57 @@ span#logo.large{
 
 
 /******************************************************************INTRO-LANDING*/
+.background-image{
+    width:100%;
+}
+
 
 #intro {
-    width:100%;
+    position:relative;
+    background-color: #000;
     text-align: center;
     color: #fff;
-    background: url(../assets/Landing.jpg) no-repeat bottom center scroll;
-    background-color: #000;
+    width:100%;
+    background: url(../img/GG_Nice.jpg) no-repeat bottom center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+section#one{
+    postion:relative;
+    width:100%;
+    background: url(../img/Tall_Buldings.jpg) no-repeat bottom center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+span.glyphicon-chevron-down{
+    background-color: black;
+    padding:10px;
+    font-size: 30px;
+    position:absolute;
+    top:90%;
+    left:15%;
+}
+
+section#two{
+    position:relative;
+    width:100%;
+    background: url(../img/Downtown.jpg) no-repeat bottom center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+section#three{
+    position:relative;
+    width:100%;
+    background: url(../img/Crowded_DT.jpg) no-repeat bottom center scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -155,16 +199,8 @@ span#logo.large{
 }
 
 
-/*#intro .intro-title{
-  position:absolute;
-  top:10%;
-  right:15%;
-  left:15%;
-  width: 70%;
-  text-align: center;
-}*/
 
-
+/*
 .carousel-container{
     position:absolute;
     top:25%;
@@ -205,7 +241,7 @@ div.item h2{
 
 
 /********************************************************************CAROUSEL FADE EFFECT*/
-.carousel-fade .item {
+/*.carousel-fade .item {
   opacity: 0;
   -webkit-transition: opacity ease-in-out 800ms;
   -moz-transition: opacity ease-in-out 500ms;
@@ -222,7 +258,7 @@ div.item h2{
   left: 0;
   opacity: 0;
   z-index: 2;
-}
+}*/
 
 
 

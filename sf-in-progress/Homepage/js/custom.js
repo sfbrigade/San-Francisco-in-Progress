@@ -7,15 +7,12 @@ $(document).ready(function(){
       });
   });
 
-
 });
-
-
 
 
 function resizeLanding() {
   $(window).resize(function(){
-    $("#intro").height($(window).height())
+    $(".background-image").height($(window).height())
   }).resize();
 }
 
