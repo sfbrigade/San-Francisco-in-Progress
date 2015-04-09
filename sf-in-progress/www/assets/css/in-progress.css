@@ -4,6 +4,7 @@ body {
     width: 100%;
     height: 100%;
     font-family:sans-serif;
+    color:black;
 }
 
 html {
@@ -11,11 +12,9 @@ html {
     height: 100%;
 }
 
-h1{
-    margin:0;
-    padding:0;
+section{
+    width:100%;
 }
-
 
 a {
     color: #42dca3;
@@ -133,132 +132,50 @@ span#logo.large{
     }
 }
 
-#project-submit{
 
+
+/******************************************************************PARRALLAX-STORY*/
+.hsContainer {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    opacity: 0;
+}
+.hsContent {
+    max-width: 450px;
+    margin: -150px auto 0 auto;
+    display: table-cell;
+    vertical-align: middle;
+    color: black;
+    padding: 0 8%;
+    text-align: center
+}
+
+.hsContent>h2{
+    color:black;
+    background-color: red;
 
 }
 
 
-
-/******************************************************************INTRO-LANDING*/
-.background-image{
-    width:100%;
-}
-
-
-#intro {
-    position:relative;
-    background-color: #000;
-    text-align: center;
-    color: #fff;
-    width:100%;
-    background: url(../img/GG_Nice.jpg) no-repeat bottom center scroll;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
+.bcg {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     background-size: cover;
-    -o-background-size: cover;
-}
-
-section#one{
-    postion:relative;
-    width:100%;
-    background: url(../img/Tall_Buldings.jpg) no-repeat bottom center scroll;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-}
-
-span.glyphicon-chevron-down{
-    background-color: black;
-    padding:10px;
-    font-size: 30px;
-    position:absolute;
-    top:90%;
-    left:15%;
-}
-
-section#two{
-    position:relative;
-    width:100%;
-    background: url(../img/Downtown.jpg) no-repeat bottom center scroll;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-}
-
-section#three{
-    position:relative;
-    width:100%;
-    background: url(../img/Crowded_DT.jpg) no-repeat bottom center scroll;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
+    height: 100%;
+    width: 100%;
 }
 
 
-
-/*
-.carousel-container{
-    position:absolute;
-    top:25%;
-    right:15%;
-    left:15%;
-    width:70%;
+#slide-1 .bcg{
+    background-image: url("../img/GG_Nice.jpg");
 
 }
 
-div.item h3{
-    line-height:2;
-    letter-spacing: 2px;
-
-}
-
-div.item h2{
-    line-height:2;
-    letter-spacing: 2px;
-
-}
-
-
-.call-to-action{
-    margin-top: 0px;
-    padding-top: 0px;
-    position: absolute;
-    top:60%;
-    right:15%;
-    left:15%;
-    width:70%;
-}
-
-.call-to-action>h3{
-    /*text-transform: uppercase;*/
-    letter-spacing: 2px;
-    font-weight: 400;
-}
-
-
-/********************************************************************CAROUSEL FADE EFFECT*/
-/*.carousel-fade .item {
-  opacity: 0;
-  -webkit-transition: opacity ease-in-out 800ms;
-  -moz-transition: opacity ease-in-out 500ms;
-  -o-transition: opacity ease-in-out 500ms;
-  -ms-transition: opacity ease-in-out 500ms;
-  transition: opacity ease-in-out 800ms;
-}
-
-.carousel-fade .active.item {
-  opacity: 1;
-}
-
-.carousel-fade .active.left, .carousel-fade .active.right {
-  left: 0;
-  opacity: 0;
-  z-index: 2;
-}*/
 
 
 

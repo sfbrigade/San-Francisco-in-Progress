@@ -1,18 +1,20 @@
 $(document).ready(function(){
   resizeLanding();
-
-    (function(){
-      $('.carousel').carousel({
-        interval: 3000
-      });
-  });
-
+      ( function( $ ) {
+        // Init Skrollr
+        var s = skrollr.init({
+            render: function(data) {
+                //Debugging - Log the current scroll position.
+                //console.log(data.curTop);
+            }
+        });
+    } )( jQuery );
 });
 
-
+// Resize slideshow images on page ReLoad
 function resizeLanding() {
   $(window).resize(function(){
-    $(".background-image").height($(window).height())
+    $("section").height($(window).height())
   }).resize();
 }
 
