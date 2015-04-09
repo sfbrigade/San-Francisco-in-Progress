@@ -1,3 +1,4 @@
+// REACT COMPONENTS
 var tooltipTemplate = function tooltipTemplate(data){
 	var template = _.template($("#tooltip").html());
 	return template(data);
@@ -26,6 +27,7 @@ var bindEvents = function bindFilterEvents(){
 	$("#clear-all").on('click', function(){
 		filterState.setAllNeighborhoods(false);
 	});
+
 	//make all checkboxes look selected
 	$("#sidebar input").prop("checked", true);
 	$("#legend input").prop("checked", true);
@@ -35,11 +37,6 @@ var bindEvents = function bindFilterEvents(){
       active: false,
       heightStyle: 'content'
     });
-};
-
-var toggleNeighborhoodFilters = function toggleNeighborhoodFilters() {
-	$('#sidebar .neighborhood-list').toggleClass('invisible');
-	$('.collapse-neighborhood').toggleClass('fa-caret-right fa-caret-down');
 };
 
 var initializeMap = function initializeMap(){
@@ -70,6 +67,8 @@ var placeMarkers = function(data){
 	markerLayer.on('layeradd', function(e){
 		var marker = e.layer;
 		var markerProps = marker.feature.properties;
+		debugger;
+		// properties not getting set??
 		var popupContent = tooltipTemplate({
 			address: markerProps.address,
 			neighborhood: markerProps.neighborhood,
@@ -86,6 +85,7 @@ var placeMarkers = function(data){
 	markerLayer.addTo(window.map);
 
 	// so we can access markers from other components
+	console.log('markerLayer', markerLayer)
 	window.map.markers = markerLayer;
 };
 
@@ -133,15 +133,17 @@ var createGeoJson = function createGeoJson(projects){
 		        address: project.address,
 		        neighborhood: project.neighborhood,
 		        description: project.description,
-		     	zoning: projects.zoning,
+		     	zoning: project.zoning,
 		        units: project.units,
 		        status: project.status,
 		        statusCategory: project.statusCategory,
-		        'marker-size': 'small',
+		        'marker-size': 'medium',
 		        'marker-color': markerColor, 
 		        'marker-symbol': markerType
     		}
 		};
+
+		console.log(markerGeoJson.properties)
 
 		featureCollection.features.push(markerGeoJson);
 
@@ -163,7 +165,7 @@ var FIELDS = [
 	'beststat_group'
 ];
 
-var neighborhoods = [
+var NEIGHBORHOODS = [
 	"Balboa Park",
 	"Bayshore",
 	"Bernal Heights",
@@ -213,7 +215,9 @@ var filterState = {
 		"building": true
 	},
 	setOne: function(property, newVal, filterToSet){
-		// newVal is a boolean 
+		// property is the filter name (e.g. Bayshore)
+		// newVal is a boolean (show or not show)
+		// filterToSet is the filter category (e.g. neighborhood)
 		this[filterToSet][property] = newVal;
 		filterMapboxMarkers();
 	},
@@ -229,7 +233,7 @@ var filterState = {
 
 // populating intial neighborhood state because im too lazy 
 // to re-type the list in object form 
-_.each(neighborhoods, function(neighborhood){
+_.each(NEIGHBORHOODS, function(neighborhood){
 	filterState.neighborhood[neighborhood] = true;
 });
 
@@ -241,7 +245,9 @@ var filterMapboxMarkers = function filterMapboxMarkers(){
 			filterState.projectStatus[marker.properties.statusCategory] &&
 			filterState.developmentType[marker.properties.zoning]) {
 			return true;
-		} else return false;
+		} else {
+			return false;
+		}
 	});
 	// TODO: make a loading indicator appear bc this is slow
 };

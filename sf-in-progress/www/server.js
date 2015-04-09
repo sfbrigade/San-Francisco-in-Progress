@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use( express.static( path.join(__dirname, '/assets')));
 
 // set our port
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 5000;
 
 // DATABASE
 // ================================================
@@ -46,6 +46,10 @@ var Project = mongoose.model('Project', projectSchema);
 // map page
 app.get('/', function(req,resp){
 	resp.sendfile('index.html');
+});
+
+app.get'/map', function(req,resp){
+	resp.sendfile('map.html');
 });
 
 // save a new project
