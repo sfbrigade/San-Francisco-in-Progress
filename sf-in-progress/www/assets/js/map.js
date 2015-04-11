@@ -67,8 +67,6 @@ var placeMarkers = function(data){
 	markerLayer.on('layeradd', function(e){
 		var marker = e.layer;
 		var markerProps = marker.feature.properties;
-		debugger;
-		// properties not getting set??
 		var popupContent = tooltipTemplate({
 			address: markerProps.address,
 			neighborhood: markerProps.neighborhood,
