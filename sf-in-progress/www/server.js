@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // where to serve static content
-app.use( express.static( path.join(__dirname, '/assets')));
+app.use( express.static(path.join(__dirname, '/assets')));
 
 // set our port
 var port = process.env.PORT || 5000;
@@ -48,8 +48,8 @@ app.get('/', function(req,resp){
 	resp.sendfile('index.html');
 });
 
-app.get'/map', function(req,resp){
-	resp.sendfile('map.html');
+app.get('/map', function(req,resp){
+	resp.sendfile('assets/map.html');
 });
 
 // save a new project
@@ -87,7 +87,7 @@ app.get('/projects/:project_id', function(req, resp){
 	var projects = [];
 	var id = mongoose.Types.ObjectId(req.params.project_id);
 
-	return Project.findById(deck_id, function(err, project){
+	return Project.findById(project_id, function(err, project){
 		if(err){
 			resp.send(err);
 		}
