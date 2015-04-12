@@ -1,0 +1,187 @@
+#sidebar {
+	display: inline-block;
+	position: absolute;
+  /*height of navbar*/
+	/*top: 52px;*/
+	background-color: #003152;
+	color: white;
+	width: 400px;
+	height: 100%;
+	padding-left: 20px;
+  overflow: scroll;
+}
+
+#logo {
+  margin-left: -25px;
+  margin-top: 15px;
+}
+
+#sidebar li {
+	margin-left: -40px;
+}
+
+#collapse h3 {
+	cursor: pointer;
+}
+
+#map-container {
+	position: absolute;
+	/* height of navbar */
+	/*top: 52px;*/
+	left: 400px;
+	width: 90%; 
+	width: calc(100% - 400px);
+	height: 100%;
+	display: inline-block;
+
+}
+
+.leaflet-popup-content {
+    min-width: 400px;
+}
+
+.leaflet-popup-content-wrapper {
+  min-width: 400px;
+}
+
+
+.map-container {
+ 	position: absolute;
+ 	top:0;
+ 	bottom:0;
+ 	width:100%;
+ }
+
+ /* Legend */
+
+#legend > .filter-status > .key {
+	width:20px;
+	height: 20px;
+	display: inline-block;
+	margin-bottom: -3px;
+}
+
+#legend > .filter-status > .key.blue{
+	background-color: #307de1;
+}
+
+#legend > .filter-status > .key.red{
+	background-color: #ff3b52;
+}
+
+#legend > .filter-status > .key.green{
+	background-color: #04ff54;
+}
+
+
+*/
+.filter-type img {
+	display: inline-block;
+}
+
+/* FA icons */
+i {
+	cursor: pointer;
+}
+
+/* helpers */
+
+.invisible {
+	visibility: hidden;
+}
+
+/*********************\
+    Basic reset
+\*********************/
+
+html, body{
+    margin: 0;
+    padding: 0;
+}
+ul {
+	list-style-type: none;
+}
+
+/* ==========================================================================
+   Overriding Default Bootstrap Navbar Colors
+   ========================================================================== */
+
+.navbar-default {
+  background-color: #ffffff;
+  border-color: #fffeff;
+}
+.navbar-default .navbar-brand {
+  color: #000000;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+  color: #000000;
+}
+.navbar-default .navbar-text {
+  color: #000000;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #000000;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+  color: #000000;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  color: #000000;
+  background-color: #fffeff;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  color: #000000;
+  background-color: #fffeff;
+}
+.navbar-default .navbar-toggle {
+  border-color: #fffeff;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: #fffeff;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #000000;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #000000;
+}
+.navbar-default .navbar-link {
+  color: #000000;
+}
+.navbar-default .navbar-link:hover {
+  color: #000000;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #000000;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #000000;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #000000;
+    background-color: #fffeff;
+  }
+}
+
+/* Utilities */
+
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+ 
+.clearfix:after {
+  clear: both;
+}
+ 
+.clearfix {
+  zoom: 1; /* ie 6/7 */
+}
+
+.hidden {
+  visibility: hidden;
+}

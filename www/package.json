@@ -1,0 +1,22 @@
+{
+  "name": "sf-in-progress",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "reactbuild": "watchify -t 6to5ify assets/js/react/src/entry.js -o assets/js/react/bundle.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "6to5ify": "^3.1.2",
+    "express": "^4.12.3",
+    "mongoose": "^4.0.1",
+    "watchify": "^2.2.1"
+  },
+  "dependencies": {
+    "moment": "^2.9.0",
+    "react": "^0.12.2"
+  }
+}
