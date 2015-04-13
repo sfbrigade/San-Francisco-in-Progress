@@ -33,6 +33,16 @@ var bindEvents = function bindFilterEvents(){
 	$("#sidebar input").prop("checked", true);
 	$("#legend input").prop("checked", true);
 
+	// set up slider for unit range -- Eric
+	$("#min_units").on('change', function(e) {
+		filterState.minimumUnits = e.target.value;
+		filterMapboxMarkers();
+	});
+
+	$("#min_units").on('change input', function(e) {
+		$("#min_units_display").html(e.target.value);
+	});
+
 	$( "#collapse" ).accordion({
       collapsible: true,
       active: false,
@@ -205,6 +215,7 @@ var NEIGHBORHOODS = [
 
 var filterState = {
 	neighborhood: {},
+	minumUnits: 0,
 	developmentType: {
 		"Mixed Use": true,
 		"Residential": true
@@ -244,8 +255,12 @@ var filterMapboxMarkers = function filterMapboxMarkers(){
 		if (filterState.neighborhood[marker.properties.neighborhood] &&
 			filterState.projectStatus[marker.properties.statusCategory] &&
 			filterState.developmentType[marker.properties.zoning]) {
-			return true;
-		} else {
+			if (parseInt(marker.properties.units) > filterState.minimumUnits) {
+				return true;
+			}
+			return false
+		} 
+		else {
 			return false;
 		}
 	});
