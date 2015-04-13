@@ -87,7 +87,7 @@ app.get('/projects/:project_id', function(req, resp){
 	var projects = [];
 	var id = mongoose.Types.ObjectId(req.params.project_id);
 
-	return Project.findById(project_id, function(err, project){
+	return Project.findById(id, function(err, project){
 		if(err){
 			resp.send(err);
 		}

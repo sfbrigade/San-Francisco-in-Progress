@@ -42,7 +42,8 @@ module.exports = React.createClass({
       <div className='projectProfile clearfix' style={containerStyle}>
         <div className='glyphicon glyphicon-remove' style={closeStyle} onClick={this.close}></div>
         <h2> {this.props.project.address} </h2>
-        <h3> {this.props.project.status} </h3>
+        <h4> {this.props.project.status} </h4>
+        <h4> {this.props.project.units} units </h4>
         <img style={imgStyle} src={this.props.project.picture} /><br />
         <p> {this.props.project.description} </p>
       </div>

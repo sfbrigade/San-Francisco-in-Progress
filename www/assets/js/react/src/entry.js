@@ -6,8 +6,7 @@ eventBus = _.extend({}, Backbone.Events);
 
 eventBus.on('select:project', function showProfile(project) {
 	// When a project is selected on the map:
-	// hide the filters
-	console.log("SHOWING PROJECT!!")
+	// hide the sidebar filters
 	$('#collapse').addClass('hidden');
 	// show profile in the sidebar
 	React.render(<ProjectProfile project={project} /> , 

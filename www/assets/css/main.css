@@ -13,6 +13,10 @@
   z-index: 10;
 }
 
+#sidebar a {
+  color: white;
+}
+
 #sidebar li {
 	margin-left: -40px;
 }

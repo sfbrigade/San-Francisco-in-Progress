@@ -38,6 +38,12 @@ var bindEvents = function bindFilterEvents(){
       active: false,
       heightStyle: 'content'
     });
+
+    // when a project profile is dismissed, show all markers again
+    eventBus.on('close:profile', function() {
+    	window.map.markers.clearLayers();
+    	fetchData(placeMarkers);
+    });
 };
 
 var initializeMap = function initializeMap(){
@@ -59,30 +65,26 @@ var fetchData = function(callback) {
 	});
 };
 
-var createGeoJson = function createGeoJson(projects){
+var fetchOneProject = function(id, callback) {
+	$.get('/projects/' + id, function(project) {
+		callback(project)
+	});
+}
 
+var createGeoJson = function createGeoJson(projects){
 	var featureCollection = {
 		type: "FeatureCollection",
 		features: []
 	};
 
-	projects.forEach(function(project) {
+	_.each(projects, function(project) {
 		var markerType;
 		switch (project.zoning) {
-			case "Commercial":
-				markerType = "commercial";
-				break;
-			case "Public":
-				markerType = "town-hall";
-				break;
 			case "Residential":
 				markerType = "building";
 				break;
 			case "Mixed Use":
 				markerType = "town";
-				break;
-			case "Industrial":
-				markerType = "industrial";
 				break;
 			default:
 				markerType = "building";
@@ -100,6 +102,7 @@ var createGeoJson = function createGeoJson(projects){
 	        	"coordinates": project.coordinates
 	        },
 	        properties: {
+	        	id: project._id,
 		        address: project.address,
 		        neighborhood: project.neighborhood,
 		        description: project.description,
@@ -116,34 +119,32 @@ var createGeoJson = function createGeoJson(projects){
 		featureCollection.features.push(markerGeoJson);
 
 	});
-
 	return featureCollection;
 };
+
+
+var setOneActiveMarker = function(marker) {
+	// clear all current markers
+	window.map.markers.clearLayers()
+	// this will fetch the project then 
+	// place a marker for it
+	fetchOneProject(marker, function(project) {
+		placeMarkers([project]);
+	});
+}
 
 var placeMarkers = function(data){
 
 	var geoJSON = createGeoJson(data);
 	var markerLayer = L.mapbox.featureLayer();
 
-	// define custom HTML for popups
-	markerLayer.on('layeradd', function(e){
-		var marker = e.layer;
-		var markerProps = marker.feature.properties;
-		// var popupContent = tooltipTemplate({
-		// 	address: markerProps.address,
-		// 	neighborhood: markerProps.neighborhood,
-		// 	description: markerProps.description,
-		// 	zoning: markerProps.zoning,
-		// 	units: markerProps.units,
-		// 	status: markerProps.status
-		// });
-		// marker.bindPopup(popupContent);
-	});
-
 	markerLayer.on('click', function(e) {
 		// suppress Mapbox tooltip
 		e.layer.closePopup();
 		var project = e.layer.feature.properties;
+		// clear all except the active marker
+		setOneActiveMarker(project.id)
+		// trigger event w/ projct so profile renders
 		eventBus.trigger('select:project', project)
 	})
 
@@ -205,10 +206,7 @@ var NEIGHBORHOODS = [
 var filterState = {
 	neighborhood: {},
 	developmentType: {
-		"Commercial": true,
-		"Industrial": true,
 		"Mixed Use": true,
-		"Public": true,
 		"Residential": true
 	},
 	projectStatus: {
@@ -255,7 +253,7 @@ var filterMapboxMarkers = function filterMapboxMarkers(){
 };
 
 $(document).ready(function() {
+	bindEvents();
 	window.map = initializeMap();
 	fetchData(placeMarkers);
-	bindEvents();
 });

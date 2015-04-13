@@ -9,8 +9,7 @@ eventBus = _.extend({}, Backbone.Events);
 
 eventBus.on("select:project", function showProfile(project) {
 	// When a project is selected on the map:
-	// hide the filters
-	console.log("SHOWING PROJECT!!");
+	// hide the sidebar filters
 	$("#collapse").addClass("hidden");
 	// show profile in the sidebar
 	React.render(React.createElement(ProjectProfile, { project: project }), document.getElementById("projectProfile-container"));
@@ -76,11 +75,18 @@ module.exports = React.createClass({
         " "
       ),
       React.createElement(
-        "h3",
+        "h4",
         null,
         " ",
         this.props.project.status,
         " "
+      ),
+      React.createElement(
+        "h4",
+        null,
+        " ",
+        this.props.project.units,
+        " units "
       ),
       React.createElement("img", { style: imgStyle, src: this.props.project.picture }),
       React.createElement("br", null),
