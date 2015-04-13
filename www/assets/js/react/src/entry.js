@@ -2,18 +2,20 @@ var React = require('react')
 , Backbone = require('backbone')
 , ProjectProfile = require('./project-profile.js')
 
-Backbone.on('select:project', function showProfile() {
+eventBus = _.extend({}, Backbone.Events);
+
+eventBus.on('select:project', function showProfile(project) {
 	// When a project is selected on the map:
 	// hide the filters
+	console.log("SHOWING PROJECT!!")
 	$('#collapse').addClass('hidden');
 	// show profile in the sidebar
-	React.render(<ProjectProfile />, document.getElementById('projectProfile-container'));
+	React.render(<ProjectProfile project={project} /> , 
+		document.getElementById('projectProfile-container'));
 })
 
-Backbone.on('close:profile', function toggleSidebarView() {
-	// show the filters again when a project pro file is closed
+eventBus.on('close:profile', function toggleSidebarView() {
+	// show the filters again when a project profile is closed
 	$('#collapse').removeClass('hidden');
 })
 
-$('#collapse').addClass('hidden');
-React.render(<ProjectProfile />, document.getElementById('projectProfile-container'));

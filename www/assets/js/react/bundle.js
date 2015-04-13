@@ -5,21 +5,21 @@ var React = require("react"),
     Backbone = require("backbone"),
     ProjectProfile = require("./project-profile.js");
 
-Backbone.on("select:project", function showProfile() {
+eventBus = _.extend({}, Backbone.Events);
+
+eventBus.on("select:project", function showProfile(project) {
 	// When a project is selected on the map:
 	// hide the filters
+	console.log("SHOWING PROJECT!!");
 	$("#collapse").addClass("hidden");
 	// show profile in the sidebar
-	React.render(React.createElement(ProjectProfile, null), document.getElementById("projectProfile-container"));
+	React.render(React.createElement(ProjectProfile, { project: project }), document.getElementById("projectProfile-container"));
 });
 
-Backbone.on("close:profile", function toggleSidebarView() {
-	// show the filters again when a project pro file is closed
+eventBus.on("close:profile", function toggleSidebarView() {
+	// show the filters again when a project profile is closed
 	$("#collapse").removeClass("hidden");
 });
-
-$("#collapse").addClass("hidden");
-React.render(React.createElement(ProjectProfile, null), document.getElementById("projectProfile-container"));
 
 },{"./project-profile.js":2,"backbone":3,"react":150}],2:[function(require,module,exports){
 "use strict";
@@ -44,22 +44,20 @@ module.exports = React.createClass({
     var projectProfile = this.getDOMNode();
     React.unmountComponentAtNode(projectProfile);
     $(projectProfile).remove();
-    Backbone.trigger("close:profile");
+    eventBus.trigger("close:profile");
   },
   render: function () {
     var containerStyle = {
-      width: "400px",
+      width: "320px",
       height: "100%",
-      zIndex: "1000",
       backgroundColor: "inherit",
       color: "inherit"
     };
 
     var closeStyle = {
       float: "right",
-      fontWeight: "strong",
-      marginRight: "40px",
-      cursor: "pointer"
+      cursor: "pointer",
+      fontSize: "2em"
     };
 
     var imgStyle = {
@@ -69,32 +67,28 @@ module.exports = React.createClass({
     return React.createElement(
       "div",
       { className: "projectProfile clearfix", style: containerStyle },
-      React.createElement(
-        "div",
-        { style: closeStyle, onClick: this.close },
-        "Close"
-      ),
+      React.createElement("div", { className: "glyphicon glyphicon-remove", style: closeStyle, onClick: this.close }),
       React.createElement(
         "h2",
         null,
         " ",
-        this.state.address,
+        this.props.project.address,
         " "
       ),
       React.createElement(
         "h3",
         null,
         " ",
-        this.state.status,
+        this.props.project.status,
         " "
       ),
-      React.createElement("img", { style: imgStyle, src: this.state.picture }),
+      React.createElement("img", { style: imgStyle, src: this.props.project.picture }),
       React.createElement("br", null),
       React.createElement(
         "p",
         null,
         " ",
-        this.state.description,
+        this.props.project.description,
         " "
       )
     );

@@ -25,20 +25,11 @@ var determineZoning = function determineZoning (zoningGeneralized) {
 	var zoning;
 
 	switch (zoningGeneralized) {
-		case "Commercial" || "Neighborhood Commercial":
-			zoning = "Commercial";
-			break;
-		case "Public":
-			zoning = "Public";
-			break;
 		case "Residential" || "High Density Residential":
 			zoning = "Residential";
 			break;
 		case "Mixed Use":
 			zoning = "Mixed Use";
-			break;
-		case "Industrial":
-			zoning = "Industrial";
 			break;
 		default:
 			zoning = "Other";
@@ -76,21 +67,25 @@ request(socrataURL, function(error, response, body) {
 		var projects = JSON.parse(body);
 
 		projects.forEach(function(project) {
-			var newProject = new Project({
-				address: readableAddress(project.location_1.human_address)
-				, neighborhood: project.planning_neighborhood
-				, description: project.description || project.dbi_project_description
-				, zoning: determineZoning(project.zoning_generalized)
-				, units: project.units
-				, status: project.beststat_group
-				, statusCategory: determineStatusCategory(project.beststat_group.trim())
-				, coordinates: [project.longitude, project.latitude]
-			});
+			if (project.zoning_generalized == 'Mixed Use' ||
+				project.zoning_generalized == 'High Density Residential' ||
+				project.zoning_generalized == 'Residential') {
+				var newProject = new Project({
+					address: readableAddress(project.location_1.human_address)
+					, neighborhood: project.planning_neighborhood
+					, description: project.planning_project_description || project.dbi_project_description
+					, zoning: determineZoning(project.zoning_generalized)
+					, units: project.units
+					, status: project.beststat_group
+					, statusCategory: determineStatusCategory(project.beststat_group.trim())
+					, coordinates: [project.location_1.longitude, project.location_1.latitude]
+				});
 
-			newProject.save(function(err){
-				if (err) console.log('ERR :(', err);
-				else console.log(newProject.address, 'SAVED!');
-			});
+				newProject.save(function(err){
+					if (err) console.log('ERR :(', err);
+					else console.log(newProject.address, 'SAVED!');
+				});
+			}
 		});
 	}
 });

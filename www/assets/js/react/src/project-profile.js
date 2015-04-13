@@ -18,22 +18,20 @@ module.exports = React.createClass({
     var projectProfile = this.getDOMNode()
     React.unmountComponentAtNode(projectProfile)
     $(projectProfile).remove()
-    Backbone.trigger('close:profile')
+    eventBus.trigger('close:profile')
   },
   render: function() {
     var containerStyle = {
-      width: '400px',
+      width: '320px',
       height: '100%',
-      zIndex: '1000',
       backgroundColor: 'inherit',
       color: 'inherit'
     }
 
     var closeStyle = {
       float: 'right',
-      fontWeight: 'strong',
-      marginRight: '40px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      fontSize: '2em'
     };
 
     var imgStyle = {
@@ -42,11 +40,11 @@ module.exports = React.createClass({
 
     return (
       <div className='projectProfile clearfix' style={containerStyle}>
-        <div style={closeStyle} onClick={this.close}>Close</div>
-        <h2> {this.state.address} </h2>
-        <h3> {this.state.status} </h3>
-        <img style={imgStyle} src={this.state.picture} /><br />
-        <p> {this.state.description} </p>
+        <div className='glyphicon glyphicon-remove' style={closeStyle} onClick={this.close}></div>
+        <h2> {this.props.project.address} </h2>
+        <h3> {this.props.project.status} </h3>
+        <img style={imgStyle} src={this.props.project.picture} /><br />
+        <p> {this.props.project.description} </p>
       </div>
     )
   }

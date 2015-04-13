@@ -1,4 +1,4 @@
-var eventBus = _.extend({}, Backbone.Events)
+var Backbone = require('backbone');
 
 var tooltipTemplate = function tooltipTemplate(data){
 	var template = _.template($("#tooltip").html());
@@ -144,7 +144,7 @@ var placeMarkers = function(data){
 		// suppress Mapbox tooltip
 		e.layer.closePopup();
 		var project = e.layer.feature.properties;
-		eventBus.trigger('select:project', project)
+		Backbone.trigger('select:project', project)
 	})
 
 	// Add them all to the map 

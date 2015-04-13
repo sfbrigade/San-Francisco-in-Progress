@@ -1,21 +1,16 @@
 #sidebar {
 	display: inline-block;
-  width: 400px;
+  width: 350px;
   height: 80%;
 	position: absolute;
   padding-left: 20px;
-	background-color: #003152;
+	background-color: rgba(0, 59, 91, 0.73);
 	color: white;
   overflow: scroll;
   margin: 30px;
   padding: 20px;
   /* over the map */
   z-index: 10;
-}
-
-#logo {
-  margin-left: -25px;
-  margin-top: 15px;
 }
 
 #sidebar li {
@@ -29,7 +24,7 @@
 #map-container {
 	position: absolute;
 	/* height of navbar */
-	top: 100px;
+	top: 50px;
 	width: 100%; 
 	height: 100%;
 	display: inline-block;
@@ -108,26 +103,25 @@ ul {
    http://work.smarchal.com/twbscolor/
    ========================================================================== */
 
+.navbar {
+  height: 50px;
+  margin-bottom: 0;
+  border: 0;
+  border-radius: 0;
+}
+
 .navbar img {
   display: inline-block;
-  height: 75px;
-  margin-top: 14px;
-  width: 75px;
+  height: 50px;
+  margin-top: -28px;
+  width: 50px;
+  z-index: 35;
 }
 
 .navbar .name {
   color: white;
   display: inline-block;
-  position: absolute;
-  top: 18px;
-  left: 100px;
-}
-
-.navbar {
-  height: 100px;
-  margin-bottom: 0;
-  border: 0;
-  border-radius: 0;
+  margin-top: -15px;
 }
 
 .navbar-default {
@@ -206,6 +200,6 @@ ul {
   zoom: 1; /* ie 6/7 */
 }
 
-.hidden {
+.hidden{
   visibility: hidden;
 }
