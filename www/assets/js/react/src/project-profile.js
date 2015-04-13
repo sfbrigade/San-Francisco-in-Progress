@@ -32,7 +32,7 @@ module.exports = React.createClass({
     var closeStyle = {
       float: 'right',
       fontWeight: 'strong',
-      margin: '10px',
+      marginRight: '40px',
       cursor: 'pointer'
     };
 

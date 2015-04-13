@@ -11,8 +11,7 @@ Backbone.on('select:project', function showProfile() {
 })
 
 Backbone.on('close:profile', function toggleSidebarView() {
-	console.log('close:profile was heard!!!');
-	// show the filters again when a project profile is closed
+	// show the filters again when a project pro file is closed
 	$('#collapse').removeClass('hidden');
 })
 

@@ -46,7 +46,7 @@ var initializeMap = function initializeMap(){
 		legendControl: {
 			position: 'bottomright'
 		}
-	}).setView([37.77, -122.44], 13);
+	}).setView([37.77, -122.47], 13);
 	// putting zoom control in top-right corner
 	new L.Control.Zoom({ position: 'topright' }).addTo(map);
 	return map;
