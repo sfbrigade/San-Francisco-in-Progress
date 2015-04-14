@@ -2,7 +2,7 @@ var request = require('request');
 var mongoose = require('mongoose');
 
 // connect to database
-mongoose.connect( 'mongodb://localhost/sfinprogress' );
+mongoose.connect( 'mongodb://jmcelroy:sfinprogress@ds061731.mongolab.com:61731/sf-in-progress');
 
 // database schema
 var projectSchema = new mongoose.Schema({

@@ -58,7 +58,8 @@ var bindEvents = function bindFilterEvents(){
 
 var initializeMap = function initializeMap(){
 	L.mapbox.accessToken = 'pk.eyJ1Ijoiam1jZWxyb3kiLCJhIjoiVVg5eHZldyJ9.FFzKtamuKHb_8_b_6fAOFg';
-	var map = L.mapbox.map('map-container', 'jmcelroy.lje09j35', {
+	// gray tiles: jmcelroy.lje09j35
+	var map = L.mapbox.map('map-container', 'examples.map-i86nkdio', {
 		zoomControl: false,
 		legendControl: {
 			position: 'bottomright'
@@ -113,19 +114,18 @@ var createGeoJson = function createGeoJson(projects){
 	        },
 	        properties: {
 	        	id: project._id,
-		        address: project.address,
-		        neighborhood: project.neighborhood,
-		        description: project.description,
-		     	zoning: project.zoning,
-		        units: project.units,
-		        status: project.status,
-		        statusCategory: project.statusCategory,
+		        address: project.address || 'Address not specified',
+		        neighborhood: project.neighborhood || 'Neighborhood not specified',
+		        description: project.description || 'No description',
+		     	zoning: project.zoning || 'No zoning specified',
+		        units: project.units || 'Units unknown',
+		        status: project.status || 'No status specified',
+		        statusCategory: project.statusCategory ||'No status specified',
 		        'marker-size': 'medium',
-		        'marker-color': markerColor, 
+		        'marker-color': markerColor || '#cccccc', 
 		        'marker-symbol': markerType
     		}
 		};
-
 		featureCollection.features.push(markerGeoJson);
 
 	});
@@ -133,14 +133,9 @@ var createGeoJson = function createGeoJson(projects){
 };
 
 
-var setOneActiveMarker = function(marker) {
-	// clear all current markers
-	window.map.markers.clearLayers()
-	// this will fetch the project then 
-	// place a marker for it
-	fetchOneProject(marker, function(project) {
-		placeMarkers([project]);
-	});
+var setOneActiveMarker = function(markerId) {
+	filterState.projectSelected = markerId
+	filterMapboxMarkers()
 }
 
 var placeMarkers = function(data){
@@ -214,8 +209,9 @@ var NEIGHBORHOODS = [
 ];
 
 var filterState = {
+	projectSelected: null,
 	neighborhood: {},
-	minumUnits: 0,
+	minimumUnits: 0,
 	developmentType: {
 		"Mixed Use": true,
 		"Residential": true
@@ -252,19 +248,33 @@ var filterMapboxMarkers = function filterMapboxMarkers(){
 	// this function tells mapbox to filter markers 
 	// to reflect the current filter state
 	window.map.markers.setFilter(function(marker){
-		if (filterState.neighborhood[marker.properties.neighborhood] &&
-			filterState.projectStatus[marker.properties.statusCategory] &&
-			filterState.developmentType[marker.properties.zoning]) {
-			if (parseInt(marker.properties.units) > filterState.minimumUnits) {
-				return true;
+		if (filterState.projectSelected) {
+			// if there is just one active project, then only
+			// show that marker
+			if (filterState.projectSelected == marker.properties.id) {
+				return true
 			}
-			return false
-		} 
+			else {
+				return false
+			}
+		}
 		else {
-			return false;
+			if (filterState.neighborhood[marker.properties.neighborhood] &&
+				filterState.projectStatus[marker.properties.statusCategory] &&
+				filterState.developmentType[marker.properties.zoning]) {
+				if (parseInt(marker.properties.units) > filterState.minimumUnits) {
+					return true;
+				}
+				return false
+			} 
+			else {
+				return false;
+			}
 		}
 	});
-	// TODO: make a loading indicator appear bc this is slow
+	// reset selected project flag
+	if (filterState.projectSelected) filterState.projectSelected = null
+	// TODO: Make a loading indicator appear because this is slow
 };
 
 $(document).ready(function() {

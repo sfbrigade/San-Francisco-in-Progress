@@ -4,7 +4,10 @@
   height: 80%;
 	position: absolute;
   padding-left: 20px;
-	background-color: rgba(0, 59, 91, 0.73);
+  /* for gray map tiles*/
+	/*background-color: rgba(0, 59, 91, 0.73);*/
+  /* for colorful map tiles */
+  background-color: rgba(55, 59, 61, 0.67);
 	color: white;
   overflow: scroll;
   margin: 30px;
