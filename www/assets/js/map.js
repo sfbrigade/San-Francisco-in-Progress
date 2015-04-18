@@ -49,11 +49,22 @@ var bindEvents = function bindFilterEvents(){
       heightStyle: 'content'
     });
 
+	eventBus.on('select:project', function onShowProfile() {
+		$('#sidebar .btn').addClass('invisible');
+	})
     // when a project profile is dismissed, show all markers again
-    eventBus.on('close:profile', function() {
-    	window.map.markers.clearLayers();
-    	fetchData(placeMarkers);
+    eventBus.on('close:profile', function onCloseProfile() {
+    	$('#sidebar .btn').removeClass('invisible');
+    	showAllMarkers();
     });
+
+    $('#sidebar .btn').click(function(e) {
+    	if ($(this).hasClass('btn-info')) return;
+    	$('#sidebar .btn').toggleClass('btn-info btn-link'); // change active button
+    	$('#projectList-container').toggleClass('invisible'); // hide/show project list
+    	$('#filter-container').toggleClass('invisible'); // hide/show filters
+    });
+
 };
 
 var initializeMap = function initializeMap(){
@@ -67,22 +78,27 @@ var initializeMap = function initializeMap(){
 	}).setView([37.77, -122.47], 13);
 	// putting zoom control in top-right corner
 	new L.Control.Zoom({ position: 'topright' }).addTo(map);
+	// get data and place markers when it returns
+	fetchAllProjects(function(data) {
+		cachedGeoJSON = createGeoJSON(data)
+		placeMarkers(cachedGeoJSON)
+	});
 	return map;
 };
 
-var fetchData = function(callback) {
-	$.get('/projects', function(projects) {
-		callback(projects);
+var fetchAllProjects = function(callback) {
+	$.get('/projects', function(data) {
+		callback(data);
 	});
 };
 
 var fetchOneProject = function(id, callback) {
 	$.get('/projects/' + id, function(project) {
-		callback(project)
+		callback(project);
 	});
 }
 
-var createGeoJson = function createGeoJson(projects){
+var createGeoJSON = function createGeoJSON(projects){
 	var featureCollection = {
 		type: "FeatureCollection",
 		features: []
@@ -121,96 +137,88 @@ var createGeoJson = function createGeoJson(projects){
 		        units: project.units || 'Units unknown',
 		        status: project.status || 'No status specified',
 		        statusCategory: project.statusCategory ||'No status specified',
+		        picture: project.picture || '',
 		        'marker-size': 'medium',
 		        'marker-color': markerColor || '#cccccc', 
 		        'marker-symbol': markerType
     		}
 		};
-		featureCollection.features.push(markerGeoJson);
+		featureCollection.features.push(
+			markerGeoJson);
 
 	});
 	return featureCollection;
 };
 
 
-var setOneActiveMarker = function(markerId) {
-	filterState.projectSelected = markerId
-	filterMapboxMarkers()
+var setOneActiveMarker = function(marker) {
+	window.map.markers.setGeoJSON(marker);
 }
 
-var placeMarkers = function(data){
+var placeMarkers = function(geoJSON){
 
-	var geoJSON = createGeoJson(data);
-	var markerLayer = L.mapbox.featureLayer();
+	var markerLayer = L.mapbox.featureLayer(geoJSON)
+		.setFilter(filterMapboxMarkers)
+		.addTo(window.map)
 
 	markerLayer.on('click', function(e) {
 		// suppress Mapbox tooltip
 		e.layer.closePopup();
-		var project = e.layer.feature.properties;
+		var project = e.layer.feature.properties
+		var marker = e.layer.toGeoJSON();
 		// clear all except the active marker
-		setOneActiveMarker(project.id)
-		// trigger event w/ projct so profile renders
+		setOneActiveMarker(marker)
+		// trigger event w/ project so profile renders
 		eventBus.trigger('select:project', project)
 	})
 
-	// Add them all to the map 
-	markerLayer.setGeoJSON(geoJSON);
-	markerLayer.addTo(window.map);
-
-	// so we can access markers from other components
-	window.map.markers = markerLayer;
+	// so we can access it later
+	window.map.markers = markerLayer
 };
 
-// Variable names from dataset
+var showAllMarkers = function() {
+	window.map.markers.setGeoJSON(cachedGeoJSON)
+	window.map.markers.setFilter(filterMapboxMarkers)
+}
 
-var FIELDS = [
-	'location_1', 
-	'planning_neighborhood', 
-	'planning_project_description', 
-	'dbi_project_description',
-	'zoning_generalized',
-	'units',
-	'beststat_group'
-];
-
-var NEIGHBORHOODS = [
-	"Balboa Park",
-	"Bayshore",
-	"Bernal Heights",
-	"Buena Vista",
-	"BVHP Area A,B", 
-	"Candlestick",
-	"Central",
-	"Central Waterfront",
-	"Downtown",
-	"East SoMa",
-	"Executive Park",
-	"HP Shipyard",
-	"India Basin",
-	"Ingleside, Other",
-	"Inner Sunset",
-	"Japantown",
-	"Marina",
-	"Market Octavia",
-	"Mission",
-	"Mission Bay",
-	"Northeast",
-	"Outer Sunset",
-	"Park Merced",
-	"Richmond",
-	"Rincon Hill",
-	"Showpl/Potrero",
-	"South Central, Other",
-	"South of Market, Other",
-	"TB Combo",
-	"VisVal",
-	"Western Addition",		
-	"WSoMa"
-];
+var cachedGeoJSON 
 
 var filterState = {
 	projectSelected: null,
-	neighborhood: {},
+	neighborhood: {
+		"Balboa Park": true,
+		"Bayshore": true,
+		"Bernal Heights": true,
+		"Buena Vista": true,
+		"BVHP Area A,B": true,
+		"Candlestick": true,
+		"Central": true,
+		"Central Waterfront": true,
+		"Downtown": true,
+		"East SoMa": true,
+		"Executive Park": true,
+		"HP Shipyard": true,
+		"India Basin": true,
+		"Ingleside, Other": true,
+		"Inner Sunset": true,
+		"Japantown": true,
+		"Marina": true,
+		"Market Octavia": true,
+		"Mission": true,
+		"Mission Bay": true,
+		"Northeast": true,
+		"Outer Sunset": true,
+		"Park Merced": true,
+		"Richmond": true,
+		"Rincon Hill": true,
+		"Showpl/Potrero": true,
+		"South Central, Other": true,
+		"South of Market, Other": true,
+		"TB Combo": true,
+		"VisVal": true,
+		"Western Addition": true,	
+		"WSoMa": true
+	},
 	minimumUnits: 0,
 	developmentType: {
 		"Mixed Use": true,
@@ -226,7 +234,7 @@ var filterState = {
 		// newVal is a boolean (show or not show)
 		// filterToSet is the filter category (e.g. neighborhood)
 		this[filterToSet][property] = newVal;
-		filterMapboxMarkers();
+		window.map.markers.setFilter(filterMapboxMarkers)
 	},
 	setAllNeighborhoods: function(set){
 		// set is a boolean: true to select all and false to clear all
@@ -234,51 +242,28 @@ var filterState = {
 		_.each(this.neighborhood, function(val, key){
 			filterState.neighborhood[key] = set;
 		});
-		filterMapboxMarkers();
+		window.map.markers.setFilter(filterMapboxMarkers)
 	}
 };
 
-// populating intial neighborhood state because im too lazy 
-// to re-type the list in object form 
-_.each(NEIGHBORHOODS, function(neighborhood){
-	filterState.neighborhood[neighborhood] = true;
-});
-
-var filterMapboxMarkers = function filterMapboxMarkers(){
+var filterMapboxMarkers = function filterMapboxMarkers(marker){
 	// this function tells mapbox to filter markers 
 	// to reflect the current filter state
-	window.map.markers.setFilter(function(marker){
-		if (filterState.projectSelected) {
-			// if there is just one active project, then only
-			// show that marker
-			if (filterState.projectSelected == marker.properties.id) {
-				return true
-			}
-			else {
-				return false
-			}
+	if (filterState.neighborhood[marker.properties.neighborhood] &&
+		filterState.projectStatus[marker.properties.statusCategory] &&
+		filterState.developmentType[marker.properties.zoning]) {
+		if (parseInt(marker.properties.units) >= filterState.minimumUnits) {
+			return true;
 		}
-		else {
-			if (filterState.neighborhood[marker.properties.neighborhood] &&
-				filterState.projectStatus[marker.properties.statusCategory] &&
-				filterState.developmentType[marker.properties.zoning]) {
-				if (parseInt(marker.properties.units) > filterState.minimumUnits) {
-					return true;
-				}
-				return false
-			} 
-			else {
-				return false;
-			}
-		}
-	});
-	// reset selected project flag
-	if (filterState.projectSelected) filterState.projectSelected = null
+		return false
+	} 
+	else {
+		return false;
+	}
 	// TODO: Make a loading indicator appear because this is slow
 };
 
 $(document).ready(function() {
 	bindEvents();
 	window.map = initializeMap();
-	fetchData(placeMarkers);
 });

@@ -17,6 +17,7 @@
 }
 
 #sidebar a {
+  cursor: pointer;
   color: white;
 }
 
@@ -24,8 +25,8 @@
 	margin-left: -40px;
 }
 
-#collapse h3 {
-	cursor: pointer;
+#collapse {
+  cursor: pointer;
 }
 
 #map-container {

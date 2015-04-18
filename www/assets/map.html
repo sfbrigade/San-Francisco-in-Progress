@@ -25,74 +25,79 @@
     </nav>
     <div id="sidebar">
       <div id="projectProfile-container"></div>
-      <div id="collapse">
-        <h3> Neighborhoods </h3>
-        <div> <!-- Begin ection 1 -->
-          <div class="select-clear">
-            <a href="#" id="select-all">Select All</a> | <a href="#" id="clear-all">Clear All</a>
-          </div><br>
-          <ul class="neighborhood-list">
-            <li><input type="checkbox" name="Balboa Park"> Balboa Park</li>
-            <li><input type="checkbox" name="Bayshore"> Bayshore</li>
-            <li><input type="checkbox" name="Bernal Heights"> Bernal Heights</li>
-            <li><input type="checkbox" name="Buena Vista"> Buena Vista</li>
-            <li><input type="checkbox" name="BVHP Area A,B"> Bayview</li>
-            <li><input type="checkbox" name="Candlestick"> Candlestick</li>
-            <li><input type="checkbox" name="Central"> Central</li>
-            <li><input type="checkbox" name="Central Waterfront"> Central Waterfront</li>
-            <li><input type="checkbox" name="Downtown"> Financial District</li>
-            <li><input type="checkbox" name="East SoMa"> East SoMa</li>
-            <li><input type="checkbox" name="Executive Park"> Executive Park</li>
-            <li><input type="checkbox" name="HP Shipyard"> Hunters Point</li>
-            <li><input type="checkbox" name="India Basin"> India Basin</li>
-            <li><input type="checkbox" name="Ingleside, Other"> Ingleside</li>
-            <li><input type="checkbox" name="Inner Sunset"> Inner Sunset</li>
-            <li><input type="checkbox" name="Japantown"> Japantown</li>
-            <li><input type="checkbox" name="Marina"> Marina</li>
-            <li><input type="checkbox" name="Market Octavia"> Market Octavia</li>
-            <li><input type="checkbox" name="Mission"> The Mission</li>
-            <li><input type="checkbox" name="Mission Bay"> Mission Bay</li>
-            <li><input type="checkbox" name="Northeast"> Northeast</li>
-            <li><input type="checkbox" name="Outer Sunset"> Outer Sunset</li>
-            <li><input type="checkbox" name="Park Merced"> Park Merced</li>
-            <li><input type="checkbox" name="Richmond"> Richmond</li>
-            <li><input type="checkbox" name="Rincon Hill"> Rincon Hill</li>
-            <li><input type="checkbox" name="Showpl/Potrero"> Potrero Hill</li>
-            <li><input type="checkbox" name="South Central, Other"> South Central, Other</li>
-            <li><input type="checkbox" name="South of Market, Other"> SOMA</li>
-            <li><input type="checkbox" name="TB Combo"> TB Combo</li>
-            <li><input type="checkbox" name="VisVal"> Visitacion Valley</li>
-            <li><input type="checkbox" name="Western Addition"> Western Addition</li>     
-            <li><input type="checkbox" name="WSoMa"> West SoMa</li>
-          </ul>
-        </div> <!-- End Section 1 -->
-        <h3> Project Status </h3>
-        <div id="legend"> <!-- Begin ection 2 -->
-          <div class="filter-status">
-            <input type="checkbox" name="planning"> <div class="key blue"></div> Planning Permit phase <br>
-          </div>
-          <div class="filter-status">
-            <input type="checkbox" name="building"> <div class="key red"></div> Building Permit phase <br>
-          </div>
-          <div class="filter-status">
-            <input type="checkbox" name="construction"> <div class="key green"></div> Under Construction <br>
-          </div>
-        </div> <!-- End Section 2 -->
-        <h3> Development Type </h3>
-        <div> <!-- Begin Section 3 -->
-          <div class="filter-type">
-            <input type="checkbox" name="Residential">  <img src="img/residential.svg"> Residential
-          </div>
-          <div class="filter-type">
-            <input type="checkbox" name="Mixed Use"> <img src="img/mixeduse.svg">   Mixed Use 
-          </div>
-        </div> <!-- End Section 3 -->
-        <h3> Minimum New Units </h3>
-        <div> <!-- Begin Section 4 -->
-          <div id="min_units_display" style="float:right">0</div>
-          <input type="range" min="0" max="300" value="0" id="min_units">
-        </div> <!-- End Section 4 -->
-      </div> <!-- Collapsible filters -->
+      <button class="btn btn-info sidebar-btn-support" style="color:white;">Projects to Support</button>
+      <button class="btn  btn-link sidebar-btn-explore" style="color:white;">Explore All Projects</button>
+      <div id="projectList-container"></div>
+      <div id="filter-container" class="invisible">
+        <div id="collapse">
+          <h4> Neighborhoods </h4>
+          <div> <!-- Begin ection 1 -->
+            <div class="select-clear">
+              <a href="#" id="select-all">Select All</a> | <a href="#" id="clear-all">Clear All</a>
+            </div>
+            <ul class="neighborhood-list">
+              <li><input type="checkbox" name="Balboa Park"> Balboa Park</li>
+              <li><input type="checkbox" name="Bayshore"> Bayshore</li>
+              <li><input type="checkbox" name="Bernal Heights"> Bernal Heights</li>
+              <li><input type="checkbox" name="Buena Vista"> Buena Vista</li>
+              <li><input type="checkbox" name="BVHP Area A,B"> Bayview</li>
+              <li><input type="checkbox" name="Candlestick"> Candlestick</li>
+              <li><input type="checkbox" name="Central"> Central</li>
+              <li><input type="checkbox" name="Central Waterfront"> Central Waterfront</li>
+              <li><input type="checkbox" name="Downtown"> Financial District</li>
+              <li><input type="checkbox" name="East SoMa"> East SoMa</li>
+              <li><input type="checkbox" name="Executive Park"> Executive Park</li>
+              <li><input type="checkbox" name="HP Shipyard"> Hunters Point</li>
+              <li><input type="checkbox" name="India Basin"> India Basin</li>
+              <li><input type="checkbox" name="Ingleside, Other"> Ingleside</li>
+              <li><input type="checkbox" name="Inner Sunset"> Inner Sunset</li>
+              <li><input type="checkbox" name="Japantown"> Japantown</li>
+              <li><input type="checkbox" name="Marina"> Marina</li>
+              <li><input type="checkbox" name="Market Octavia"> Market Octavia</li>
+              <li><input type="checkbox" name="Mission"> The Mission</li>
+              <li><input type="checkbox" name="Mission Bay"> Mission Bay</li>
+              <li><input type="checkbox" name="Northeast"> Northeast</li>
+              <li><input type="checkbox" name="Outer Sunset"> Outer Sunset</li>
+              <li><input type="checkbox" name="Park Merced"> Park Merced</li>
+              <li><input type="checkbox" name="Richmond"> Richmond</li>
+              <li><input type="checkbox" name="Rincon Hill"> Rincon Hill</li>
+              <li><input type="checkbox" name="Showpl/Potrero"> Potrero Hill</li>
+              <li><input type="checkbox" name="South Central, Other"> South Central, Other</li>
+              <li><input type="checkbox" name="South of Market, Other"> SOMA</li>
+              <li><input type="checkbox" name="TB Combo"> TB Combo</li>
+              <li><input type="checkbox" name="VisVal"> Visitacion Valley</li>
+              <li><input type="checkbox" name="Western Addition"> Western Addition</li>     
+              <li><input type="checkbox" name="WSoMa"> West SoMa</li>
+            </ul>
+          </div> <!-- End Section 1 -->
+          <h4> Project Status </h4>
+          <div id="legend"> <!-- Begin ection 2 -->
+            <div class="filter-status">
+              <input type="checkbox" name="planning"> <div class="key blue"></div> Planning Permit phase <br>
+            </div>
+            <div class="filter-status">
+              <input type="checkbox" name="building"> <div class="key red"></div> Building Permit phase <br>
+            </div>
+            <div class="filter-status">
+              <input type="checkbox" name="construction"> <div class="key green"></div> Under Construction <br>
+            </div>
+          </div> <!-- End Section 2 -->
+          <h4> Development Type </h4>
+          <div> <!-- Begin Section 3 -->
+            <div class="filter-type">
+              <input type="checkbox" name="Residential">  <img src="img/residential.svg"> Residential
+            </div>
+            <div class="filter-type">
+              <input type="checkbox" name="Mixed Use"> <img src="img/mixeduse.svg">   Mixed Use 
+            </div>
+          </div> <!-- End Section 3 -->
+          <h4> Minimum New Units </h4>
+          <div> <!-- Begin Section 4 -->
+            <div id="min_units_display" style="float:right">0</div>
+            <input type="range" min="0" max="300" value="0" id="min_units">
+          </div> <!-- End Section 4 -->
+        </div> <!-- Collapsible filters -->
+      </div> <!-- Filter container -->
     </div> <!-- Sidebar Container-->
   </div>
 
