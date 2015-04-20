@@ -6,9 +6,10 @@
 	
 	<body>
 		<div class="form-container" style="width: 600px;margin: 50px;">
-			<h2 id="title"> Add a Project to the Database </h2>
-			<p> Make sure all fields are complete before submitting </p>
 			<form action="/projects" method="post">
+				<h2 id="title"> Add a Project to the Database </h2>
+				<button class="btn btn-danger invisible" style="margin-bottom:10px;">Delete this project</button>
+				<p> Make sure all fields are complete before submitting </p>
 
 			    <div class="form-group">
 			        <label for="inputAddress">Address</label>
@@ -105,7 +106,6 @@
 				</div> -->
 				<br>
 				<button type="submit" class="btn btn-primary">Save Project</button>
-
 			</form>
 		</div>
 	</body>

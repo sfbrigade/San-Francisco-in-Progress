@@ -127,7 +127,6 @@ app.post('/projects/:project_id', function(req, resp) {
 			project[key] = req.body[key]
 		}
 		project.save()
-		resp.json(project)
 	})
 })
 
@@ -136,7 +135,12 @@ app.delete('/projects/:project_id', function(req, resp) {
 
 	Project.findOne({_id: id}, function(err, project) {
 		project.remove()
+		resp.send(200)
 	})
+})
+
+app.all('*', function(req, res){
+  res.send(404);
 })
 
 // START THE SERVER
