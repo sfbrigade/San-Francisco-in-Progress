@@ -26,10 +26,13 @@ eventBus.on("close:profile", function toggleSidebarView() {
 var React = require("react"),
     Backbone = require("backbone");
 
+eventBus = _.extend({}, Backbone.Events);
+
 module.exports = React.createClass({
   displayName: "exports",
   getInitialState: function () {
     return {
+      id: 1,
       address: "500 Sansome St.",
       zoning: "Commercial",
       status: "Under Construction",
@@ -38,6 +41,9 @@ module.exports = React.createClass({
       picture: "http://i.infopls.com/images/transamerican-tower.JPG",
       description: "Really awesome high-rise"
     };
+  },
+  createURL: function () {
+    return "/admin/projects/" + this.props.project.id;
   },
   close: function () {
     var projectProfile = this.getDOMNode();
@@ -60,19 +66,32 @@ module.exports = React.createClass({
     };
 
     var imgStyle = {
-      width: "350px"
+      width: "100%"
     };
+
+    var projectImage = this.props.project.picture ? React.createElement("img", { style: imgStyle, src: this.props.project.picture }) : null;
 
     return React.createElement(
       "div",
       { className: "projectProfile clearfix", style: containerStyle },
       React.createElement("div", { className: "glyphicon glyphicon-remove", style: closeStyle, onClick: this.close }),
+      React.createElement("br", null),
       React.createElement(
         "h2",
         null,
         " ",
         this.props.project.address,
         " "
+      ),
+      React.createElement(
+        "a",
+        { href: this.createURL() },
+        "Edit"
+      ),
+      React.createElement(
+        "div",
+        null,
+        projectImage
       ),
       React.createElement(
         "h4",
@@ -88,8 +107,6 @@ module.exports = React.createClass({
         this.props.project.units,
         " units "
       ),
-      React.createElement("img", { style: imgStyle, src: this.props.project.picture }),
-      React.createElement("br", null),
       React.createElement(
         "p",
         null,

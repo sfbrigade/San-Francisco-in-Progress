@@ -38,6 +38,7 @@ var projectSchema = new mongoose.Schema({
 	, statusCategory: String
 	, picture: String
 	, coordinates: Array
+	, featured: Boolean
 })
 
 // database model
@@ -59,8 +60,7 @@ app.get('/map', function(req,resp){
 
 // form for admins to add new projects 
 app.get('/admin/projects/', function(req, resp) {
-	var options = {root: path.join(__dirname, '/assets') }
-	resp.sendFile('/admin-form.html', options) 
+	resp.sendFile(path.join(__dirname, '/assets', '/admin-form.html'))
 })
 
 // form for admins to update a project
@@ -90,8 +90,9 @@ app.post('/projects', function(req, resp) {
 			, units: req.body.units	|| null
 			, status: req.body.status || ''
 			, picture: req.body.picture || ''
-			, statusCategory: determineStatusCategory(req.body.status)
-			, coordinates: [coords.latitude, coords.longitude]
+			, statusCategory: determineStatusCategory(req.body.status) || ''
+			, coordinates: [coords.latitude, coords.longitude] || []
+			, featured: req.body.featured || false
 		})
 
 		project.save(function(err){
@@ -108,6 +109,13 @@ app.post('/projects', function(req, resp) {
 	}.bind(this))
 })
 
+app.get('/projects/featured', function(req, resp) {
+	return Project.find({featured: true}, function(err, projects) {
+		if (err) resp.send(err)
+		resp.json(projects)
+	})
+})
+
 // get a particular project
 app.get('/projects/:project_id', function(req, resp){
 	var id = mongoose.Types.ObjectId(req.params.project_id)
@@ -121,12 +129,12 @@ app.get('/projects/:project_id', function(req, resp){
 // update / replace a particular project
 app.post('/projects/:project_id', function(req, resp) {
 	var id = mongoose.Types.ObjectId(req.params.project_id)
+	var newDoc = req.body
+	var options = null
 	
-	Project.findOne({_id: id}, function(err, project) {
-		for (var key in req.body) {
-			project[key] = req.body[key]
-		}
+	Project.findOneAndUpdate({_id: id}, newDoc, options, function(err, project) {
 		project.save()
+		resp.sendFile(path.join(__dirname, '/assets', '/project-submitted.html'))
 	})
 })
 
@@ -135,12 +143,12 @@ app.delete('/projects/:project_id', function(req, resp) {
 
 	Project.findOne({_id: id}, function(err, project) {
 		project.remove()
-		resp.send(200)
+		resp.sendStatus(200)
 	})
 })
 
 app.all('*', function(req, res){
-  res.send(404);
+  res.sendStatus(404);
 })
 
 // START THE SERVER

@@ -19,8 +19,7 @@ if (projectId !== 'projects') {
 				url: '/projects/' + projectId
 				, type: 'DELETE'
 				, success: function() {
-					console.log('success!')
-					$('form').replaceWith('<h2>' + project.address + ' deleted. </h2> <a href="/map"> Back to Home </a>')
+					$('form').replaceWith('<h2> ' + project.address + ' deleted. </h2> <a href="/map"> Back to Home </a>')
 				}
 			})
 		})
