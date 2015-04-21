@@ -138,6 +138,7 @@ var createGeoJSON = function createGeoJSON(projects){
 		        status: project.status || 'No status specified',
 		        statusCategory: project.statusCategory ||'No status specified',
 		        picture: project.picture || '',
+		        sponsorFirm: project.sponsorFirm || '',
 		        'marker-size': 'medium',
 		        'marker-color': markerColor || '#cccccc', 
 		        'marker-symbol': markerType

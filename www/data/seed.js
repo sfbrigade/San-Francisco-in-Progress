@@ -14,6 +14,7 @@ var projectSchema = new mongoose.Schema({
 	, status: String
 	, statusCategory: String
 	, coordinates: Array
+	, sponsorFirm: String
 });
 
 // database model
@@ -79,6 +80,7 @@ request(socrataURL, function(error, response, body) {
 					, status: project.beststat_group
 					, statusCategory: determineStatusCategory(project.beststat_group.trim())
 					, coordinates: [project.location_1.longitude, project.location_1.latitude]
+					, sponsorFirm: project.sponsor_firm
 				});
 
 				newProject.save(function(err){

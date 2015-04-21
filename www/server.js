@@ -39,6 +39,7 @@ var projectSchema = new mongoose.Schema({
 	, picture: String
 	, coordinates: Array
 	, featured: Boolean
+	, sponsorFirm: String
 })
 
 // database model
@@ -93,6 +94,7 @@ app.post('/projects', function(req, resp) {
 			, statusCategory: determineStatusCategory(req.body.status) || ''
 			, coordinates: [coords.latitude, coords.longitude] || []
 			, featured: req.body.featured || false
+			, sponsorFirm: req.body.sponsorFirm || ''
 		})
 
 		project.save(function(err){
