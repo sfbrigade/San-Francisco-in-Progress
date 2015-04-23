@@ -10,15 +10,17 @@ eventBus = _.extend({}, Backbone.Events);
 
 eventBus.on("select:project", function showProfile(project) {
 	// When a project is selected on the map:
-	// hide the sidebar filters
+	// hide the sidebar filters and project list
 	$("#collapse").addClass("hidden");
+	$("#projectList-container").addClass("hidden");
 	// show profile in the sidebar
 	React.render(React.createElement(ProjectProfile, { project: project }), document.getElementById("projectProfile-container"));
 });
 
 eventBus.on("close:profile", function toggleSidebarView() {
-	// show the filters again when a project profile is closed
+	// unhide sidebar content when a project profile is closed
 	$("#collapse").removeClass("hidden");
+	$("#projectList-container").removeClass("hidden");
 });
 
 // show the list of featured projects on page load
@@ -109,7 +111,7 @@ module.exports = React.createClass({
     var closeStyle = {
       float: "right",
       cursor: "pointer",
-      fontSize: "2em"
+      fontSize: "1.7em"
     };
 
     var imgStyle = {
@@ -120,7 +122,12 @@ module.exports = React.createClass({
       marginBottom: "10px"
     };
 
-    var inline = {
+    var editBtnStyle = {
+      display: "inline"
+    };
+
+    var addressStyle = {
+      color: "#5bc0de",
       display: "inline"
     };
 
@@ -135,15 +142,15 @@ module.exports = React.createClass({
         "div",
         { style: marginBottom },
         React.createElement(
-          "h2",
-          { style: inline },
+          "h3",
+          { style: addressStyle },
           " ",
           this.props.project.address,
           " "
         ),
         React.createElement(
           "a",
-          { href: this.createURL(), style: inline },
+          { href: this.createURL(), style: editBtnStyle },
           "(Edit)"
         )
       ),
@@ -178,14 +185,14 @@ module.exports = React.createClass({
       React.createElement(
         "h4",
         null,
-        " Net new housing: "
+        " Net new housing units: "
       ),
       React.createElement(
         "p",
         null,
         " ",
         this.props.project.units,
-        " units "
+        " "
       ),
       React.createElement(
         "h4",

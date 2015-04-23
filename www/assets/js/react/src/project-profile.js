@@ -35,7 +35,7 @@ module.exports = React.createClass({
     var closeStyle = {
       float: 'right',
       cursor: 'pointer',
-      fontSize: '2em'
+      fontSize: '1.7em'
     };
 
     var imgStyle = {
@@ -46,8 +46,13 @@ module.exports = React.createClass({
       marginBottom: '10px'
     }
 
-    var inline = {
+    var editBtnStyle = {
       display: 'inline'
+    }
+
+    var addressStyle = {
+      color: '#5bc0de'
+      , display: 'inline'
     }
 
     var projectImage = this.props.project.picture 
@@ -58,16 +63,16 @@ module.exports = React.createClass({
       <div className='projectProfile' style={containerStyle}>
         <div className='glyphicon glyphicon-remove' style={closeStyle} onClick={this.close}></div><br />
         <div style={marginBottom}>
-          <h2 style={inline}> {this.props.project.address} </h2>
-          <a href={this.createURL()} style={inline}>(Edit)</a>
+          <h3 style={addressStyle}> {this.props.project.address} </h3>
+          <a href={this.createURL()} style={editBtnStyle}>(Edit)</a>
         </div>
         <div>{projectImage}</div>
         <h4> Sponsor Firm: </h4> 
         <p>{this.props.project.sponsorFirm} </p>
         <h4> Status: </h4>
         <p> {this.props.project.status} </p>
-        <h4> Net new housing: </h4>
-        <p> {this.props.project.units} units </p>
+        <h4> Net new housing units: </h4>
+        <p> {this.props.project.units} </p>
         <h4> Description: </h4> 
         <p> {this.props.project.description} </p>
       </div>

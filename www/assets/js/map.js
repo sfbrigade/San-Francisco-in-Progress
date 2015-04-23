@@ -50,19 +50,20 @@ var bindEvents = function bindFilterEvents(){
     });
 
 	eventBus.on('select:project', function onShowProfile() {
-		$('#sidebar .btn').addClass('invisible');
+		$('#sidebar .btn').addClass('hidden');
 	})
     // when a project profile is dismissed, show all markers again
     eventBus.on('close:profile', function onCloseProfile() {
-    	$('#sidebar .btn').removeClass('invisible');
+    	$('#sidebar .btn').removeClass('hidden');
     	showAllMarkers();
     });
 
     $('#sidebar .btn').click(function(e) {
     	if ($(this).hasClass('btn-info')) return;
     	$('#sidebar .btn').toggleClass('btn-info btn-link'); // change active button
-    	$('#projectList-container').toggleClass('invisible'); // hide/show project list
-    	$('#filter-container').toggleClass('invisible'); // hide/show filters
+    	$('#projectProfile-container').toggleClass('hidden'); // hide/show project list
+    	$('#projectList-container').toggleClass('hidden'); // hide/show project list
+    	$('#filter-container').toggleClass('hidden'); // hide/show filters
     });
 
 };
