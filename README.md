@@ -6,9 +6,17 @@ Clone the repo from your command line
 
 `git clone git@github.com:jmcelroy5/SF-in-Progress.git`
 
-Change to the directory SF-in-Progress/www
+Change to the directory SF-in-Progress
 
-`cd SF-in-Progress/www`
+`cd SF-in-Progress`
+
+Install the npm libraries
+
+`npm install`
+
+Change to the www folder
+
+`cd www`
 
 Start the server
 
