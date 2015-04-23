@@ -156,7 +156,7 @@ app.all('*', function(req, res){
 // START THE SERVER
 // ================================================
 app.listen(port)
-console.log('SF in Progress is running. \n Open your browser and navigate to localhost:' + port + '/')
+console.log('SF in Progress is running. \n Open your browser and navigate to localhost:' + port + '/map')
 
 
 // UTILITY FUNCTIONS
