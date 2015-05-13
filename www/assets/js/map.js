@@ -239,11 +239,7 @@ var filterState = {
 		this[filterToSet][property] = newVal;
 		var map = window.map;
 		map.markers.setFilter(filterMapboxMarkers)
-		var zoom = map.getZoom();
-		var defaultInfo = neighborhoodInfo['all']
-		var neighborhood = neighborhoodInfo[property] || defaultInfo;
-		var mapCenter = neighborhood.center;
-		window.map.setView(mapCenter, zoom);
+		this.updateMapView(property)
 	},
 	setAllNeighborhoods: function(set){
 		// set is a boolean: true to select all and false to clear all
@@ -252,6 +248,14 @@ var filterState = {
 			filterState.neighborhood[key] = set;
 		});
 		window.map.markers.setFilter(filterMapboxMarkers)
+		this.updateMapView('all')
+	},
+	updateMapView: function (neighborhoodName) {
+		var zoom = map.getZoom();
+		var defaultInfo = neighborhoodInfo['all']
+		var neighborhood = neighborhoodInfo[neighborhoodName] || defaultInfo;
+		var mapCenter = neighborhood.center;
+		window.map.setView(mapCenter, zoom);
 	}
 };
 
