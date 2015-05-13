@@ -1,4 +1,5 @@
 var eventBus = _.extend({}, Backbone.Events)
+var neighborhoodInfo = window.app.neighborhoods;
 
 var tooltipTemplate = function tooltipTemplate(data){
 	var template = _.template($("#tooltip").html());
@@ -126,7 +127,7 @@ var createGeoJSON = function createGeoJSON(projects){
 		var markerGeoJson = {
     		type: "Feature",
 	        geometry: {
-	        	"type": "Point", 
+	        	"type": "Point",
 	        	"coordinates": project.coordinates
 	        },
 	        properties: {
@@ -141,7 +142,7 @@ var createGeoJSON = function createGeoJSON(projects){
 		        picture: project.picture || '',
 		        sponsorFirm: project.sponsorFirm || '',
 		        'marker-size': 'medium',
-		        'marker-color': markerColor || '#cccccc', 
+		        'marker-color': markerColor || '#cccccc',
 		        'marker-symbol': markerType
     		}
 		};
@@ -183,7 +184,7 @@ var showAllMarkers = function() {
 	window.map.markers.setFilter(filterMapboxMarkers)
 }
 
-var cachedGeoJSON 
+var cachedGeoJSON
 
 var filterState = {
 	projectSelected: null,
@@ -218,7 +219,7 @@ var filterState = {
 		"South of Market, Other": true,
 		"TB Combo": true,
 		"VisVal": true,
-		"Western Addition": true,	
+		"Western Addition": true,
 		"WSoMa": true
 	},
 	minimumUnits: 0,
@@ -236,7 +237,13 @@ var filterState = {
 		// newVal is a boolean (show or not show)
 		// filterToSet is the filter category (e.g. neighborhood)
 		this[filterToSet][property] = newVal;
-		window.map.markers.setFilter(filterMapboxMarkers)
+		var map = window.map;
+		map.markers.setFilter(filterMapboxMarkers)
+		var zoom = map.getZoom();
+		var defaultInfo = neighborhoodInfo['all']
+		var neighborhood = neighborhoodInfo[property] || defaultInfo;
+		var mapCenter = neighborhood.center;
+		window.map.setView(mapCenter, zoom);
 	},
 	setAllNeighborhoods: function(set){
 		// set is a boolean: true to select all and false to clear all
@@ -249,7 +256,7 @@ var filterState = {
 };
 
 var filterMapboxMarkers = function filterMapboxMarkers(marker){
-	// this function tells mapbox to filter markers 
+	// this function tells mapbox to filter markers
 	// to reflect the current filter state
 	if (filterState.neighborhood[marker.properties.neighborhood] &&
 		filterState.projectStatus[marker.properties.statusCategory] &&
@@ -258,7 +265,7 @@ var filterMapboxMarkers = function filterMapboxMarkers(marker){
 			return true;
 		}
 		return false
-	} 
+	}
 	else {
 		return false;
 	}
