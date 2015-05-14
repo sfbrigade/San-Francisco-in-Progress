@@ -1,0 +1,7 @@
+angular.module('sfip')
+
+.controller('AppCtrl', function ($rootScope) {
+  $rootScope.switchFocus = function (focus) {
+    $rootScope.pageTitle = focus;
+  };
+})

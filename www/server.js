@@ -15,7 +15,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 // where to serve static content
-app.use( express.static('./assets') )
+//app.use( express.static('./assets') )
+app.use( express.static('./app') )
 
 // set our port
 var port = process.env.PORT || 5000
@@ -51,7 +52,7 @@ var Project = mongoose.model('Project', projectSchema)
 
 // landing page
 app.get('/', function(req,resp){
-	resp.sendFile(path.join(__dirname, '/assets', '/index.html'))
+	resp.sendFile(path.join(__dirname, '/app', '/index.html'))
 })
 
 // interactive map page
@@ -156,7 +157,7 @@ app.all('*', function(req, res){
 // START THE SERVER
 // ================================================
 app.listen(port)
-console.log('SF in Progress is running. \n Open your browser and navigate to localhost:' + port + '/map')
+console.log('SF in Progress is running. \n Open your browser and navigate to localhost:' + port + '/')
 
 
 // UTILITY FUNCTIONS

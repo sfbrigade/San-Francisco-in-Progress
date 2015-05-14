@@ -1,0 +1,213 @@
+<div class="container">
+  <h1>Users</h1>
+  {{#if editableUser}}
+  {{#with editableUser}}
+  <h2>Edit user '{{id}}'</h2>
+  <form class="updatePassword" data-id="{{id}}">
+    <fieldset>
+      <label for="input-1">{{id}}'s password</label>
+      <input type="text" class="form-control" name="password" placeholder="password can not be empty">
+      <button class="btn" type="submit">Update password</button>
+      <span class="submitMessage"></span>
+    </fieldset>
+  </form>
+  <a href="#">back</a>
+  {{/with}}
+  {{else}}
+  <!--
+  <h2>Settings</h2>
+  <p>Configure whether users must confirm their signup and if yes, set up the email they will receive for this purpose.</p>
+  <form>
+    {{#if emailTransportNotConfigured}}
+    <section>
+      <div class="control-group">
+        <label>
+          Signup confirmation
+        </label>
+        <div class="controls">
+          <span class="note">Email needs to be configured in <a href="/modules/appconfig">Appconfig</a> before enabling signup confirmation</span>
+        </div>
+      </div>
+    </section>
+    {{else}}
+    <section>
+      <div class="control-group">
+        <label>
+          Signup confirmation
+        </label>
+        <div class="controls">
+          <label class="checkbox">
+            <input type="checkbox" name="confirmationMandatory" class="formCondition" data-conditions="true:.confirmationOptions"> is mandatory
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section class="confirmationOptions">
+      <div class="control-group">
+        <label>
+          From address
+        </label>
+        <div class="controls">
+          <input type="email" name="confirmationEmailFrom" value="{{config.confirmationEmailFrom}}" placeholder="{{defaultReplyMailAddress}}" required>
+          <span class="note">From address for all of your app's emails.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="confirmationOptions">
+      <div class="control-group">
+        <label>
+          Subject line
+        </label>
+        <div class="controls">
+          <input type="text" name="confirmationEmailSubject" value="{{config.confirmationEmailSubject}}" placeholder="Please confirm your signup at {{appInfo.name}}">
+        </div>
+      </div>
+    </section>
+
+    <section class="confirmationOptions">
+      <div class="control-group">
+        <label>
+          Body
+        </label>
+        <div class="controls">
+          <textarea rows="4" name="confirmationEmailText">{{config.confirmationEmailText}}</textarea>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="control-group">
+        <label>
+          &nbsp;
+        </label>
+        <div class="controls">
+          <button class="btn" type="submit">Update</button>
+        </div>
+      </div>
+    </section>
+    {{/if}}
+  </form>
+  <hr>
+  -->
+
+  <h2>Add new user</h2>
+  <form action="" class="addUser">
+    <fieldset>
+      <div class="group">
+        <label for="">New user's name</label>
+        <input type="text" class="form-control username" placeholder="User name" required="">
+        <label for="">New user's password</label>
+        <input type="text" class="form-control password" placeholder="Password" required="">
+        <button class="submit btn ok" type="submit">Add user</button>
+        <span class="submitMessage"></span>
+      </div>
+    </fieldset>
+  </form>
+
+  <h2>Additional databases for each user</h2>
+  <form action="" class="userDBs">
+    <fieldset>
+      <div class="group">
+        <label for="">Extra user databases</label>
+        <input type="text" name="userDatabases" pattern="([a-z, -])+" class="form-control search-query" placeholder="Databases"{{#if databases}} value="{{databases}}"{{/if}}>
+        <p class="help-block">Comma-separated list. Will generate a database called "userHash–databaseName" for each database entered, per user, i.e. "7nzj7rl-photos".</p>
+        <p class="help-block">Please only use lower case letters and dashes, separated by commas. Spaces will be stripped.</p>
+        <button class="storeDatabases btn ok" type="submit">Set extra databases</button>
+      </div>
+    </fieldset>
+  </form>
+
+  <h2>Search for users</h2>
+  <form action="" class="userSearch">
+    <fieldset>
+      <div class="group">
+        <label for="">Search term</label>
+        <input type="text" class="form-control search-query" placeholder="Username"{{#if searchQuery}} value="{{searchQuery}}"{{/if}}>
+        <p class="help-block">Search only applies to usernames.</p>
+        <button class="submit btn ok" type="submit">Search</button>
+        {{#if searchQuery}}
+        <button class="btn clearSearch">Clear search</button>
+        {{/if}}
+      </div>
+    </fieldset>
+  </form>
+
+  <h2>Your users</h2>
+  <div class="content centered">
+    <div class="tableStatus">
+      <p class="currentSearchTerm muted">{{{resultsDesc}}}</p>
+      <p class="currentSearchMetrics muted">Showing {{users.length}} of {{totalUsers}} users</p>
+    </div>
+    {{#if users}}
+    <table id="userList" class="table users table-striped">
+      <thead>
+        <tr>
+          <th data-sort-by="username">Username</th>
+          <th data-sort-by="signupDate">Signup date</th>
+          <th data-sort-by="state">State</th>
+          <th class="no-sort"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each users}}
+        <tr data-id="{{id}}" data-type="{{type}}" class="user">
+          <td>{{id}}</td>
+          <td data-sort="{{convertISOToTimestamp signedUpAt}}" class="timeago" title="{{signedUpAt}}">{{signedUpAt}}</td>
+          <td>
+            {{#if $error}}
+            <div class="inTableError">
+              <span class="error">{{$state}}</span><i class="icon-warning-sign"></i>
+              <div class="errorTooltip">
+                <i class="icon-warning-sign"></i><strong>{{$error.name}}</strong>
+                <p>{{$error.message}}</p>
+                <p><a href="{{linkToFutonUser name}}">{{id}}'s user page in Futon</a></p>
+              </div>
+            </div>
+            {{else}}
+            {{#inArray roles 'confirmed'}}
+            <span class="pill success">confirmed</span>
+            {{else}}
+            <span class="pill warn">unconfirmed</span>
+            {{/inArray}}
+            {{/if}}
+          </td>
+          <td class="no-sort">
+            <a href="#user/{{id}}" class="edit">edit</a> /
+            <a href="#" class="removeUserPrompt">delete</a> /
+            <a href="{{linkToFutonUser name}}">futon</a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{/if}}
+    {{#if users}}
+    <div class="tableStatus">
+      <p class="currentSearchTerm muted">{{{resultsDesc}}}</p>
+      <p class="currentSearchMetrics muted">Showing {{users.length}} of {{totalUsers}} users</p>
+    </div>
+    {{/if}}
+    {{/if}}
+  </div>
+
+  <div class="modal fade" id="confirmUserRemoveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button class="closeModal btn unobtrusive" data-dismiss="modal" aria-hidden="true">Cancel</button>
+          <button class="removeUser btn danger">Remove user</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

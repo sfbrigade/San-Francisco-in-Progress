@@ -1,0 +1,6 @@
+/data
+/node_modules
+/test/browser/emails
+.tmp
+.sass-cache
+/app/components

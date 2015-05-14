@@ -1,0 +1,23 @@
+exports.register = function (plugin, options, next) {
+
+  plugin.select('admin').route([
+    {
+      method: 'GET',
+      path: '/{p*}',
+      handler: {
+        directory: {
+          path: options.app.admin_root,
+          listing: false,
+          index: true
+        }
+      }
+    }
+  ]);
+
+  return next();
+};
+
+exports.register.attributes = {
+  pkg: require('./package.json')
+};
+
