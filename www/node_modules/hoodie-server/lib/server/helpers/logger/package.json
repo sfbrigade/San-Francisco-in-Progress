@@ -1,0 +1,10 @@
+{
+  "name": "logger",
+  "description": "",
+  "version": "0.3.0",
+  "main": "index",
+  "peerDependencies": {
+    "hapi": "2.x.x"
+  }
+}
+

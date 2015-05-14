@@ -1,0 +1,51 @@
+/* line 3, ../../app/styles/main.scss */
+.submitMessage {
+  margin-left: 0.5em;
+}
+
+/* line 7, ../../app/styles/main.scss */
+.modal .btn {
+  margin: 0;
+}
+
+/* line 13, ../../app/styles/main.scss */
+th.sort-header {
+  cursor: pointer;
+}
+
+/* line 16, ../../app/styles/main.scss */
+th.sort-header::-moz-selection,
+th.sort-header::selection {
+  background: transparent;
+}
+
+/* line 20, ../../app/styles/main.scss */
+table th.sort-header:after {
+  content: '';
+  position: absolute;
+  margin-top: 1em;
+  margin-left: 0.5em;
+  border-width: 0 4px 4px;
+  border-style: solid;
+  border-color: #404040 transparent;
+  visibility: hidden;
+}
+
+/* line 30, ../../app/styles/main.scss */
+table th.sort-header:hover:after {
+  visibility: visible;
+}
+
+/* line 33, ../../app/styles/main.scss */
+table th.sort-up:after,
+table th.sort-down:after,
+table th.sort-down:hover:after {
+  visibility: visible;
+  opacity: 0.4;
+}
+
+/* line 39, ../../app/styles/main.scss */
+table th.sort-up:after {
+  border-bottom: none;
+  border-width: 4px 4px 0;
+}

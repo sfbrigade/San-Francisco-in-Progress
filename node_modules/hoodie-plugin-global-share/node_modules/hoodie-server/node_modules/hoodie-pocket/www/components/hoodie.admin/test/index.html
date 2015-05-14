@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jasmine Test Runner</title>
+  <link rel="stylesheet" type="text/css" href="../vendor/jasmine/lib/jasmine-core/jasmine.css">
+  
+  <script src="../vendor/jasmine/lib/jasmine-core/jasmine.js"></script>
+  <script src="../vendor/jasmine/lib/jasmine-core/jasmine-html.js"></script>
+  <script src="../compiled/test/lib/jasmine-helpers.js"></script>
+
+  <!-- dependencies -->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/hoodie/hoodie.js"></script>
+
+  <!-- base classes -->
+  <script src="../compiled/src/hoodie_admin.js"></script>
+  <script src="../compiled/src/hoodie_admin.account.js"></script>
+  <script src="../compiled/src/hoodie_admin.app.js"></script>
+  <script src="../compiled/src/hoodie_admin.config.js"></script>
+  <script src="../compiled/src/hoodie_admin.logs.js"></script>
+  <script src="../compiled/src/hoodie_admin.plugins.js"></script>
+  <script src="../compiled/src/hoodie_admin.users.js"></script>
+  
+  <!-- mocks -->
+  <script src="../compiled/test/mocks/hoodie_admin.mock.js"></script>
+  <script src="../compiled/test/mocks/users_all_docs_response.mock.js"></script>
+
+  <!-- specs -->
+  <script src="../compiled/test/specs/hoodie_admin.spec.js"></script>
+  <script src="../compiled/test/specs/hoodie_admin.users.spec.js"></script>
+  
+</head>
+<body>
+  <script>
+    jas = jasmine.getEnv()
+    jas.addReporter(new jasmine.TrivialReporter()); 
+    jas.execute();
+  </script>
+</body>
+</html>

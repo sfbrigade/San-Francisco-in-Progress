@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"><head><title>hoodie_admin.account</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="hoodie_admin.account"><meta name="groc-project-path" content="src/hoodie_admin.account.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/hoodie_admin.account.coffee</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="hoodieadminaccount">HoodieAdmin.Account</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="c1">#</span>
+<span class="k">class</span> <span class="nx">HoodieAdmin</span><span class="p">.</span><span class="nx">Account</span> <span class="k">extends</span> <span class="nx">Hoodie</span><span class="p">.</span><span class="nx">Account</span></div></div></div><div class="segment"><div class="code"><div class="wrapper">  <span class="nv">constructor : </span><span class="nf">(@admin) -&gt;</span>
+    <span class="vi">@hoodie = </span><span class="nx">@admin</span><span class="p">.</span><span class="nx">hoodie</span>
+    
+    <span class="vi">@username = </span><span class="s">&#39;admin&#39;</span>
+    <span class="vi">@_requests = </span><span class="p">{}</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>hide useless methods</p></div></div><div class="code"><div class="wrapper">    <span class="nx">@</span><span class="p">[</span><span class="nx">method</span><span class="p">]</span> <span class="o">=</span> <span class="kc">undefined</span> <span class="k">for</span> <span class="nx">method</span> <span class="k">in</span> <span class="p">[</span>
+      <span class="s">&#39;signUp&#39;</span>
+      <span class="s">&#39;destroy&#39;</span>
+      <span class="s">&#39;anonymousSignUp&#39;</span>
+      <span class="s">&#39;hasAnonymousAccount&#39;</span>
+      <span class="s">&#39;setAnonymousPassword&#39;</span>
+      <span class="s">&#39;getAnonymousPassword&#39;</span>
+      <span class="s">&#39;removeAnonymousPassword&#39;</span>
+    <span class="p">]</span>
+  </div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h2 id="on">On</h2></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>shortcut for <code>hoodie.admin.on</code></p></div></div><div class="code"><div class="wrapper">  <span class="kc">on</span> <span class="o">:</span> <span class="nf">(event, cb) -&gt;</span> 
+    <span class="nv">event = </span><span class="nx">event</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/(^| )([^ ]+)/g</span><span class="p">,</span> <span class="s">&quot;$1account:$2&quot;</span>
+    <span class="nx">@admin</span><span class="p">.</span><span class="nx">on</span> <span class="nx">event</span><span class="p">,</span> <span class="nx">cb</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h2 id="trigger">Trigger</h2></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>shortcut for <code>hoodie.admin.trigger</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">trigger : </span><span class="nf">(event, parameters...) -&gt;</span> 
+    <span class="nx">@admin</span><span class="p">.</span><span class="nx">trigger</span> <span class="s">&quot;account:</span><span class="si">#{</span><span class="nx">event</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="nx">parameters</span><span class="p">...</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h2 id="request">Request</h2></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>shortcut for <code>hoodie.admin.request</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">request : </span><span class="nf">(type, path, options = {}) -&gt;</span>
+    <span class="nx">@admin</span><span class="p">.</span><span class="nx">request</span> <span class="nx">arguments</span><span class="p">...</span></div></div></div><div class="segment"><div class="code"><div class="wrapper">  <span class="nv">signIn : </span><span class="nf">(password) -&gt;</span>
+    <span class="nv">username = </span><span class="s">&#39;admin&#39;</span>
+    <span class="nx">@_sendSignInRequest</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span></div></div></div><div class="segment"><div class="code"><div class="wrapper">  <span class="nv">signOut : </span><span class="nf">(password) -&gt;</span>
+    <span class="nx">@_sendSignOutRequest</span><span class="p">().</span><span class="nx">then</span> <span class="o">=&gt;</span> <span class="nx">@trigger</span> <span class="s">&#39;signout&#39;</span>
+
+  <span class="c1">#</span>
+  <span class="nv">_handleAuthenticateRequestSuccess : </span><span class="nf">(response) =&gt;</span>
+    <span class="k">if</span> <span class="nx">response</span><span class="p">.</span><span class="nx">userCtx</span><span class="p">.</span><span class="nx">name</span> <span class="o">is</span> <span class="s">&#39;admin&#39;</span>
+      <span class="vi">@_authenticated = </span><span class="kc">true</span>
+      <span class="nx">@trigger</span> <span class="s">&#39;authenticated&#39;</span><span class="p">,</span> <span class="nx">@username</span>
+      <span class="nx">@hoodie</span><span class="p">.</span><span class="nx">resolveWith</span> <span class="nx">@admin</span>
+    <span class="k">else</span>
+      <span class="vi">@_authenticated = </span><span class="kc">false</span>
+      <span class="nx">@trigger</span> <span class="s">&#39;error:unauthenticated&#39;</span>
+      <span class="nx">@hoodie</span><span class="p">.</span><span class="nx">rejectWith</span><span class="p">()</span>
+
+  <span class="c1">#</span>
+  <span class="nv">_handleSignInSuccess : </span><span class="nf">(options = {}) =&gt;</span>
+    <span class="k">return</span> <span class="nf">(response) =&gt;</span>
+      <span class="nx">@trigger</span> <span class="s">&#39;signin&#39;</span><span class="p">,</span> <span class="nx">@username</span>
+      <span class="nx">@trigger</span> <span class="s">&#39;authenticated&#39;</span><span class="p">,</span> <span class="nx">@username</span>
+      <span class="nx">@hoodie</span><span class="p">.</span><span class="nx">resolveWith</span> <span class="nx">@admin</span>
+
+  <span class="c1">#</span>
+  <span class="nv">_userKey : </span><span class="nf">-&gt;</span>
+    <span class="s">&#39;admin&#39;</span></div></div></div></div></body></html>

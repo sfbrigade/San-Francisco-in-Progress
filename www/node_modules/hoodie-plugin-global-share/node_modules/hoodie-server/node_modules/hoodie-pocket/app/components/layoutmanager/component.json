@@ -1,0 +1,19 @@
+{
+  "name": "layoutmanager",
+  "version": "0.8.8",
+  "main": "backbone.layoutmanager.js",
+  "dependencies": {
+    "jquery": ">=1.6",
+    "underscore": "~1.4",
+    "backbone": "~1.0"
+  },
+  "gitHead": "6c304740365471c427c72a9dfd941793edce0303",
+  "readme": "Backbone.LayoutManager\n======================\n\n**v0.8.8** [![Build\nStatus](https://travis-ci.org/tbranyen/backbone.layoutmanager.png?branch=master)](https://travis-ci.org/tbranyen/backbone.layoutmanager)\n\nMaintained by Tim Branyen [@tbranyen](http://twitter.com/tbranyen) and Mike\nPennisi [@jugglinmike](http://twitter.com/jugglinmike), with help from [awesome\ncontributors](https://github.com/tbranyen/backbone.layoutmanager/contributors)!\n\nProvides a logical foundation for assembling layouts and views within Backbone.\nDesigned to be adaptive and configurable for painless integration.  Well\ntested, with full code coverage, in both the browser and Node.js environments.\n\nDepends on Underscore, Backbone, and jQuery.  You can swap out the dependencies\nwith a custom configuration.\n\n## Documentation ##\n\nhttp://layoutmanager.org/\n\n## Migrating from 0.7 ##\n\nhttp://layoutmanager.org/From-0.7-to-0.8\n\n## Release notes ##\n\n* Upgraded Cheerio dependency to v0.11.0.\n* Many optimizations and fixes to `getViews` by @jugglinmike.  This includes\n  fixes for issues like `removeView` on an invalid selector.\n* `cleanup` is now called with the proper context.\n* @SBoudrias added `.gitattributes` and `.editconfig` to ease development\n  stress for our contributors.\n* Fix provided by @adamdicarlo to fix a bug where re-rendering with\n  empty rendered contents would not replace the existing content.\n\n[Full Release\nLog](https://github.com/tbranyen/backbone.layoutmanager/blob/master/changelog.md)\n\n## Contributing ##\n\nPlease read and follow the [contribution\nguide](https://github.com/tbranyen/backbone.layoutmanager/blob/master/contributing.md)\nbefore contributing.\n\n**Running the unit tests in the browser**\n\nOpen `test/index.html` in your favorite browser to ensure LayoutManager works\nas expected.\n\n**Running the unit tests headless**\n\nInstall [Node.js](http://nodejs.org), [Grunt.js 0.4](http://gruntjs.com), and\nrun `npm install` inside the project directory.\n\nMake sure you've installed `grunt-cli` globally with:\n\n``` bash\n[sudo] npm install grunt-cli -g\n```\n\nRun `grunt` inside a terminal in the project directory to run the tests in both\na headless browser and Node.js environment.\n\n## Donate ##\n\nI do my very best to ensure top quality and continued progress with\nLayoutManager.  Developers using, but not contributing, may want to consider\nleaving a small donation to show their appreciation.\n\nAll funds collected will find their way to the [mspca](http://www.mspca.org/)\norganization.  Thanks! :)\n\n[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2Q5RWXT7SSSFG)\n",
+  "readmeFilename": "readme.md",
+  "_id": "layoutmanager@0.8.8",
+  "description": "Backbone.LayoutManager ======================",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tbranyen/backbone.layoutmanager"
+  }
+}

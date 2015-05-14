@@ -1,0 +1,8 @@
+{
+  "name": "backbone.subroute",
+  "version": "0.3.2",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ModelN/backbone.subroute.git"
+  }
+}

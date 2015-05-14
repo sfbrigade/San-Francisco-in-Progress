@@ -1,0 +1,55 @@
+#!/usr/bin/env node
+
+/**
+ * Dependencies
+ */
+
+var environment = require('../lib/core/environment');
+var hconsole = require('../lib/utils/hconsole');
+var app = require('../lib');
+
+
+// parse command-line arguments
+var argv = require('optimist')
+  .usage('Usage: $0 [options]')
+  .alias('w', 'www')
+  .describe('www', 'Set www root directory')
+  .describe('local-tld', 'Turn on local-tld on supported platforms')
+  .describe('no-local-tld', 'Turn off local-tld on supported platforms')
+  .alias('c', 'custom-ports')
+  .describe('custom-ports', 'Provide custom ports www,admin,couchdb')
+  .alias('h', 'help')
+  .describe('help', 'Show usage information')
+  .alias('v', 'verbose')
+  .describe('verbose', 'Shows more verbose console output')
+  .argv;
+
+/**
+ * Start a Hoodie server configured for the current
+ * platform and environment
+ */
+
+if (require.main === module) {
+
+  var env_config = environment.getConfig(
+    process.platform,   // platform
+    process.env,        // environment vars
+    process.cwd(),      // project directory
+    argv                // command-line arguments
+  );
+
+  if (argv.help) {
+    // show usage information
+    return require('optimist').showHelp();
+  }
+
+  app.start(env_config, function (err) {
+    if (err) {
+      hconsole.error(err);
+      process.exit(1);
+    }
+    // line break before logs
+    console.log('');
+  });
+}
+
