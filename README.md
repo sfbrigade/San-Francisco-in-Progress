@@ -14,12 +14,8 @@ Install the npm libraries
 
 `npm install`
 
-Change to the www folder
-
-`cd www`
-
 Start the server
 
 `npm start`
 
-Open your browser and navigate to localhost:5000/ or localhost:5000/map
+Open your browser and navigate to localhost:8888/ or localhost:8888/map
