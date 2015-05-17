@@ -15,6 +15,13 @@ var projectSchema = new mongoose.Schema({
 	, statusCategory: String
 	, coordinates: Array
 	, sponsorFirm: String
+	, planningId: String
+	, squareFeet: Number
+	, heightnum: Number
+	, heightLimit: String
+	, firstFiled: String
+	, blockLot: Number
+	, officialZoning: String
 });
 
 // database model
@@ -76,11 +83,18 @@ request(socrataURL, function(error, response, body) {
 					, neighborhood: project.planning_neighborhood
 					, description: project.planning_project_description || project.dbi_project_description
 					, zoning: determineZoning(project.zoning_generalized)
-					, units: project.units
+					, units: project.net_added_units
 					, status: project.beststat_group
 					, statusCategory: determineStatusCategory(project.beststat_group.trim())
 					, coordinates: [project.location_1.longitude, project.location_1.latitude]
 					, sponsorFirm: project.sponsor_firm
+					, planningId: project.planning_id
+					, squareFeet: parseInt(project.totalsqftestim)
+					, heightnum: parseInt(project.heightnum)
+					, heightlimit: project.heightlimit
+					, firstFiled: project.firstfiled
+					, blockLot: parseInt(project.block_lot)
+					, officialZoning: project.zoning
 				});
 
 				newProject.save(function(err){

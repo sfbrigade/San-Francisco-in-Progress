@@ -6,7 +6,7 @@
 	
 	<body>
 		<div class="form-container" style="width: 600px;margin: 50px;">
-			<form action="/projects" method="post">
+			<form action="https://docs.google.com/spreadsheets/d/1q2vLPp9TCan9eTrOBBOh40Htyi3EGyO9do3hQRRJu-Q/pubhtml?gid=0&single=true/formResponse" method="post">
 				<h2 id="title"> Add a Project to the Database </h2>
 				<button class="btn btn-danger invisible" style="margin-bottom:10px;">Delete this project</button>
 				<p> Make sure all fields are complete before submitting </p>
@@ -23,7 +23,7 @@
 
 			    <div class="form-group">
 			        <label for="inputUnits">Number of new residential units</label>
-			        <input name="units" type="number" class="form-control" placeholder="1">
+			        <input name="units" type="number" class="form-control" placeholder="Net units">
 			    </div>
 
 			    <div class="form-group">
@@ -48,7 +48,8 @@
 
 			    <div class="form-group">
 			    	<label>Neighborhood</label>
-				    <select name="neighborhood" class="form-control">
+				    <select id="neighborhood-dropdown" name="neighborhood" class="form-control">
+				    	<option></option>
 					    <option>Balboa Park</option>
 						<option>Bayshore</option>
 						<option>Bernal Heights</option>
@@ -81,7 +82,11 @@
 						<option>VisVal</option>
 						<option>Western Addition</option>
 						<option>WSoMa</option>
-				    </select>
+				    </select><br>
+				    <div style="float:right;">
+					    Other Neighborhood: 
+					    <input style="width:75%;" type="text" name="neighborhood" class="form-control"></input>
+					</div>
 				</div>
 				
 				<div class="form-group">
