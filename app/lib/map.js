@@ -1,5 +1,7 @@
 var eventBus = _.extend({}, Backbone.Events)
-var neighborhoodInfo = window.app.neighborhoods;
+var neighborhoodInfo = 	require('../../../../data/neighborhood-locations.json')
+;
+
 var polygonMap = window.app.neighborhoodPolygons = {};
 
 var tooltipTemplate = function tooltipTemplate(data){
