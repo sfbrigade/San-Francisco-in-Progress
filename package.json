@@ -1,82 +1,22 @@
 {
   "name": "sf-in-progress",
-  "version": "3.0.6",
-  "type": "app",
-  "dependencies": {
-    "body-parser": "^1.12.2",
-    "express": "^4.12.3",
-    "hoodie-plugin-appconfig": "^2.0.1",
-    "hoodie-plugin-email": "^1.0.0",
-    "hoodie-plugin-global-share": "^3.0.0",
-    "hoodie-plugin-users": "^2.2.1",
-    "hoodie-server": "^3.0.0",
-    "mongoose": "^4.0.1",
-    "path": "^0.11.14",
-    "underscore": "^1.8.2"
-  },
-  "files": [
-    "www/"
-  ],
-  "engines": {
-    "node": ">=0.10.22"
-  },
+  "version": "0.0.0",
+  "description": "",
   "scripts": {
-    "start": "node node_modules/hoodie-server/bin/start"
+    "reactbuild": "watchify -t 6to5ify assets/js/react/src/entry.js -o assets/js/react/bundle.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
-  "hoodie": {
-    "plugins": [
-      "hoodie-plugin-appconfig",
-      "hoodie-plugin-email",
-      "hoodie-plugin-users",
-      "hoodie-plugin-global-share"
-    ]
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "6to5ify": "^3.1.2",
+    "express": "^4.12.3",
+    "mongoose": "^4.0.1",
+    "watchify": "^2.2.1"
   },
-  "gitHead": "90265f3b94ff1b95d80856f9b40d02fd6315623a",
-  "description": "[![Dependency Status](https://david-dm.org/hoodiehq/my-first-hoodie.svg)](https://david-dm.org/hoodiehq/my-first-hoodie)",
-  "_id": "my-first-hoodie@3.0.6",
-  "_shasum": "100c28883de0d043681f5c52517b42654b7b1a67",
-  "_from": "my-first-hoodie@3.0.6",
-  "_npmVersion": "2.1.18",
-  "_nodeVersion": "0.10.32",
-  "_npmUser": {
-    "name": "gr2m",
-    "email": "gregor@martynus.net"
-  },
-  "maintainers": [
-    {
-      "name": "svnlto",
-      "email": "me@svenlito.com"
-    },
-    {
-      "name": "caolan",
-      "email": "caolan.mcmahon@gmail.com"
-    },
-    {
-      "name": "gr2m",
-      "email": "gregor@martynus.net"
-    },
-    {
-      "name": "jan",
-      "email": "jan@apache.org"
-    },
-    {
-      "name": "espy",
-      "email": "hello@alexfeyerke.com"
-    },
-    {
-      "name": "boennemann",
-      "email": "stephan@boennemann.me"
-    },
-    {
-      "name": "hoodiebot",
-      "email": "stephan@thehoodiefirm.com"
-    }
-  ],
-  "dist": {
-    "shasum": "100c28883de0d043681f5c52517b42654b7b1a67",
-    "tarball": "http://registry.npmjs.org/my-first-hoodie/-/my-first-hoodie-3.0.6.tgz"
-  },
-  "directories": {},
-  "_resolved": "https://registry.npmjs.org/my-first-hoodie/-/my-first-hoodie-3.0.6.tgz",
-  "readme": "ERROR: No README data found!"
+  "dependencies": {
+    "moment": "^2.9.0",
+    "react": "^0.12.2"
+  }
 }

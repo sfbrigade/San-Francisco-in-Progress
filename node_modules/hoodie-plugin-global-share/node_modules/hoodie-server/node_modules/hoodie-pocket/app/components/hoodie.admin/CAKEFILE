@@ -1,0 +1,78 @@
+fs      = require 'fs'
+{print} = require 'util'
+{spawn, exec} = require 'child_process'
+
+timeout = null
+compile = (callback, watch = false) ->
+  if watch
+    coffee = spawn 'coffee', ['-c', '-b', '-o', 'compiled', '-w', '.']
+  else
+    coffee = spawn 'coffee', ['-c', '-b', '-o', 'compiled', '.']
+  
+  coffee.stderr.on 'data', (data) ->
+    process.stderr.write data.toString()
+  coffee.stdout.on 'data', (data) ->
+    clear()
+    print data.toString()
+    
+    if callback and watch
+      clearTimeout timeout
+      timeout = setTimeout callback, 100
+    
+  coffee.on 'exit', (code) ->
+    callback?() if code is 0
+
+clear = ->
+  process.stdout.write '\u001B[2J\u001B[0;0f'
+
+test = ->
+  phantom = spawn 'phantomjs', ['test/lib/phantomjs_test_runner.coffee', 'test/index.html']
+  
+  phantom.stderr.on 'data', (data) ->
+    process.stderr.write data.toString()
+  phantom.stdout.on 'data', (data) ->
+    print data.toString()
+
+build = ->
+  # the files need to be in a specific order, 
+  # as some modules depend on others (e.g.
+  # AccountRemote > Remote)
+  files = """
+  src/hoodie_admin.coffee
+  src/hoodie_admin.account.coffee
+  src/hoodie_admin.app.coffee
+  src/hoodie_admin.config.coffee
+  src/hoodie_admin.logs.coffee
+  src/hoodie_admin.plugins.coffee
+  src/hoodie_admin.users.coffee
+  """.split("\n")
+  
+  console.log "concatinating files ..."
+  console.log files.join(" ")
+  coffee = spawn 'coffee', ['-j', 'hoodie.admin.js', '-c', '-b'].concat(files)
+  # coffee.on 'exit', (code) ->
+  #   console.log "minifying ..."
+  #   spawn 'uglifyjs', ['-o', 'hoodie.admin.min.js', 'hoodie.admin.js']
+  #   spawn 'uglifyjs', ['-o', 'hoodie.admin.min.js', 'hoodie.admin.js']
+
+task 'compile', 'Build lib/', ->
+  compile()
+
+task 'watch', 'Build lib/ and watch for changes', ->
+  compile(null, true)
+  
+task 'test', 'Run all test', ->
+  compile test
+    
+task 'autotest', 'Run all tests & rerun on file changes', ->
+  clearAndTest = -> 
+    clear()
+    test() 
+  
+  compile clearAndTest, true
+  
+task 'build', 'build hoodie.admin.js', -> 
+  build()
+
+task 'autobuild', 'rebuild hoodie.admin.js on change', ->
+  compile build, true

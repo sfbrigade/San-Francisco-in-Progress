@@ -1,0 +1,440 @@
+//@import "compass_twitter_bootstrap";
+@import "compass/css3/transform";
+@import "compass/css3/transition";
+@import "compass/css3/border-radius";
+
+/* apply a natural box layout model to all elements */
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+@mixin clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+    // Fixes Opera/contenteditable bug:
+    // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+// Image replacement / Hide text
+.ir {
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+// Self-clearing container
+
+@mixin group(){
+  &:after{
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.group {
+  @include group();
+}
+
+
+// Colors
+
+//$sidebarBG: #f4e8d1;
+$sidebarBG: #F7F2EC;
+$mainBG:    tint($sidebarBG, 75);
+
+$brown:     #693c10;
+$orange:    #e94e1b;
+$yellow:    #f9b233;
+$green:     #0b8e36;
+$red:       #be1522;
+$blue:      #312783;
+$black:     #121212;
+
+$bgBlue:    #DAEDF7;
+$bgGreen:   tint($green, 50);
+$bgYellow:  tint($yellow, 30);
+$bgRed:     tint($red, 50);
+$bgBrown:   tint($brown, 65);
+
+// Type
+
+body{
+  color: $brown;
+  background: $mainBG;
+  margin: 39px 20px 0
+}
+
+h2{
+  font-size: 20px;
+}
+
+a {
+  text-decoration: underline;
+  color: $brown;
+  //@include single-transition(color, 0.3s, ease-out, 0s);
+  position: relative;
+  padding: .5em;
+  margin: -.5em;
+}
+
+a:hover {
+  color: $brown;
+  text-decoration: none;
+}
+
+// Toggle areas
+
+fieldset.toggle{
+  border-top: 1px solid $brown;
+  legend.toggler{
+    cursor: pointer;
+    margin: 0 0 1em 0;
+    display: block;
+    text-indent: 2em;
+    width:auto;
+    padding-right: 1em;
+    font-size: 1em;
+    line-height: 1.5em;
+    color: $brown;
+    border: 0;
+    &:before{
+      content: "▶";
+      display: block;
+      position: absolute;
+      width: 12px;
+      height: 18px;
+      padding: 0 0 0 6px;
+      font-size: 8px;
+      @include border-radius(50%);
+      color: $mainBG;
+      background: $brown;
+      margin-top: 1px;
+      line-height: 18px;
+      text-indent: 0;
+    }
+    &.open{
+      &:before{
+        @include rotate(90deg);
+      }
+    }
+  }
+
+  .togglee{
+    display: none;
+    overflow: hidden;
+    border-bottom: 1px solid $brown;
+    padding: 0 2em 1em 2em;
+    margin: 0 0 1em 0;
+  }
+}
+
+// Notification badges, panels and alerts
+
+@mixin notificationsColors($bgColor) {
+  background: $bgColor;
+  color: shade($bgColor, 50);
+  border-color: shade($bgColor, 50);
+}
+
+.badge{
+  letter-spacing: 1px;
+  padding: 1px 8px 2px;
+  border: 1px solid white;
+  @include notificationsColors($bgBrown);
+}
+
+.panel{
+  letter-spacing: 1px;
+  border: 4px solid tint($yellow, 20);
+  @include notificationsColors($bgBrown);
+  @include border-radius(10px);
+  padding:6px 10px;
+  position: relative;
+  span{
+    font-size: 12px;
+    position: absolute;
+    margin-right: 5px;
+  }
+  h1{
+    text-align: center;
+    margin:20px 0;
+  }
+}
+
+.alert{
+  padding: 15px 35px 8px 14px;
+  border: 4px solid white;
+  @include border-radius(10px);
+  @include notificationsColors($bgBrown);
+}
+
+.badge-success,
+.alert-success,
+.panel.success{
+  @include notificationsColors($bgGreen);
+}
+.badge-warning,
+.alert-warning,
+.panel.warning{
+  @include notificationsColors($bgYellow);
+}
+.badge-error,
+.alert-error,
+.panel.error {
+ @include notificationsColors($bgRed);
+}
+.badge-info,
+.alert-info,
+.panel.info{
+  @include notificationsColors($bgBlue);
+}
+.badge-inverse,
+.alert-inverse,
+.panel.inverse{
+  background: $black;
+}
+
+// Forms
+
+.form-search input{
+  height: 30px;
+  @include border-radius(10px);
+  padding-top: 5px;
+}
+
+.pagination a{
+  margin: 0;
+  &:hover{
+    font-weight: normal;
+  }
+}
+.pagination span{
+  margin: 0;
+}
+// Lists
+
+.userSearch{
+  .form-search{
+    float:left;
+  }
+  .clearSearch{
+    margin-left: 30px;
+  }
+  .pagination{
+    height:30px;
+    a, span {
+      line-height: 28px;
+    }
+  }
+}
+.tableStatus{
+  display: block;
+  position: relative;
+  height: 20px;
+  .currentSearchTerm{
+    display: block;
+    float:left;
+  }
+  .currentSearchMetrics{
+    display: block;
+    float:right;
+  }
+}
+
+// Modules
+
+.module, form, .toggle{
+  legend{
+    margin-bottom: 10px;
+    line-height: 40px;
+    border-bottom: 1px solid $brown;
+    color: $brown;
+  }
+  .description, .error{
+    margin-bottom: 10px;
+    display: block;
+  }
+  .error{
+    margin-left: 165px;
+    color: $red;
+  }
+  section{
+    border-top: 1px solid tint($brown, 75);
+    padding-top: 10px;
+    @include clearfix();
+    overflow: hidden;
+    &.noBorder{
+      border: none;
+    }
+    .control-group{
+      margin-bottom: 6px;
+    }
+    .formLabel, label{
+      width: 30%;
+      float:left;
+      margin-top: 10px;
+      padding-right: 30px;
+      padding-bottom: 10px;
+    }
+    .form, .controls{
+      width: 70%;
+      //float:left;
+      margin-top: 5px;
+      padding-bottom: 6px;
+      .note{
+        font-size: 12px;
+        color: tint($brown, 50);
+        margin-top: 11px;
+        display: block;
+        margin-left: 7px;
+        width: 72%;
+      }
+      label.checkbox,
+      label.radio{
+        margin-top: 0;
+        min-height: 30px;
+        width: 80%;
+      }
+      input[type="radio"], input[type="checkbox"] {
+        margin-top: 3px;
+      }
+    }
+    .submitMessage{
+      margin-left: 10px;
+    }
+  }
+
+  select,
+  textarea,
+  input[type="text"],
+  input[type="password"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="week"],
+  input[type="number"],
+  input[type="email"],
+  input[type="url"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="color"],
+  .uneditable-input {
+    height: 30px;
+    display: block;
+    width: 75%;
+  }
+
+  textarea{
+    height: auto;
+    margin-bottom: 4px;
+    margin-top: 6px;
+  }
+}
+
+.form-horizontal{
+  .control-group{
+    margin-bottom: 6px;
+  }
+  .controls {
+    margin-left: 218px;
+  }
+}
+
+// Users module
+
+table.users a{
+  &:hover{
+    font-weight: normal;
+    text-decoration: underline;
+  }
+}
+
+.inTableError{
+  cursor: pointer;
+  &:hover > .errorTooltip{
+    display: block;
+  }
+}
+
+table.users .error{
+  color: $red;
+  margin-right: 8px;
+}
+
+table.users .warn{
+  color: $yellow;
+  margin-right: 8px;
+}
+
+.errorTooltip{
+  display: none;
+  position: absolute;
+  width: 250px;
+  background: #FFF;
+  padding: 1em;
+  border: 3px solid #EEE;
+  @include border-radius(5px);
+  margin-left: -180px;
+  margin-top: -2.55em;
+  strong{
+    margin-left: 8px;
+    text-transform: capitalize;
+  }
+}
+
+// tablesort styles
+
+th.sort-header {
+  cursor:pointer;
+}
+th.sort-header::-moz-selection,
+th.sort-header::selection {
+  background:transparent;
+}
+table th.sort-header:after {
+  content:'';
+  float:right;
+  margin-top:7px;
+  border-width:0 4px 4px;
+  border-style:solid;
+  border-color:#404040 transparent;
+  visibility:hidden;
+}
+table th.sort-header:hover:after {
+  visibility:visible;
+}
+table th.sort-up:after,
+table th.sort-down:after,
+table th.sort-down:hover:after {
+  visibility:visible;
+  opacity:0.4;
+}
+table th.sort-up:after {
+  border-bottom:none;
+  border-width:4px 4px 0;
+}
+
+// Modal changes
+//
+
+.modal{
+  outline: none;
+}
+
+.modal-backdrop{
+  background-color: $sidebarBG;
+}
+
+.modal-footer{
+  background-color: $sidebarBG;
+}
+

@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head><title>hoodie_admin.users</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="hoodie_admin.users"><meta name="groc-project-path" content="src/hoodie_admin.users.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/hoodie_admin.users.coffee</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="hoodieadminusers">HoodieAdmin.Users</h1></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>inherits from <a href="http://hoodiehq.github.com/hoodie.js/doc/hoodie/remote.html">Hoodie.Remote</a>
+and adds these extra methods:</p></div></div><div class="code"><div class="wrapper"><span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><ul>
+<li>total</li>
+<li>search</li>
+</ul></div></div><div class="code"><div class="wrapper"><span class="c1">#</span>
+<span class="k">class</span> <span class="nx">HoodieAdmin</span><span class="p">.</span><span class="nx">Users</span> <span class="k">extends</span> <span class="nx">Hoodie</span><span class="p">.</span><span class="nx">Remote</span>
+
+  <span class="nv">name   : </span><span class="s">&#39;_users&#39;</span>
+  <span class="nv">prefix : </span><span class="s">&#39;org.couchdb.user:&#39;</span>
+
+  <span class="nv">constructor: </span><span class="nf">(@admin) -&gt;</span>
+    <span class="vi">@hoodie = </span><span class="nx">@admin</span><span class="p">.</span><span class="nx">hoodie</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">@hoodie</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>sign ups new user, and signs out directly after</p></div></div><div class="code"><div class="wrapper">  <span class="nv">addTestUser: </span><span class="nf">(options = {}) -&gt;</span>
+    <span class="nv">hash  = </span><span class="s">&quot;test</span><span class="si">#{</span><span class="nx">hoodie</span><span class="p">.</span><span class="nx">uuid</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nv">email = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">hash</span><span class="si">}</span><span class="s">@example.com&quot;</span> 
+    <span class="nx">@_signUpUser</span><span class="p">(</span><span class="nx">hash</span><span class="p">,</span> <span class="nx">email</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>signs up multiple users</p></div></div><div class="code"><div class="wrapper">  <span class="nv">addTestUsers: </span><span class="nf">( nr = 1 ) -&gt;</span>
+    <span class="nv">timestamp = </span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">).</span><span class="nx">getTime</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nx">nr</span> <span class="o">&gt;</span> <span class="mi">10</span>
+      <span class="nx">@addTestUsers</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nx">then</span> <span class="o">=&gt;</span>
+        <span class="nx">nr</span> <span class="o">-=</span> <span class="mi">10</span>
+        <span class="nx">@addTestUsers</span><span class="p">(</span><span class="nx">nr</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="nv">promises = </span><span class="k">for</span> <span class="nx">i</span> <span class="k">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">..</span><span class="nx">nr</span><span class="p">]</span>
+        <span class="nx">@addTestUser</span><span class="p">()</span>
+
+    <span class="nx">$</span><span class="p">.</span><span class="nx">when</span> <span class="nx">promises</span><span class="p">...</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>gets a test user. If non exists yet, one gets created</p></div></div><div class="code"><div class="wrapper">  <span class="nv">getTestUser : </span><span class="nf">-&gt;</span>
+    <span class="nx">@findAll</span><span class="p">(</span><span class="s">&#39;user&#39;</span><span class="p">).</span><span class="nx">then</span> <span class="nf">(users) =&gt;</span>
+      <span class="k">if</span> <span class="nx">users</span><span class="p">.</span><span class="nx">length</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>get random user</p></div></div><div class="code"><div class="wrapper">        <span class="nv">user = </span><span class="nx">users</span><span class="p">[</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="nx">users</span><span class="p">.</span><span class="nx">length</span><span class="p">)];</span>
+        <span class="nv">username = </span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\//</span><span class="p">).</span><span class="nx">pop</span><span class="p">()</span>
+        <span class="nv">userHoodie = </span><span class="k">new</span> <span class="nx">Hoodie</span> <span class="nx">hoodie</span><span class="p">.</span><span class="nx">baseUrl</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\bapi\./</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">user</span><span class="p">.</span><span class="nx">ownerHash</span><span class="si">}</span><span class="s">-</span><span class="si">#{</span><span class="nx">hoodie</span><span class="p">.</span><span class="nx">uuid</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="si">}</span><span class="s">.api.&quot;</span><span class="p">)</span>
+        <span class="nx">userHoodie</span><span class="p">.</span><span class="nx">account</span><span class="p">.</span><span class="nx">signIn</span><span class="p">(</span> <span class="nx">username</span> <span class="p">).</span><span class="nx">then</span> <span class="nf">-&gt;</span> <span class="k">return</span> <span class="nx">userHoodie</span>
+      <span class="k">else</span>
+        <span class="nx">@addTestUser</span> <span class="nv">keepSignedIn : </span><span class="kc">true</span>
+
+
+
+  <span class="nv">removeAllTestUsers: </span><span class="nf">-&gt;</span>
+    <span class="nx">@hoodie</span><span class="p">.</span><span class="nx">rejectWith</span><span class="p">(</span><span class="nv">error: </span><span class="s">&quot;not yet implemented&quot;</span><span class="p">)</span>
+
+
+  <span class="nv">getTotal : </span><span class="nf">-&gt;</span>
+    <span class="nx">@findAll</span><span class="p">().</span><span class="nx">pipe</span> <span class="nf">(users) -&gt;</span> <span class="nx">users</span><span class="p">.</span><span class="nx">length</span>
+
+  <span class="nv">search : </span><span class="nf">(query) -&gt;</span>
+    <span class="nv">path = </span><span class="s">&quot;/_all_docs?include_docs=true&quot;</span>
+    <span class="nv">path = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">path</span><span class="si">}</span><span class="s">&amp;startkey=\&quot;org.couchdb.user:user/</span><span class="si">#{</span><span class="nx">query</span><span class="si">}</span><span class="s">\&quot;&amp;endkey=\&quot;org.couchdb.user:user/</span><span class="si">#{</span><span class="nx">query</span><span class="si">}</span><span class="s">|\&quot;&quot;</span>
+
+    <span class="nx">@request</span><span class="p">(</span><span class="s">&quot;GET&quot;</span><span class="p">,</span> <span class="nx">path</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">@_mapDocsFromFindAll</span><span class="p">).</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">@_parseAllFromRemote</span><span class="p">)</span>
+
+
+
+
+  <span class="c1">#</span>
+  <span class="nv">request : </span><span class="nf">(type, path, options = {}) -&gt;</span>
+    <span class="nv">path = </span><span class="s">&quot;/</span><span class="si">#{</span><span class="nb">encodeURIComponent</span> <span class="nx">@name</span><span class="si">}#{</span><span class="nx">path</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">@name</span>
+
+    <span class="nx">options</span><span class="p">.</span><span class="nx">contentType</span> <span class="o">or=</span> <span class="s">&#39;application/json&#39;</span>
+    <span class="k">if</span> <span class="nx">type</span> <span class="o">is</span> <span class="s">&#39;POST&#39;</span> <span class="o">or</span> <span class="nx">type</span> <span class="o">is</span> <span class="s">&#39;PUT&#39;</span>
+      <span class="nx">options</span><span class="p">.</span><span class="nx">dataType</span>    <span class="o">or=</span> <span class="s">&#39;json&#39;</span>
+      <span class="nx">options</span><span class="p">.</span><span class="nx">processData</span> <span class="o">or=</span> <span class="kc">false</span>
+      <span class="nv">options.data = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">options</span><span class="p">.</span><span class="nx">data</span>
+
+    <span class="nx">@admin</span><span class="p">.</span><span class="nx">request</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">options</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>filter out non-user docs</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_mapDocsFromFindAll : </span><span class="nf">(response) =&gt;</span>
+    <span class="nv">rows = </span><span class="nx">response</span><span class="p">.</span><span class="nx">rows</span><span class="p">.</span><span class="nx">filter</span> <span class="nf">(row) -&gt;</span> <span class="o">/^</span><span class="nx">org</span><span class="err">\</span><span class="p">.</span><span class="nx">couchdb</span><span class="err">\</span><span class="p">.</span><span class="nx">user</span><span class="o">:/</span><span class="p">.</span><span class="nx">test</span> <span class="nx">row</span><span class="p">.</span><span class="nx">id</span>
+    <span class="nx">rows</span><span class="p">.</span><span class="nx">map</span> <span class="nf">(row) -&gt;</span> <span class="nx">row</span><span class="p">.</span><span class="nx">doc</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>sign up user by PUTing a doc in _users</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_signUpUser : </span><span class="nf">(ownerHash, username, password = &#39;&#39;) -&gt;</span> 
+    <span class="k">unless</span> <span class="nx">username</span>
+      <span class="k">return</span> <span class="nx">@hoodie</span><span class="p">.</span><span class="nx">defer</span><span class="p">().</span><span class="nx">reject</span><span class="p">(</span><span class="nv">error: </span><span class="s">&#39;username must be set&#39;</span><span class="p">).</span><span class="nx">promise</span><span class="p">()</span>
+
+    <span class="nv">key = </span><span class="s">&quot;user/</span><span class="si">#{</span><span class="nx">username</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nv">db  = </span><span class="s">&quot;user/</span><span class="si">#{</span><span class="nx">ownerHash</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nv">now = </span><span class="k">new</span> <span class="nb">Date</span>
+    <span class="nv">id  = </span><span class="s">&quot;org.couchdb.user:</span><span class="si">#{</span><span class="nx">key</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="nv">url = </span><span class="s">&quot;/</span><span class="si">#{</span><span class="nb">encodeURIComponent</span> <span class="nx">id</span><span class="si">}</span><span class="s">&quot;</span>
+
+    <span class="nv">options =</span>
+      <span class="nv">data         :</span>
+        <span class="nv">_id        : </span><span class="nx">id</span>
+        <span class="nv">name       : </span><span class="nx">key</span>
+        <span class="nv">type       : </span><span class="s">&#39;user&#39;</span>
+        <span class="nv">roles      : </span><span class="p">[]</span>
+        <span class="nv">password   : </span><span class="nx">password</span>
+        <span class="nv">ownerHash  : </span><span class="nx">ownerHash</span>
+        <span class="nv">database   : </span><span class="nx">db</span>
+        <span class="nv">updatedAt  : </span><span class="nx">now</span>
+        <span class="nv">createdAt  : </span><span class="nx">now</span>
+        <span class="nv">signedUpAt : </span><span class="nx">now</span>
+
+    <span class="nx">@request</span><span class="p">(</span><span class="s">&#39;PUT&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span></div></div></div></div></body></html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="en"><head><title>hoodie_admin.app</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="hoodie_admin.app"><meta name="groc-project-path" content="src/hoodie_admin.app.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/hoodie_admin.app.coffee</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="hoodieadminapp">HoodieAdmin.App</h1></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>provides several methods to load app wide stats</p></div></div><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">HoodieAdmin</span><span class="p">.</span><span class="nx">App</span>
+
+  <span class="nv">constructor : </span><span class="nf">(@admin) -&gt;</span>
+    <span class="vi">@hoodie = </span><span class="nx">@admin</span><span class="p">.</span><span class="nx">hoodie</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h2 id="getappinfo">getAppInfo</h2></div></div></div><div class="segment"><div class="code"><div class="wrapper">  <span class="c1">#</span>
+  <span class="nv">getInfo : </span><span class="nf">-&gt;</span>
+
+    <span class="nv">defer = </span><span class="nx">@hoodie</span><span class="p">.</span><span class="nx">defer</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>dummy app info</p></div></div><div class="code"><div class="wrapper">    <span class="nv">info =</span>
+      <span class="nv">name: </span><span class="s">&quot;appName here&quot;</span>
+
+    <span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span> <span class="nf">-&gt;</span>
+      <span class="nx">defer</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">info</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nx">defer</span><span class="p">.</span><span class="nx">promise</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><h2 id="getstats">getStats</h2></div></div></div><div class="segment"><div class="code"><div class="wrapper">  <span class="c1">#</span>
+  <span class="nv">getStats : </span><span class="nf">(since) -&gt;</span>
+
+    <span class="nv">defer = </span><span class="nx">@hoodie</span><span class="p">.</span><span class="nx">defer</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>dummy stats</p></div></div><div class="code"><div class="wrapper">    <span class="nv">stats =</span>
+      <span class="nv">signups: </span><span class="mi">12</span>
+      <span class="nv">account_deletions: </span><span class="mi">3</span>
+      <span class="nv">users_active: </span><span class="mi">1302</span>
+      <span class="nv">users_total: </span><span class="mi">4211</span>
+      <span class="nv">growth: </span><span class="mf">0.04</span>
+      <span class="nv">active: </span><span class="o">-</span><span class="mf">0.02</span>
+      <span class="nv">since: </span><span class="nx">since</span>
+
+    <span class="k">unless</span> <span class="nx">since</span>
+      <span class="k">for</span> <span class="nx">key</span> <span class="k">of</span> <span class="nx">stats</span>
+        <span class="nx">stats</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">stats</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">*</span> <span class="mi">17</span>
+
+    <span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span> <span class="nf">-&gt;</span> <span class="nx">defer</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">stats</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nx">defer</span><span class="p">.</span><span class="nx">promise</span><span class="p">()</span></div></div></div></div></body></html>

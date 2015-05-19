@@ -1,0 +1,127 @@
+#sidebar {
+	display: inline-block;
+  width: 350px;
+  height: 80%;
+	position: absolute;
+  padding-left: 20px;
+  /* for gray map tiles*/
+	/*background-color: rgba(0, 59, 91, 0.73);*/
+  /* for colorful map tiles */
+  background-color: rgba(55, 59, 61, 0.67);
+	color: white;
+  overflow: scroll;
+  margin: 30px;
+  padding: 20px;
+  /* over the map */
+  z-index: 10;
+}
+
+#sidebar .btn,
+#sidebar a {
+  cursor: pointer;
+  color: white;
+}
+
+#sidebar li {
+	margin-left: -40px;
+}
+
+#collapse {
+  cursor: pointer;
+}
+
+#map-container {
+	position: absolute;
+	/* height of navbar */
+	top: 50px;
+	width: 100%; 
+	height: 100%;
+	display: inline-block;
+
+}
+
+.leaflet-popup-content {
+  min-width: 400px;
+}
+
+.leaflet-popup-content-wrapper {
+  min-width: 400px;
+}
+
+.map-container {
+ 	position: absolute;
+  /* height of navbar */
+ 	top: 82px;
+ 	bottom: 0;
+ 	width:100%;
+  /* so it goes under the sidebar */
+  z-index: 0;
+ }
+
+ /* Project Status Filters */
+
+.filter-status > .key {
+	width:20px;
+	height: 20px;
+	display: inline-block;
+	margin-bottom: -3px;
+}
+
+.filter-status > .key.blue{
+	background-color: #307de1;
+}
+
+.filter-status > .key.red{
+	background-color: #ff3b52;
+}
+
+.filter-status > .key.green{
+	background-color: #04ff54;
+}
+
+.filter-type img {
+	display: inline-block;
+}
+
+/* Num units slider */
+
+#min_units_display {
+  float: right;
+}
+
+/* FA icons */
+i {
+	cursor: pointer;
+}
+
+/*********************\
+    Basic reset
+\*********************/
+
+html, body{
+    margin: 0;
+    padding: 0;
+}
+ul {
+	list-style-type: none;
+}
+
+/* Utilities */
+
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+ 
+.clearfix:after {
+  clear: both;
+}
+ 
+.clearfix {
+  zoom: 1; /* ie 6/7 */
+}
+
+.hidden{
+  visibility: hidden;
+}

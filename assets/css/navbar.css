@@ -1,0 +1,85 @@
+/* ==========================================================================
+   Overriding Bootstrap Navbar Defaults
+   http://work.smarchal.com/twbscolor/
+   ========================================================================== */
+
+.navbar {
+  height: 50px;
+  margin-bottom: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.navbar img {
+  display: inline-block;
+  height: 50px;
+  margin-top: -28px;
+  width: 50px;
+  z-index: 35;
+}
+
+.navbar .name {
+  color: white;
+  display: inline-block;
+  margin-top: -15px;
+}
+
+.navbar-default {
+  background-color: #6b646b;
+  border-color: #bbbabb;
+}
+.navbar-default .navbar-brand {
+  color: #b4b3b3;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+  color: #ffffff;
+}
+.navbar-default .navbar-text {
+  color: #b4b3b3;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #b4b3b3;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  color: #ffffff;
+  background-color: #bbbabb;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  color: #ffffff;
+  background-color: #bbbabb;
+}
+.navbar-default .navbar-toggle {
+  border-color: #bbbabb;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: #bbbabb;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #b4b3b3;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #b4b3b3;
+}
+.navbar-default .navbar-link {
+  color: #b4b3b3;
+}
+.navbar-default .navbar-link:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #b4b3b3;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #ffffff;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #ffffff;
+    background-color: #bbbabb;
+  }
+}
