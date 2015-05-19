@@ -1,11 +1,11 @@
 window.app = window.app || {};
 window.app.neighborhoods = {
   "all": {
-    coordinates: [],
+    coordinates: [[37.76, -122.46],[37.77, -122.47],[38.77, -122.47],[37.77, -122.45]],
     center: [37.77, -122.47]
   },
   "Balboa Park": {
-    coordinates: [],
+    coordinates: [[37.73, -122.45],[37.77, -122.47],[38.73, -122.46],[37.75, -122.45]],
     center: [37.77, -122.47]
   },
   "Bayshore": {

@@ -1,5 +1,6 @@
 var eventBus = _.extend({}, Backbone.Events)
 var neighborhoodInfo = window.app.neighborhoods;
+var polygonMap = window.app.neighborhoodPolygons = {};
 
 var tooltipTemplate = function tooltipTemplate(data){
 	var template = _.template($("#tooltip").html());
@@ -248,14 +249,33 @@ var filterState = {
 			filterState.neighborhood[key] = set;
 		});
 		window.map.markers.setFilter(filterMapboxMarkers)
-		this.updateMapView('all')
+		this.updateMapView('all');
+	},
+	getOrDrawNeighborhood: function (neighborhoodName) {
+		if (polygonMap[neighborhoodName]) {
+			return polygonMap[neighborhoodName];
+		} else {
+			var neighborhood = neighborhoodInfo[neighborhoodName];
+			var polyCoords = neighborhood.coordinates;
+			return	L.polygon(polyCoords, { color: 'red' });
+		}
 	},
 	updateMapView: function (neighborhoodName) {
 		var zoom = map.getZoom();
 		var defaultInfo = neighborhoodInfo['all']
 		var neighborhood = neighborhoodInfo[neighborhoodName] || defaultInfo;
 		var mapCenter = neighborhood.center;
+		var neighborhoodPoly;
 		window.map.setView(mapCenter, zoom);
+		// Check if map is already showing
+		if (!polygonMap[neighborhoodName]) {
+			neighborhoodPoly = this.getOrDrawNeighborhood(neighborhoodName);
+			window.map.addLayer(neighborhoodPoly);
+		} else {
+			neighborhoodPoly = this.getOrDrawNeighborhood(neighborhoodName);
+			window.map.removeLayer(neighborhoodPoly);
+			delete polygonMap[neighborhoodName];
+		}
 	}
 };
 
