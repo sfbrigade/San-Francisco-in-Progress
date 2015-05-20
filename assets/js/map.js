@@ -20,7 +20,6 @@ var bindEvents = function bindFilterEvents(){
   	toggleSidebarContent()
   	showAllMarkers();
   })
-
 };
 
 // Event Handlers

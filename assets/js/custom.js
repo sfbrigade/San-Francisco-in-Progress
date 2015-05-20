@@ -1,5 +1,3 @@
-
-
 $(document).ready(function(){
   resizeLanding();
 
@@ -11,10 +9,6 @@ $(document).ready(function(){
         s.refresh($('.homeSlide'));
 
 });
-
-
-
-
 
 //Resize slideshow images on page ReLoad / reload
 function resizeLanding() {
@@ -31,8 +25,6 @@ $(window).scroll(function() {
         $(".navbar-fixed-top").removeClass("top-nav-collapse");
     }
 });
-
-
 
 //jQuery for page scrolling feature
 $(function() {

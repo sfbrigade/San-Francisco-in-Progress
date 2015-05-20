@@ -17,11 +17,12 @@
     "jquery": "2.1.4",
     "request": "^2.55.0",
     "body-parser": "^1.12.4",
+    "react-router": "^0.13.3",
     "node-geocoder": "^2.20",
     "watchify": "^2.2.1"
   },
   "dependencies": {
     "moment": "^2.9.0",
-    "react": "^0.12.2"
+    "react": "^0.13.2"
   }
 }
