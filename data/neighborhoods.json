@@ -1,0 +1,35 @@
+{
+       "neighborhoods": [
+              {"name": "Balboa Park", "label": "Balboa Park"}
+              , {"name": "Bayshore", "label": "Bayshore"}
+              , {"name": "Bernal Heights", "label": "Bernal Heights"}
+              , {"name": "Buena Vista", "label": "Buena Vista"}
+              , {"name": "BVHP Area A,B", "label": "Bayview"}
+              , {"name": "Candlestick", "label": "Candlestick"}
+              , {"name": "Central", "label": "Central"}
+              , {"name": "Central Waterfront", "label": "Central Waterfront"}
+              , {"name": "Downtown", "label": "Financial District"}
+              , {"name": "East SoMa", "label": "East SoMa"}
+              , {"name": "Executive Park", "label": "Executive Park"}
+              , {"name": "HP Shipyard", "label": "Hunters Point"}
+              , {"name": "India Basin", "label": "India Basin"}
+              , {"name": "Ingleside", "label": "Ingleside"}
+              , {"name": "Inner Sunset", "label": "Inner Sunset"}
+              , {"name": "Marina", "label": "Marina"}
+              , {"name": "Market Octavia", "label": "Market Octavia"}
+              , {"name": "The Mission", "label": "The Mission"}
+              , {"name": "Mission Bay", "label": "Mission Bay"}
+              , {"name": "Northeast", "label": "Northeast"}
+              , {"name": "Outer Sunset", "label": "Outer Sunset"}
+              , {"name": "Park Merced", "label": "Park Merced"}
+              , {"name": "Richmond", "label": "Richmond"}
+              , {"name": "Rincon Hill", "label": "Rincon Hill"}
+              , {"name": "Showpl/Potrero", "label": "Potrero Hill"}
+              , {"name": "South Central, Other", "label": "South Central"}
+              , {"name": "South of Market, Other", "label": "SOMA"}
+              , {"name": "TB Combo", "label": "TB Combo"}
+              , {"name": "VisVal", "label": "Visitacion Valley"}
+              , {"name": "Western Addition", "label": "Western Addition"}
+              , {"name": "WSoMa", "label": "West SoMa"}
+       ]
+}
