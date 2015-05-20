@@ -15,8 +15,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 // where to serve static content
-//app.use( express.static('./assets') )
-app.use( express.static('./app') )
+app.use( express.static('./assets') )
+// app.use( express.static('./app') )
 
 // set our port
 var port = process.env.PORT || 5000
@@ -34,7 +34,7 @@ var projectSchema = new mongoose.Schema({
 	, neighborhood: String
 	, description: String
 	, zoning: String
-	, units: Number	
+	, units: Number
 	, status: String
 	, statusCategory: String
 	, picture: String
@@ -52,7 +52,7 @@ var Project = mongoose.model('Project', projectSchema)
 
 // landing page
 app.get('/', function(req,resp){
-	resp.sendFile(path.join(__dirname, '/app', '/index.html'))
+	resp.sendFile(path.join(__dirname, '/assets', '/index.html'))
 })
 
 // interactive map page
@@ -60,7 +60,7 @@ app.get('/map', function(req,resp){
 	resp.sendFile(path.join(__dirname, '/assets', '/map.html'))
 })
 
-// form for admins to add new projects 
+// form for admins to add new projects
 app.get('/admin/projects/', function(req, resp) {
 	resp.sendFile(path.join(__dirname, '/assets', '/admin-form.html'))
 })
@@ -134,7 +134,7 @@ app.post('/projects/:project_id', function(req, resp) {
 	var id = mongoose.Types.ObjectId(req.params.project_id)
 	var newDoc = req.body
 	var options = null
-	
+
 	Project.findOneAndUpdate({_id: id}, newDoc, options, function(err, project) {
 		project.save()
 		resp.sendFile(path.join(__dirname, '/assets', '/project-submitted.html'))
