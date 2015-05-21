@@ -1,72 +1,44 @@
-var eventBus = _.extend({}, Backbone.Events)
-
-var tooltipTemplate = function tooltipTemplate(data){
-	var template = _.template($("#tooltip").html());
-	return template(data);
-};
+window.eventBus = _.extend({}, Backbone.Events)
 
 var bindEvents = function bindFilterEvents(){
-	// Add event listeners to filter checkboxes
-	$("#legend .filter-status input").on('click', function(e){
-		var property = $(e.currentTarget).attr('name');
-		var newVal = $(e.currentTarget).prop('checked');
-		filterState.setOne(property, newVal, 'projectStatus');
-	});
-	$("#legend .filter-type input").on('click', function(e){
-		var property = $(e.currentTarget).attr('name');
-		var newVal = $(e.currentTarget).prop('checked');
-		filterState.setOne(property, newVal, 'developmentType');
-	});
-	$("#sidebar input").on('click', function(e){
-		var property = $(e.currentTarget).attr('name');
-		var newVal = $(e.currentTarget).prop('checked');
-		filterState.setOne(property, newVal, 'neighborhood');
-	});
-	$("#select-all").on('click', function(){
-		filterState.setAllNeighborhoods(true);
-	});
-	$("#clear-all").on('click', function(){
-		filterState.setAllNeighborhoods(false);
-	});
 
-	//make all checkboxes look selected
+	//make all checkboxes look selected to start out
+	// TODO : move this to react
 	$("#sidebar input").prop("checked", true);
 	$("#legend input").prop("checked", true);
 
-	// set up slider for unit range -- Eric
-	$("#min_units").on('change', function(e) {
-		filterState.minimumUnits = e.target.value;
-		filterMapboxMarkers();
-	});
-
-	$("#min_units").on('change input', function(e) {
-		$("#min_units_display").html(e.target.value);
-	});
-
-	$( "#collapse" ).accordion({
-      collapsible: true,
-      active: false,
-      heightStyle: 'content'
-    });
-
-	eventBus.on('select:project', function onShowProfile() {
-		$('#sidebar .btn').addClass('hidden');
+	// when a project is selected from the list
+	window.eventBus.on('select:profile', function onExpandProfile(project) {
+		console.log('why does select:profile work here?')
+		toggleSidebarContent()
+		filterState.projectSelected = project._id
+		window.map.markers.setFilter(filterMapboxMarkers)
 	})
-    // when a project profile is dismissed, show all markers again
-    eventBus.on('close:profile', function onCloseProfile() {
-    	$('#sidebar .btn').removeClass('hidden');
-    	showAllMarkers();
-    });
 
-    $('#sidebar .btn').click(function(e) {
-    	if ($(this).hasClass('btn-info')) return;
-    	$('#sidebar .btn').toggleClass('btn-info btn-link'); // change active button
-    	$('#projectProfile-container').toggleClass('hidden'); // hide/show project list
-    	$('#projectList-container').toggleClass('hidden'); // hide/show project list
-    	$('#filter-container').toggleClass('hidden'); // hide/show filters
-    });
+  // when a project profile is dismissed,
+  window.eventBus.on('close:profile', function onCloseProfile () {
+  	toggleSidebarContent()
+  	showAllMarkers();
+  })
 
 };
+
+// Event Handlers
+
+// var toggleSidebarContent = function toggleSidebarContent() {
+// 	$('#collapse').toggleClass('hidden');
+// 	$('#projectList-container').toggleClass('hidden');
+// 	$('#sidebar .btn').toggleClass('hidden');
+// }
+
+// var toggleSidebarNav = function toggleSidebarNav() {
+// 	// toggle between project list and filters
+//   if ($(this).hasClass('btn-info')) return; // return if button is already active
+// 	$('#sidebar .btn').toggleClass('btn-info btn-link'); // change active button
+// 	$('#projectProfile-container').toggleClass('hidden'); // hide/show project profile
+// 	$('#projectList-container').toggleClass('hidden'); // hide/show project list
+// 	$('#filter-container').toggleClass('hidden'); // hide/show filters
+// }
 
 var initializeMap = function initializeMap(){
 	L.mapbox.accessToken = 'pk.eyJ1Ijoiam1jZWxyb3kiLCJhIjoiVVg5eHZldyJ9.FFzKtamuKHb_8_b_6fAOFg';
@@ -134,7 +106,7 @@ var createGeoJSON = function createGeoJSON(projects){
 		        address: project.address || 'Address not specified',
 		        neighborhood: project.neighborhood || 'Neighborhood not specified',
 		        description: project.description || 'No description',
-		     	zoning: project.zoning || 'No zoning specified',
+		     		zoning: project.zoning || 'No zoning specified',
 		        units: project.units || 'Units unknown',
 		        status: project.status || 'No status specified',
 		        statusCategory: project.statusCategory ||'No status specified',
@@ -151,7 +123,6 @@ var createGeoJSON = function createGeoJSON(projects){
 	});
 	return featureCollection;
 };
-
 
 var setOneActiveMarker = function(marker) {
 	window.map.markers.setGeoJSON(marker);
@@ -170,8 +141,8 @@ var placeMarkers = function(geoJSON){
 		var marker = e.layer.toGeoJSON();
 		// clear all except the active marker
 		setOneActiveMarker(marker)
-		// trigger event w/ project so profile renders
-		eventBus.trigger('select:project', project)
+		// event w/ project so profile renders
+		window.eventBus.trigger('select:project', project)
 	})
 
 	// so we can access it later
@@ -221,15 +192,15 @@ var filterState = {
 		"Western Addition": true,	
 		"WSoMa": true
 	},
-	minimumUnits: 0,
-	developmentType: {
+	projectStatus: {
+		construction: true
+		, building: true
+		, planning: true
+	}
+	, minimumUnits: 0
+	, developmentType: {
 		"Mixed Use": true,
 		"Residential": true
-	},
-	projectStatus: {
-		"construction": true,
-		"planning": true,
-		"building": true
 	},
 	setOne: function(property, newVal, filterToSet){
 		// property is the filter name (e.g. Bayshore)
@@ -248,9 +219,18 @@ var filterState = {
 	}
 };
 
+var filterForOneMarker = function filterForOneMarker (id) {
+
+}
+
 var filterMapboxMarkers = function filterMapboxMarkers(marker){
 	// this function tells mapbox to filter markers 
 	// to reflect the current filter state
+	if (filterState.projectSelected && 
+		marker.properties.id === filterState.projectSelected) {
+		filterState.projectSelected = null
+		return true;
+	}
 	if (filterState.neighborhood[marker.properties.neighborhood] &&
 		filterState.projectStatus[marker.properties.statusCategory] &&
 		filterState.developmentType[marker.properties.zoning]) {

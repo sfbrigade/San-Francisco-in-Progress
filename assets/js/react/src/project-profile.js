@@ -1,8 +1,5 @@
-
 var React = require('react')
 , Backbone = require('backbone');
-
-eventBus = _.extend({}, Backbone.Events)
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -24,7 +21,7 @@ module.exports = React.createClass({
     var projectProfile = this.getDOMNode()
     React.unmountComponentAtNode(projectProfile)
     $(projectProfile).remove()
-    eventBus.trigger('close:profile')
+    window.eventBus.trigger('close:profile')
   },
   render: function() {
     var containerStyle = {
