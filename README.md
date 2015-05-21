@@ -14,10 +14,6 @@ Install the npm libraries
 
 `npm install`
 
-Change to the www folder
-
-`cd www`
-
 Start the server
 
 `npm start`
