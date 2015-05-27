@@ -34,7 +34,7 @@ SF In Progress is an open source project with the goal of creating more awarenes
 Any additions to the tech stack should first be discussed and agreed upon by project contributors as a group to keep it as newcomer friendly as possible.
 
 ### Getting Started
-To get started, simply fork the project and follow the instructions in the readme file to setup a local development environment.
+To get started, simply fork the project and follow the above instructions to setup a local development environment.
 
 ### What to Work On
 We use Trello to keep track of bugs/new features we want to implement. Please e email (some@email) to get an invite and pick an issue you would like to work on.
