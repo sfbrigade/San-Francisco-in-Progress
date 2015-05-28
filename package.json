@@ -12,6 +12,9 @@
   "devDependencies": {
     "6to5ify": "^3.1.2",
     "express": "^4.12.3",
+    "body-parser": "^1.12",
+    "request": "^2.55",
+    "node-geocoder": "^2.21",
     "mongoose": "^4.0.1",
     "watchify": "^2.2.1"
   },
