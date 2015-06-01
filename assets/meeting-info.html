@@ -1,0 +1,103 @@
+<html>
+
+<head>
+
+<title>Planning Meeting Submission</title>
+
+<link rel="stylesheet" href="css/meeting-info.css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,300|Open+Sans+Condensed:300|Raleway:400,900,800' rel='stylesheet' type='text/css'>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+<!-- BEGIN Navigation Bar-->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll bar" href="#page-top">
+                    <span id = "logo" class = "large">SF in Progress</span>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a class="bar" href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll bar" href="/map">Projects</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll bar" href="#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll bar" href="#contact-us">Contact Us</a>
+                    </li>
+                    <li>
+                       <a class="bar" href="/admin/projects"><div id= "project-submit">submit a project</div></a>
+                    </li>
+										<li> 
+                       <a class="bar" href="/update"><div id= "project-update">update a project</div></a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+<!-- END OF NAVIGATION BAR -->
+
+<div id="content">
+
+<div id="form-container">
+  <div id="title">
+		Update planning meeting information 
+  </div>
+	<form method="post" id="form">
+		<ul class="form">
+		  <li>
+		    Project Address
+		  </li>
+			<li>
+				<!-- drop down list populated with projects from database -->
+				<input >
+			</li>
+		  <li>
+		    Meeting Date
+		  </li>
+			<li id="datechooser">
+				<!-- pop-up calendar -->
+			</li>
+		  <li>
+		    Meeting Time
+		  </li>
+			<li>
+				<!-- time chooser -->
+				<input type="time">
+			</li>
+		  <li>
+		    Meeting Location
+		  </li>
+			<li>
+				<!-- manual input for address -->
+				<input type="text">
+			</li>
+		</ul><br />
+		<button type="submit">Submit</button>
+	</form>
+</div>
+</div>
+<script src="js/meeting-info-form.js"></script>
+<script src="js/jquery.js"></script>
+
+</body>
+
+</html>
