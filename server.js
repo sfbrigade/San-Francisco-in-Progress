@@ -28,22 +28,44 @@ mongoose.connect( 'mongodb://jmcelroy:sfinprogress@ds061731.mongolab.com:61731/s
 
 // database schema
 var projectSchema = new mongoose.Schema({
-	address: String
-	, city: String
-	, neighborhood: String
-	, description: String
-	, zoning: String
-	, units: Number	
-	, status: String
-	, statusCategory: String
-	, picture: String
-	, coordinates: Array
-	, featured: Boolean
-	, sponsorFirm: String
+  address: String
+  , city: String
+  , neighborhood: String
+  , description: String
+  , zoning: String
+  , units: Number 
+  , status: String
+  , statusCategory: String
+  , picture: String
+  , coordinates: Array
+  , featured: Boolean
+  , sponsorFirm: String
+})
+
+var projectHearingSchema = new mongoose.Schema({
+  project_id: ObjectId
+  , type: String  // continuance, consent, regular, review
+  , id: String
+  , representative: {
+    name: String
+    , phone: String
+  }
+  , description: String
+  , preliminary_recommendation: String
+  , final_recommendation: String
+})
+
+var commissionHearingSchema = new mongoose.Schema({
+  start_time: Date
+  end_time: Date
+  , address: String
+  , agenda: [projectHearingSchema]
 })
 
 // database model
 var Project = mongoose.model('Project', projectSchema)
+var ProjectHearing = mongoose.model('ProjectHearing', projectHearingSchema)
+var CommissionHearing = mongoose.model('ComissionHearing', commissionHearingSchema)
 
 
 // ROUTES
