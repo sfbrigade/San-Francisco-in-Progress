@@ -23,7 +23,11 @@
 	color: #10A1FF;
 	font-weight: 200;
 	text-shadow: 2px 2px 2px #e5e4e4;
-} 
+}
+
+#property-image {
+	width: 100%;
+}
 
 .upload-btn, .project-brief-text, .community-benefits-text, .other-info-text, .supervisor-input {
 	border: 2px solid #10A1FF;

@@ -4,19 +4,19 @@
   <head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/admin-form.css" rel="stylesheet">
+    <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js" charset="utf-8">
+
+    </script>
   </head>
 
   <body>
-    <div class="form-container">
+    <div class="form-container container-fluid">
       <form action="/projects" method="post">
-
-
         <nav class="header navbar">
           <h2>Welcome! Submit a new property</h2>
           <button type="submit" class="navbar-right btn btn-default publish">Publish</button>
           <span class="navbar-right h4 email-us">E-mail Us</span>
         </nav>
-
 
         <div class="project navbar">
           <div class="row">
@@ -71,30 +71,30 @@
 
         <div class="container-fluid">
           <div class="row">
-            <div class="col-xs-1 col-md-1 column">
+            <div class="col-xs-4">
               <div class="left-col">
                 <h5>Your images will be all expandable</h5>
-                <button class="btn btn-default upload-btn">Click to upload image</button>
+                <button id='upload-button' class="btn btn-default upload-btn">Click to upload image</button>
+                <input id="property-image-url" type="text" class="hidden" name="name" value="">
+                <img id="property-image" src="" alt="" class="hidden" />
               </div>
               <div class="left-col">
                 <h4 class="project-brief">Project Brief</h4>
                 <textarea type="text" class="project-brief-text" placeholder="In addition to your images, this is the first content your visitors will see."></textarea>
               </div>
             </div>
-            <div class="col-xs-1 col-md-1 column">
+            <div class="col-xs-4">
               <div>
                 <h3>Community Benefits</h3>
                 <textarea type="text" class="community-benefits-text" placeholder="Enter information including community benefits, monetary contribution to public use areas, your transit strategy, or any other ways your project benefits the community."></textarea>
               </div>
             </div>
-            <div class="col-xs-1 col-md-1 column">
+            <div class="col-xs-4">
               <div>
                 <h3>Other Info</h3>
                 <textarea type="text" class="other-info-text"></textarea>
               </div>
             </div>
-
-
           </div>
         </div>
       </form>
