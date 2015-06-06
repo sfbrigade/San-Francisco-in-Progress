@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 // where to serve static content
-app.use( express.static('./assets') )
+app.use( express.static('assets') )
 
 // set our port
 var port = process.env.PORT || 5000
