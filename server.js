@@ -83,8 +83,8 @@ app.get('/map', function (req,resp){
 })
 
 // form for admins to add new projects
-app.get('/admin/projects/', function (req, resp) {
-	resp.sendFile(path.join(__dirname, '/assets', '/admin-form.html'))
+app.get('/projects/new', function (req, resp) {
+	resp.sendFile(path.join(__dirname, '/assets', '/submission-form.html'))
 })
 
 // form for admins to update a project
