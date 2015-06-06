@@ -24,8 +24,9 @@ if (projectId !== 'projects') {
 			})
 		})
 	})
+}
 
-$('.upload-btn').on('click', function(argument){
+$('#upload-button').on('click', function(argument){
 	filepicker.setKey("AeM62uStiTHCOvwWEpFipz");
 	filepicker.pick(
 	  function(Blob){
@@ -34,6 +35,5 @@ $('.upload-btn').on('click', function(argument){
 			$('#property-image').attr('src', Blob.url);
 			$('#property-image').removeClass('hidden');
 	  }
-	);
+	)
 })
-}

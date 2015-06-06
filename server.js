@@ -25,16 +25,17 @@ var port = process.env.PORT || 5000
 
 // connect to database
 mongoose.connect('mongodb://jmcelroy:sfinprogress@ds061731.mongolab.com:61731/sf-in-progress')
-
 // database schema
 var projectSchema = new mongoose.Schema({
   address: String
   , city: String
   , neighborhood: String
   , description: String
+	, benefits: String
   , zoning: String
-  , units: Number 
+  , units: Number
   , status: String
+	, supervisor: String
   , statusCategory: String
   , picture: String
   , coordinates: Array
@@ -81,7 +82,7 @@ app.get('/map', function (req,resp){
 	resp.sendFile(path.join(__dirname, '/assets', '/map.html'))
 })
 
-// form for admins to add new projects 
+// form for admins to add new projects
 app.get('/admin/projects/', function (req, resp) {
 	resp.sendFile(path.join(__dirname, '/assets', '/admin-form.html'))
 })
@@ -105,13 +106,15 @@ app.get('/projects', function (req, resp){
 app.post('/projects', function(req, resp) {
 	var saveProject = function(coords) {
 		var project = new Project({
-			address: req.body.address || ''
+			name: req.body.name || ''
+			, address: req.body.address || ''
 			, city: req.body.city
 			, neighborhood: req.body.neighborhood || ''
 			, description: req.body.description || ''
 			, zoning: req.body.zoning || ''
 			, units: req.body.units	|| null
 			, status: req.body.status || ''
+			, website: req.body.website || ''
 			, picture: req.body.picture || ''
 			, statusCategory: determineStatusCategory(req.body.status) || ''
 			, coordinates: [coords.latitude, coords.longitude] || []
@@ -155,7 +158,7 @@ app.post('/projects/:project_id', function(req, resp) {
 	var id = mongoose.Types.ObjectId(req.params.project_id)
 	var newDoc = req.body
 	var options = null
-	
+
 	Project.findOneAndUpdate({_id: id}, newDoc, options, function(err, project) {
 		project.save()
 		resp.sendFile(path.join(__dirname, '/assets', '/project-submitted.html'))
