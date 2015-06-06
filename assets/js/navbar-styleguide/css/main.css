@@ -1,0 +1,213 @@
+#sidebar {
+	display: inline-block;
+  width: 350px;
+  height: 80%;
+	position: absolute;
+  padding-left: 20px;
+  /* for gray map tiles*/
+	/*background-color: rgba(0, 59, 91, 0.73);*/
+  /* for colorful map tiles */
+  background-color: rgba(55, 59, 61, 0.67);
+	color: white;
+  overflow: scroll;
+  margin: 30px;
+  padding: 20px;
+  /* over the map */
+  z-index: 10;
+}
+
+#sidebar a {
+  cursor: pointer;
+  color: white;
+}
+
+#sidebar li {
+	margin-left: -40px;
+}
+
+#collapse {
+  cursor: pointer;
+}
+
+#map-container {
+	position: absolute;
+	/* height of navbar */
+	top: 50px;
+	width: 100%; 
+	height: 100%;
+	display: inline-block;
+
+}
+
+.leaflet-popup-content {
+  min-width: 400px;
+}
+
+.leaflet-popup-content-wrapper {
+  min-width: 400px;
+}
+
+
+.map-container {
+ 	position: absolute;
+  /* height of navbar */
+ 	top: 82px;
+ 	bottom: 0;
+ 	width:100%;
+  /* so it goes under the sidebar */
+  z-index: 0;
+ }
+
+ /* Legend */
+
+#legend > .filter-status > .key {
+	width:20px;
+	height: 20px;
+	display: inline-block;
+	margin-bottom: -3px;
+}
+
+#legend > .filter-status > .key.blue{
+	background-color: #307de1;
+}
+
+#legend > .filter-status > .key.red{
+	background-color: #ff3b52;
+}
+
+#legend > .filter-status > .key.green{
+	background-color: #04ff54;
+}
+
+.filter-type img {
+	display: inline-block;
+}
+
+/* FA icons */
+i {
+	cursor: pointer;
+}
+
+/* helpers */
+
+.invisible {
+	visibility: hidden;
+}
+
+/*********************\
+    Basic reset
+\*********************/
+
+html, body{
+    margin: 0;
+    padding: 0;
+}
+ul {
+	list-style-type: none;
+}
+
+/* ==========================================================================
+   Overriding Bootstrap Navbar Defaults
+   http://work.smarchal.com/twbscolor/
+   ========================================================================== */
+
+.navbar {
+  height: 50px;
+  margin-bottom: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.navbar img {
+  display: inline-block;
+  height: 50px;
+  margin-top: -28px;
+  width: 50px;
+  z-index: 35;
+}
+
+.navbar .name {
+  color: white;
+  display: inline-block;
+  margin-top: -15px;
+}
+
+.navbar-default {
+  background-color: #6b646b;
+  border-color: #bbbabb;
+}
+.navbar-default .navbar-brand {
+  color: #b4b3b3;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+  color: #ffffff;
+}
+.navbar-default .navbar-text {
+  color: #b4b3b3;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #b4b3b3;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  color: #ffffff;
+  background-color: #bbbabb;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  color: #ffffff;
+  background-color: #bbbabb;
+}
+.navbar-default .navbar-toggle {
+  border-color: #bbbabb;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: #bbbabb;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #b4b3b3;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #b4b3b3;
+}
+.navbar-default .navbar-link {
+  color: #b4b3b3;
+}
+.navbar-default .navbar-link:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #b4b3b3;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #ffffff;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #ffffff;
+    background-color: #bbbabb;
+  }
+}
+
+/* Utilities */
+
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+ 
+.clearfix:after {
+  clear: both;
+}
+ 
+.clearfix {
+  zoom: 1; /* ie 6/7 */
+}
+
+.hidden{
+  visibility: hidden;
+}
