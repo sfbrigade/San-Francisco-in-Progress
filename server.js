@@ -26,41 +26,114 @@ var port = process.env.PORT || 5000
 // connect to database
 mongoose.connect('mongodb://jmcelroy:sfinprogress@ds061731.mongolab.com:61731/sf-in-progress')
 
+// The SF Planning Commission holds a weekly meeting where they rule on various
+// items concerning development projects.
+//
+// An agenda item in a planning commission hearing. There are four types of
+// items described below. Each item is presented by a representative with a
+// preliminary recommendation for the commission's conclusion. The meeting
+// minutes state the votes and action taken. Minutes are published approximately
+// one month after the meeting.
+// 
+// Item Types:
+//   continuence:
+//     CONSIDERATION OF ITEMS PROPOSED FOR CONTINUANCE
+//     The Commission will consider a request for continuance to a later date.
+//     The Commission may choose to continue the item to the date proposed
+//     below, to continue the item to another date, or to hear the item on this
+//     calendar.
+//   consent:
+//     CONSENT CALENDAR
+//     All matters listed hereunder constitute a Consent Calendar, are
+//     considered to be routine by the Planning Commission, and may be acted
+//     upon by a single roll call vote of the Commission.  There will be no
+//     separate discussion of these items unless a member of the Commission, the
+//     public, or staff so requests, in which event the matter shall be removed
+//     from the Consent Calendar and considered as a separate item at this or a
+//     future hearing.
+//   regular:
+//     REGULAR CALENDAR
+//     The Commission Hearing Procedures provide for presentations by staff;
+//     followed by the project sponsor team; followed by public comment for and
+//     against the proposal.  Please be advised that the project sponsor team
+//     includes: the sponsor(s) or their designee, lawyers, architects,
+//     engineers, expediters, and/or other advisors.
+//   discretionary:
+//     DISCRETIONARY REVIEW CALENDAR
+//     The Commission Discretionary Review Hearing Procedures provide for
+//     presentations by staff; followed by the DR requestor team; followed by
+//     public comment opposed to the project; followed by the project sponsor
+//     team; followed by public comment in support of the project.  Please be
+//     advised that the DR requestor and project sponsor teams include: the DR
+//     requestor and sponsor or their designee, lawyers, architects, engineers,
+//     expediters, and/or other advisors.
+//
+// Example Data:
+//   projectId: ...
+//   location:
+//     Commission Chambers
+//     Room 400, City Hall
+//     1 Dr. Carlton B. Goodlett Place
+//   date: 12:00 PM, June 11, 2015 
+//   documents: ""
+//   type: "regular"
+//   id: "2013.1238CV"
+//   packetUrl: "http://commissions.sfplanning.org/cpcpackets/2013.1238CV.pdf"
+//   staffContact: {
+//     name: "S. VELLVE"
+//     phone: "(415) 558-6263"
+//   }
+//   description:
+//     1238 SUTTER STREET - north side between Polk Street and Van Ness Avenue;
+//     Lot 011 in Assessor’s block 0670 - Request for Conditional Use
+//     Authorization...
+//   preliminaryRecommendation:
+//     Approve with Conditions
+//   action:
+//     Approve with Conditions as amended by staff, incorporating the desing
+//     comments from Commissioners; with a minimum 13’ setback on Sutter Street
+var projectHearingSchema = new mongoose.Schema({
+  projectId: mongoose.Schema.Types.ObjectId
+  , location: String
+  , date: Date 
+  , documents: String
+  , type: {
+    type: String
+    , enum: ['continuance', 'consent', 'regular', 'review']
+  }
+  , id: String
+  , packetUrl: String
+  , staffContact: {
+    name: String
+    , phone: String
+  }
+  , description: String
+  , preliminaryRecommendation: String
+  , action: String
+})
+
 // database schemas
 var projectSchema = new mongoose.Schema({
   address: String
   , city: String
   , neighborhood: String
   , description: String
-	, benefits: String
+  , benefits: String
   , zoning: String
   , units: Number
   , status: String
-	, supervisor: String
+  , supervisor: String
   , statusCategory: String
   , picture: String
   , coordinates: Array
   , featured: Boolean
   , sponsorFirm: String
-  , hearings: Array // array of project hearings
-})
-
-var projectHearingSchema = new mongoose.Schema({
-  projectId: mongoose.Schema.Types.ObjectId
-  , location: String
-  , date: Date
-  , time: Timestamp 
-  , documents: String
-  , type: String  // continuance, consent, regular, review
-  , description: String
-  , preliminaryRecommendation: String
-  , finalRecommendation: String
+  , hearings: [projectHearingSchema]
 })
 
 // database model
 var Project = mongoose.model('Project', projectSchema)
 var ProjectHearing = mongoose.model('ProjectHearing', projectHearingSchema)
-var CommissionHearing = mongoose.model('ComissionHearing', commissionHearingSchema)
 
 // ROUTES
 // ================================================
