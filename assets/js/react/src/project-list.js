@@ -1,6 +1,5 @@
 var React = require('react')
 , Backbone = require('backbone')
-, myscript = require('./myscript.js')
 
 var ProjectImage = React.createClass({
 	openProject: function onProject () {
