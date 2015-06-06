@@ -24,7 +24,6 @@ eventBus.on('close:profile', function toggleSidebarView() {
 // show the list of featured projects on page load
 $(document).ready(function() {
 	$.get('/projects/featured', function(projects) {
-		console.log('featured:', projects)
 		React.render(<ProjectList projects={projects} />, 
 			document.getElementById('projectList-container'));
 	})

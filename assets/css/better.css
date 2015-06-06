@@ -1,0 +1,522 @@
+body, html  {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    font-family:sans-serif;
+    background-color: transparent;
+    color:black;
+}
+
+a {
+    color:white;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+}
+
+
+/*
+ * Remove the gap between images and the bottom of their containers: h5bp.com/i/440
+ */
+
+img {
+    vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+    resize: vertical;
+}
+
+
+/******************************************************************************NAVBAR*/
+.navbar-custom {
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(255,255,255,.3);
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: #03103e;
+    color:#fff;
+}
+
+.navbar-custom .navbar-brand {
+    font-weight: 700;
+}
+
+.navbar-custom .navbar-brand:focus {
+    outline: 0;
+}
+
+.navbar-custom .navbar-brand .navbar-toggle {
+    padding: 4px 6px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.navbar-custom .navbar-brand .navbar-toggle:focus,
+.navbar-custom .navbar-brand .navbar-toggle:active {
+    outline: 0;
+}
+
+.navbar-custom a {
+    color: #fff;
+}
+
+.navbar-custom .nav li a {
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+}
+
+.navbar-custom .nav li a:hover {
+    outline: 0;
+    color: rgba(255,255,255,.8);
+    background-color: transparent;
+}
+
+.navbar-custom .nav li a:focus,
+.navbar-custom .nav li a:active {
+    outline: 0;
+    background-color: transparent;
+}
+
+.navbar-custom .nav li.active {
+    outline: 0;
+}
+
+.navbar-custom .nav li.active a {
+    background-color: rgba(255,255,255,.3);
+}
+
+.navbar-custom .nav li.active a:hover {
+    color: #fff;
+}
+
+
+/*all widths above tablet/mobile styles*/
+
+@media(min-width:768px) {
+    .navbar-custom {
+        padding: 20px 0;
+        border-bottom: 0;
+        letter-spacing: 1px;
+        background: 0 0;
+        -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        transition: background .5s ease-in-out,padding .5s ease-in-out;
+    }
+
+    .navbar-custom.top-nav-collapse {
+        padding: 0;
+        border-bottom: 1px solid rgba(255,255,255,.3);
+        background: #03103e;
+    }
+}
+
+
+
+
+/* general parrallax_ story************************************************************************* */
+
+section {
+    -webkit-transition: opacity 300ms ease-out;
+    -moz-transition: opacity 300ms ease-out;
+    transition: opacity 300ms ease-out;
+}
+
+div.main {
+    overflow-x: hidden;
+}
+
+.bcg-parrallax {
+    position:relative;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+
+/*slide-1******************/
+
+#slide-1 .bcg-parrallax {
+  background-image:url('../img/twin-peaks-05.jpg')
+}
+
+
+ .blue-overlay{
+
+    background:linear-gradient(0deg, rgba(68,116,169, .3), rgb(3,33,96) 100%) no-repeat;
+    /*fall-back old browser*/
+    /*background-color:black*/
+    /*background-image:url("../img/landing.svg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;*/
+    height: 100%;
+    width:100%;
+    display:block;
+    text-align: center;
+}
+
+
+.hsContent {
+    width: 70%;
+    position: absolute;
+    left: 15%%;
+    right:15%;
+    top: 35%;
+    text-align: center;
+    color:white;
+}
+
+.hsContent h1 {
+    font-size:120px;
+    font-family: Open Sans Condensed;
+    font-weight: 300;
+    letter-spacing: 5px;
+
+}
+
+.hsContent p {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 42px;
+    letter-spacing: 5px;
+    color:white;
+}
+
+
+
+
+
+/*Slide-2*/ /*Slide-4*/
+
+.textSlide{
+ text-align: center;
+}
+
+.textSlide h2 {
+  font-family:'Open Sans', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  color:midnightblue;
+  font-size: 32px;
+  letter-spacing: 2px;
+}
+
+.textSlide.row{
+  text-align: center;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+
+
+.textSlide>div{
+  padding-top: 8%;
+  padding-bottom: 8%;
+  display:inline-block;
+  margin:auto;
+  width: 90%;
+}
+
+.textSlide>div>.hr{
+  display:inline-block;
+  text-align: center;
+  margin:auto;
+  background-color: midnightblue;
+  height:3px;
+  width:70%;
+}
+
+
+
+/*slide-3***************************************/
+.max-width{
+  max-width: 1100px;
+ /* width: 70%;*/
+ /* margin-right: 15%;
+  margin-left:15%;*/
+  /*background-color :green;*/
+  /*padding-top:4%;*/
+
+  /*position:absolute;*/
+
+}
+
+#slide-3 .bcg-parrallax {
+  background-image:url('../img/slide_3_over-exposed.jpg')
+
+}
+
+.imgSlide .row.supporting-left {
+  padding-left: 2%;
+  padding-top: 5%;
+  /*background-color: yellow;*/
+}
+
+.imgSlide .row.supporting-right{
+  padding-top: 5%;
+  padding-right:2%;
+}
+
+div.col-md-8.col-md-offset-4.col-sm-12{
+  text-align: right;
+}
+
+.supporting-text{
+  color:midnightblue;
+  font-size: 32px;
+  font-family:'Open Sans', sans-serif;
+  font-weight: 800;
+  letter-spacing: 2px;
+  line-height:2;
+
+}
+
+.imgSlide>h3.supporting-text.left{
+  text-align: right;
+}
+
+.imgSlide.supporting-text span{
+  font-size: 40px;
+}
+
+/*slide-5*******************************************************************/
+
+#slide-5 .bcg-parrallax{
+  background-image:url('../img/san-francisco-skyline.jpg')
+}
+
+.mission-statement{
+  background-color: white;
+ /* display:block;
+  margin-right:auto;
+  margin-left: auto;*/
+  /*position:absolute;*/
+  width: 90%;
+  margin-right: 5%;
+  margin-left: 5%;
+  margin-top: 15%;
+  margin-bottom:15%;
+
+  padding: 5%;
+
+
+}
+
+.mission-statement p{
+  color: midnightblue;
+  font-size: 20px;
+  font-family: Montserrat, sans-serif;
+  line-height: 2;
+}
+
+
+/**slide-6************************/
+
+.about-action{
+
+  padding-top: 5%;
+  padding-right: 2%;
+  padding-left:2%;
+  min-height: 360px;
+  max-width: 600px;
+  text-align: center;
+  display:block;
+  margin:auto;
+}
+
+.flaticon img{
+  width: 81px;
+  /*background-color: midnightblue;*/
+  color:midnightblue;
+
+}
+
+.about-action-hr{
+  display:block;
+  margin-right:auto;
+  margin-left: auto;
+  margin-bottom: 10px;
+  background-color: midnightblue;
+  width: 90%;
+  height: 4px;
+}
+
+.about-action p{
+}
+
+
+
+.partner-orgs{
+  background-color: #03103e;
+
+}
+
+.partner-orgs .row{
+  padding-top: 5%;
+}
+
+.partner-orgs .row :last-of-type{
+  padding-bottom: 5%;
+}
+
+
+.partner-img{
+  text-align: center;
+  display:block;
+  margin:auto;
+}
+
+.partner-img img{
+  max-width:100%;
+}
+
+
+.partner-img h3{
+  color: rgb(57,159,211);
+  font-family: inherit;
+  font-size: 20px;
+  line-height: 2;
+  letter-spacing:3px;
+  font-weight: 500;
+}
+
+/*contact-section*************************************************/
+
+input{
+  display:inline-block;
+  text-align: center;
+  margin: auto;
+  width:70%;
+}
+
+button{
+  display:inline-block;
+  width:30%;
+}
+
+footer{
+  height: 300px;
+  background-color:#03103e;
+}
+
+
+
+/*MOBILE STYLES*/
+@media(max-width:768px){
+
+    .hsContent{
+        top:30%;
+        left:10%;
+        right:10%;
+        width:80%;
+    }
+
+    .hsContent h1{
+        font-size: 60px;
+    }
+
+    .hsContent p{
+        font-size: 30px;
+
+    }
+
+
+    .textSlide h2{
+      font-size: 24px;
+
+    }
+
+    .hr{
+      width: 60%;
+    }
+
+    h3.supporting-text{
+      font-size: 22px;
+      letter-spacing:1px;
+
+    }
+
+    div.col-md-8.col-md-offset-4.col-sm-12{
+      margin-right: 2%
+    }
+
+    .max-width{
+      padding-top:2%;
+      padding-bottom:4%;
+    }
+
+}
+
+@media(min-width:893px max-width:691){
+
+  div.col-md-4.col-sm-6:last-of-type{
+    display:block;
+    text-align: center;
+    margin:au
+
+  }
+
+  #map-icon{
+    display:block;
+    text-align: center;
+    margin:auto;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 // where to serve static content
-app.use( express.static('./assets') )
+app.use( express.static('assets') )
 
 // set our port
 var port = process.env.PORT || 5000
@@ -24,7 +24,7 @@ var port = process.env.PORT || 5000
 // ================================================
 
 // connect to database
-mongoose.connect( 'mongodb://jmcelroy:sfinprogress@ds061731.mongolab.com:61731/sf-in-progress')
+mongoose.connect('mongodb://jmcelroy:sfinprogress@ds061731.mongolab.com:61731/sf-in-progress')
 
 // database schema
 var projectSchema = new mongoose.Schema({
@@ -50,28 +50,28 @@ var Project = mongoose.model('Project', projectSchema)
 // ================================================
 
 // landing page
-app.get('/', function(req,resp){
+app.get('/', function (req,resp){
 	resp.sendFile(path.join(__dirname, '/assets', '/index.html'))
 })
 
 // interactive map page
-app.get('/map', function(req,resp){
+app.get('/map', function (req,resp){
 	resp.sendFile(path.join(__dirname, '/assets', '/map.html'))
 })
 
 // form for admins to add new projects 
-app.get('/admin/projects/', function(req, resp) {
+app.get('/admin/projects/', function (req, resp) {
 	resp.sendFile(path.join(__dirname, '/assets', '/admin-form.html'))
 })
 
 // form for admins to update a project
-app.get('/admin/projects/:project_id', function(req, resp) {
+app.get('/admin/projects/:project_id', function (req, resp) {
 	resp.sendFile(path.join(__dirname, '/assets', '/admin-form.html'))
 })
 
 // return a list of all the projects
-app.get('/projects', function(req, resp){
-	return Project.find(function(err, projects){
+app.get('/projects', function (req, resp){
+	return Project.find(function (err, projects){
 		if (err){
 			resp.send(err)
 		}

@@ -9,69 +9,93 @@ var React = require("react"),
 eventBus = _.extend({}, Backbone.Events);
 
 eventBus.on("select:project", function showProfile(project) {
-	// When a project is selected on the map:
-	// hide the sidebar filters and project list
-	$("#collapse").addClass("hidden");
-	$("#projectList-container").addClass("hidden");
-	// show profile in the sidebar
-	React.render(React.createElement(ProjectProfile, { project: project }), document.getElementById("projectProfile-container"));
+  // When a project is selected on the map:
+  // hide the sidebar filters and project list
+  $("#collapse").addClass("hidden");
+  $("#projectList-container").addClass("hidden");
+  // show profile in the sidebar
+  React.render(React.createElement(ProjectProfile, { project: project }), document.getElementById("projectProfile-container"));
 });
 
 eventBus.on("close:profile", function toggleSidebarView() {
-	// unhide sidebar content when a project profile is closed
-	$("#collapse").removeClass("hidden");
-	$("#projectList-container").removeClass("hidden");
+  // unhide sidebar content when a project profile is closed
+  $("#collapse").removeClass("hidden");
+  $("#projectList-container").removeClass("hidden");
 });
 
 // show the list of featured projects on page load
 $(document).ready(function () {
-	$.get("/projects/featured", function (projects) {
-		console.log("featured:", projects);
-		React.render(React.createElement(ProjectList, { projects: projects }), document.getElementById("projectList-container"));
-	});
+  $.get("/projects/featured", function (projects) {
+    React.render(React.createElement(ProjectList, { projects: projects }), document.getElementById("projectList-container"));
+  });
 });
 
 },{"./project-list.js":2,"./project-profile.js":3,"backbone":4,"react":151}],2:[function(require,module,exports){
 "use strict";
 
-var React = require("react");
+var React = require("react"),
+    Backbone = require("backbone");
 
 var ProjectImage = React.createClass({
-	displayName: "ProjectImage",
-	render: function () {
-		var imgStyle = {
-			width: "100%",
-			margin: "15px 0"
-		};
+  displayName: "ProjectImage",
+  openProject: function onProject() {
+    console.log("triggering select:profile...");
+    window.eventBus.trigger("select:profile", this.props.project); // TODO: this is bad
+    window.eventBus.trigger("select:project", this.props.project);
+  },
 
-		return React.createElement(
-			"div",
-			null,
-			React.createElement("img", { style: imgStyle, src: this.props.url }),
-			React.createElement(
-				"p",
-				null,
-				this.props.address
-			)
-		);
-	}
+  render: function () {
+    var imgStyle = {
+      width: "100%",
+      margin: "15px 0"
+    };
+
+    var linkStyle = {
+      cursor: "pointer"
+    };
+
+    return React.createElement(
+      "div",
+      null,
+      React.createElement("img", { style: imgStyle, src: this.props.project.picture }),
+      React.createElement(
+        "a",
+        { style: linkStyle, href: "#", onClick: this.openProject },
+        this.props.project.address
+      )
+    );
+  }
 });
 
 module.exports = React.createClass({
-	displayName: "exports",
-	render: function () {
-		var projectImages = this.props.projects.map(function (project) {
-			return React.createElement(ProjectImage, { url: project.picture, address: project.address });
-		});
-		return React.createElement(
-			"div",
-			null,
-			projectImages
-		);
-	}
+  displayName: "exports",
+  getInitialState: function getInitialState() {
+    return {
+      projects: []
+    };
+  },
+
+  componentDidMount: function componentDidMount() {
+    // fetch featured projects
+    $.get("/projects/featured", (function (projects) {
+      console.log("featured:", projects);
+      this.setState({ projects: projects });
+    }).bind(this));
+  },
+
+  render: function () {
+    var projectImages = this.state.projects.map(function (project) {
+      return React.createElement(ProjectImage, { project: project });
+    });
+    return React.createElement(
+      "div",
+      null,
+      projectImages
+    );
+  }
 });
 
-},{"react":151}],3:[function(require,module,exports){
+},{"backbone":4,"react":151}],3:[function(require,module,exports){
 "use strict";
 
 var React = require("react"),
