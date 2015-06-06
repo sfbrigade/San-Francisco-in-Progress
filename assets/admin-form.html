@@ -2,74 +2,96 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js" charset="utf-8">
+    </script>
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../css/admin-form.css" rel="stylesheet">    
+    <link href="../../css/admin-form.css" rel="stylesheet">
   </head>
-  
+
   <body>
-    <div class="form-container">
+    <div class="form-container container-fluid">
       <form action="/projects" method="post">
-
-
         <nav class="header navbar">
-          <span class="h2">Welcome Firstname Lastname!</span>
+          <h2>Welcome! Submit A New Property</h2>
           <button type="submit" class="navbar-right btn btn-default publish">Publish</button>
           <span class="navbar-right h4 email-us">E-mail Us</span>
         </nav>
 
-
         <div class="project navbar">
-          <span class="h1">Project Name</span>
-          <div>
-            <span class="h3">Address</span>
+          <div class="row">
+            <div class="col-xs-4">
+              <label for="name">Project Name</label>
+              <input type="text" name="name" placeholder="Super Awesomtastic New Building!">
+            </div>
+            <div class="col-xs-4">
+              <label for="zoning">Zone</label>
+              <select class="" name="zoning">
+                <option value="zone-1">zone 1</option>
+                <option value="zone-2">zone 2</option>
+              </select>
+            </div>
+            <div class="col-xs-4">
+              <label for="website">Project Website</label>
+              <input type="text" name="website" placeholder="http://supercoolnewproject.org!">
+            </div>
           </div>
-          <div>
-            <textarea type="text" class="supervisor-input" placeholder="Enter name of City Board Supervisor"></textarea>
+          <div class="row">
+            <div class="col-xs-4">
+              <label for="address">Address</label>
+              <input type="text" name="address" value="" placeholder="222 Pacific Ave San Francisco, CA 94111">
+            </div>
+            <div class="col-xs-4">
+              <label for="units">Units</label>
+              <input type="number" name="units" value="0">
+            </div>
+            <div class="col-xs-4">
+              <label for="supervisor">Supervisor name</label>
+              <input type="text" name="supervisor" placeholder="Dr. Livingstone">
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-xs-4">
+              <label for="neighborhood">Neighborhood</label>
+              <select class="" name="neighborhood">
+                <option value="neighborhood-1">Neighborhood 1</option>
+                <option value="neighborhood-2">Neighborhood 2</option>
+              </select>
+            </div>
+            <div class="col-xs-4">
+              <label for="status">Status</label>
+              <select class="" name="status">
+                <option value="status-1">status 1</option>
+                <option value="status-2">status 2</option>
+              </select>
+            </div>
+            <div class="col-xs-4">
+              <label for="firm">Development Firm</label>
+              <input type="text" name="firm" placeholder="development firm">
+            </div>
           </div>
         </div>
+
         <div class="container-fluid">
           <div class="row">
-
-
-            <div class="col-xs-1 col-md-1 column">
+            <div class="col-xs-4">
               <div class="left-col">
                 <h5>Your images will be all expandable</h5>
-                <button class="btn btn-default upload-btn">Click to upload image</button>
+                <button id='upload-button' class="btn btn-default upload-btn">Click to upload image</button>
+                <input id="property-image-url" type="text" class="hidden" name="picture" value="">
+                <img id="property-image" src="" alt="" class="hidden" />
               </div>
               <div class="left-col">
                 <h4 class="project-brief">Project Brief</h4>
-                <textarea type="text" class="project-brief-text" placeholder="In addition to your images, this is the first content your visitors will see."></textarea>
+                <textarea type="text" class="project-brief-text" name="description" placeholder="In addition to your images, this is the first content your visitors will see."></textarea>
               </div>
             </div>
-
-
-            <div class="col-xs-1 col-md-1 column">
+            <div class="col-xs-8">
               <div>
                 <h3>Community Benefits</h3>
-                <textarea type="text" class="community-benefits-text" placeholder="Enter information including community benefits, monetary contribution to public use areas, your transit strategy, or any other ways your project benefits the community."></textarea>
+                <textarea type="text" , name = "benefits" class="community-benefits-text" placeholder="Enter information including community benefits, monetary contribution to public use areas, your transit strategy, or any other ways your project benefits the community."></textarea>
               </div>
             </div>
-
-
-            <div class="col-xs-1 col-md-1 column">
-              <div>
-                <h3>Other Info</h3>
-                <textarea type="text" class="other-info-text"></textarea>
-              </div>
-              <div class="right-col-links">
-                <div>
-                  <a href="#">Link to directly to your website</a>
-                </div>
-                <div>
-                  <a class="related-link" href="#">Related Link</a>
-                </div>
-              </div>
-              <div class="autosave-text">
-                <p>Don’t worry, all of your changes will be saved automatically as soon as you click away from a box.
-              </div>
-            </div>
-
-
           </div>
         </div>
       </form>
