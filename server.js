@@ -147,7 +147,7 @@ app.post('/projects', function (req, resp) {
 			, website: req.body.website || ''
 			, picture: req.body.picture || ''
 			, statusCategory: determineStatusCategory(req.body.status) || ''
-			, coordinates: [coords.latitude, coords.longitude] || []
+			, coordinates: [(coords.latitude).toString(), (coords.longitude).toString()] || []
 			, featured: req.body.featured || false
 			, sponsorFirm: req.body.sponsorFirm || ''
 		})
@@ -162,7 +162,7 @@ app.post('/projects', function (req, resp) {
 
 	var address = req.body.address + ' ' + req.body.city
 	geocode(address, function(latitude,longitude) {
-		saveProject({'latitude': latitude, 'longitude': longitude})
+		saveProject({'latitude': (latitude).toString(), 'longitude': (longitude).toString()})
 	}.bind(this))
 })
 
