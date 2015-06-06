@@ -43,7 +43,7 @@ var projectSchema = new mongoose.Schema({
 })
 
 var projectHearingSchema = new mongoose.Schema({
-  project_id: ObjectId
+  project_id: mongoose.Schema.Types.ObjectId
   , type: String  // continuance, consent, regular, review
   , id: String
   , representative: {
@@ -57,7 +57,7 @@ var projectHearingSchema = new mongoose.Schema({
 
 var commissionHearingSchema = new mongoose.Schema({
   start_time: Date
-  end_time: Date
+  , end_time: Date
   , address: String
   , agenda: [projectHearingSchema]
 })
