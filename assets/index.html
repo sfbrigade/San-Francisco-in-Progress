@@ -9,34 +9,33 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SF in Progress | HOME</title>
+    <title>Scroll Reveal</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/in-progress.css" rel="stylesheet">
+    <!-- <link href="css/in-progress.css" rel="stylesheet"> -->
+    <link href="css/better.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Raleway:400,200,300|Open+Sans' rel='stylesheet' type='text/css'> -->
 
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,300|Open+Sans+Condensed:300|Raleway:400,900,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,900|Open+Sans+Condensed:300|Raleway:400,900,800' rel='stylesheet' type='text/css'>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700,600,300' rel='stylesheet' type='text/css'>
+
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
 
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <nav  id = "header-navbar" class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
@@ -55,7 +54,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="map">Projects</a>
+                        <a class="page-scroll" href="#projects">Projects</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#about">About</a>
@@ -72,159 +71,245 @@
         </div>
         <!-- /.container -->
     </nav>
-    <main>
-        <section id = "slide-1" class = "homeSlide">
-            <div class="bcg"
-                data-center="background-position: 50% 0px;"
-                data-top-bottom="background-position: 50% -00px;"
-                data-bottom-top="background-position: 50% 100px;"
-                data-anchor-target="#slide-1"
-            >
-                <div class = "slide-overlay"
-                 data-bottom= "opacity: 1"
-                 data-top-bottom= "opacity: 0"
-                 data-anchor-target = "#slide-1"
-                 >
-                   <div class="hsContent"
-                    data-center="opacity: 1"
-                    data--80-top="opacity: 0"
-                    data-anchor-target="#slide-1 h1"
-                   >
-                    <h1>SF IN PROGRESS</h1>
-                    <p>growing together</p>
-                   </div>
 
-                </div>
-            </div><!-- bcg -->
-        </section>
-
-        <section id = "slide-2" class = "homeSlide">
-            <div class="bcg"
+    <div class = "main">
+        <section id = "slide-1">
+            <div class = "bcg-parrallax"
                 data-center="background-position: 50% 0px;"
                 data-top-bottom="background-position: 50% -300px;"
                 data-bottom-top="background-position: 50% 100px;"
-                data-anchor-target="#slide-2"
+                data-anchor-target="#slide-1"
                 >
-                <div class="hsContainer">
-                    <div class="hsContent"
-                    data-bottom="opacity: 0"
-                    data-center="opacity: 1"
-                    data-206-top="opacity: 1"
-                    data--100-top="opacity: 0"
-                    data-anchor-target="#slide-2 h2"
+                <div class="blue-overlay"
+                    data-bottom= "opacity: 1"
+                    data-top-bottom= "opacity: 0"
+                    data-anchor-target = "#slide-1"
                     >
-
-
-                        <h2>San Fransico is going through an acute</h2><h2>housing shortage</h2>
+                    <div class="hasContent"
+                     data-center="opacity: 1"
+                     data--80-top="opacity: 0"
+                     data-anchor-target="#slide-1 h1"
+                    >
+                        <div class="hsContent">
+                        <h1>SF IN PROGRESS</h1>
+                        <p>growing together</p>
+                       </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id = "slide-3" class = "homeSlide">
-            <div class="bcg"
+
+        <div id= "slide-2" class = "textSlide">
+            <div class =>
+                <h2 data-sr = "enter left ease move 10px over 1s after 0.2s reset">San Franciso is going through</h2>
+                <div class ="hr" data-sr = "enter left ease move 10px over 1s after 0.3s reset" ></div>
+                <h2 data-sr = "enter left ease move 10px over 1s after 1.5s reset" >an acute housing shortage</h2>
+            </div>
+        </div><!-- slide-2 -->
+
+
+
+
+        <section id = "slide-3" class ="">
+            <div class="bcg-parrallax imgSlide"
             data-center="background-position: 50% 0px;"
             data-top-bottom="background-position: 50% -300px;"
             data-bottom-top="background-position: 50% 100px;"
             data-anchor-target="#slide-3"
             >
-                <div class="hsContainer">
-                    <div class="hsContent"
-                    data-400-bottom="opacity: 0"
-                    data-center="opacity: 1"
-                    data-406-top="opacity: 1"
-                    data--1000-top="opacity:0"
-                    data-anchor-target="#slide-3 .contentContainer"
-                    >
-                        <div class = "contentContainer">
-                                <h2>In 1940, the average price</h2> <h2>of a home in California </h2> <h2>was 20% higher than the US average.</h2><h2>Today, it is 150% higher.</h2>
-                                <div class = "spacing"></div>
-                                <h2>Last year, San Francisco allowed</h2> <h2>193 new homes to be built</h2><h2>for every 1,000 new residents.
-                                </h2>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id = "slide-4" class = "homeSlide">
-            <div class="bcg"
-            data-center="background-position: 50% 0px;"
-            data-top-bottom="background-position: 50% -200px;"
-            data-bottom-top="background-position: 50% 100px;"
-            data-anchor-target="#slide-4"
-            >
-                <div class="hsContainer">
-
-                        <div class="hsContent"
-                        data-bottom="opacity: 0"
-                        data-center="opacity: 1"
-                        data-206-top="opacity: 1"
-                        data--100-top="opacity: 0"
-                        data-anchor-target="#slide-4 h2"
+            <div class="container-fluid max-width">
+                <div class="row supporting-left">
+                    <div class="col-md-8 col-sm-12">
+                        <h3 class= "supporting-text"
+                         data-sr = "enter left ease move 50px over 1.5s vFactor 1 reset "
                         >
+                          In 1940, the average price of a home in California was 20% higher than the US average.</h3>
 
-                        <h2>The Bay Area is growing</h2>
-                        <h2>And suburban sprawl costs the US $1 trillion a year.
-                        </h2>
+                         <h3 class = "supporting-text"
+                         data-sr = "wait 1s enter left ease move 50px over 1.5s vFactor 1 after 1.5s 1 reset "
+                         >
+                            Today, it is <span>150%</span> higher.
+                        </h3>
+                    </div><!-- col-md-8 col-sm-12 -->
+                </div><!-- row supporting-left -->
+
+
+                <div class="row supporting-right">
+
+                    <div class="col-md-8  col-md-offset-4 col-sm-12 ">
+
+                        <h3 class = "supporting-text left"
+                        data-sr = "wait 2s enter right ease move 50px over 1.5s vFactor 1 reset"
+                        >
+                        Last year, San Francisco allowed
+                        193 new homes to be built</h3>
+
+                        <h3 class = "supporting-text left"
+                        data-sr = "wait 3s enter right ease move 50px over 1.5s vFactor 1 after 1.5s 1 reset"
+                        >
+                        for every <span>1,000</span> new residents.
+                        </h3>
+                    </div><!-- col-md-8  col-md-offset-4 col-sm-12  -->
+                </div><!-- row supporting-right -->
+            </div><!-- container-fluid max-width -->
+         </div><!-- bcg-parrallax -->
+       </section>
+
+       <div id= "slide-4" class = "textSlide">
+           <div>
+               <h2 data-sr = "enter left ease move 10px over 1s after 0.2s reset">The Bay Area is growing</h2>
+               <div class ="hr" data-sr = "enter left ease move 10px over 1s after 0.3s reset" ></div>
+               <h2 data-sr = "enter left ease move 10px over 1s after 1.5s reset" >And suburban sprawl costs the US $1 trillion a year.</h2>
+           </div>
+       </div><!-- slide-2 -->
+
+
+         <section id = "slide-5" class ="">
+            <div class="bcg-parrallax imgSlide"
+            >
+
+                <div class = "container-fluid max-width ">
+                    <div class = "mission-statement">
+                        <p>
+                            Pickled raw denim kogi narwhal letterpress, hella post-ironic selvage photo booth meggings McSweeney's kitsch mustache artisan. Schlitz PBR&B try-hard keffiyeh. Sartorial literally ethical, pop-up hoodie tofu try-hard freegan chambray fap sustainable four loko stumptown blog. Quinoa scenester squid literally Kickstarter. Swag ennui vinyl Etsy keytar. Blue Bottle +1 pork belly church-key listicle ennui. Swag tousled hella, McSweeney's bicycle rights narwhal 3 wolf moon 8-bit pork belly 90's chia Godard Odd Future photo booth authentic.
+                        </p>
                     </div>
-                </div>
-            </div>
+                </div><!-- container-fluid max-width -->
+            </div><!--  bcg-parrallax -->
         </section>
 
 
-        <section id = "slide-5" class = "homeSlide">
-            <div class="bcg"
-            data-center="background-position: 50% 0px;"
-            data-top-bottom="background-position: 50% -200px;"
-            data-bottom-top="background-position: 50% 100px;"
-            data-anchor-target="#slide-5"
-            >
-                <div class="hsContainer">
-                    <div class="hsContent"
-                    data-400-bottom="opacity: 0"
-                    data-center="opacity: 1"
-                    data-406-top="opacity: 1"
-                    data--1000-top="opacity:0"
-                    data-anchor-target="#slide-5 .contentContainer"
-                    >
-                        <div class = "contentContainer">
-                            <h2>We can no longer afford to build <bold>OUT</bold></h2>
-                            <h2>but need to build <bold>IN</bold></h2>
-                            <div class = "space"></div>
-                            <h2>We need to build smarter.</h2>
-                            <h2>Around transit hubs.</h2>
-                            <h2>And inside city limits.</h2>
+
+
+        <section id = "slide-6">
+
+                <div class = "container-fluid max-width">
+                    <div class="row six">
+
+                        <div class  = "col-md-6">
+                            <div class = "about-action">
+                                <div class = "flaticon">
+                                    <img src = "img/SVG_MyIcons/svg/multiple25.svg">
+                                </div>
+                                <h3>Community Dialogue</h3>
+                                <div class = "about-action-hr"></div>
+                                <p>Street art Bushwick bitters, next level art party try-hard hella salvia Truffaut quinoa cray four dollar toast organic chia paleo. Bitters beard deep v gentrify ethical taxidermy. Seitan bespoke PBR&B, gentrify Echo Park taxidermy XOXO small batch chambray four loko kale chips tofu
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <div class  = "col-md-6 ">
+                            <div class = "about-action">
+                                <div class = "flaticon">
+                                    <img src = "img/SVG_MyIcons/svg/businessman22.svg">
+                                </div>
+                                <h3>Transparant Process</h3>
+                                <div class = "about-action-hr"></div>
+                                <p>Street art Bushwick bitters, next level art party try-hard hella salvia Truffaut quinoa cray four dollar toast organic chia paleo. Bitters beard deep v gentrify ethical taxidermy. Seitan bespoke PBR&B, gentrify Echo Park taxidermy XOXO small batch chambray four loko kale chips tofu
+                                </p>
+                            </div>
+                        </div>
+
+                    </div><!-- row -->
+
+                    <div class="row six">
+                        <div class="col-md-6">
+                            <div class="about-action">
+                                <div class = "flaticon">
+                                    <img src = "img/SVG_MyIcons/svg/home.svg">
+                                </div>
+                                <h3>Improved, informed, housing options</h3>
+                                <div class = "about-action-hr"></div>
+                                <p>Street art Bushwick bitters, next level art party try-hard hella salvia Truffaut quinoa cray four dollar toast organic chia paleo. Bitters beard deep v gentrify ethical taxidermy. Seitan bespoke PBR&B, gentrify Echo Park taxidermy XOXO small batch chambray four loko kale chips tofu
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class  = "col-md-6 ">
+                            <div class = "about-action">
+                                <div class = "flaticon">
+                                    <img src = "img/SVG_MyIcons/svg/map-pointer2.svg">
+                                </div>
+                                <h3>User-friendly, data-driven tools</h3>
+                                <div class = "about-action-hr"></div>
+                                <p>Street art Bushwick bitters, next level art party try-hard hella salvia Truffaut quinoa cray four dollar toast organic chia paleo. Bitters beard deep v gentrify ethical taxidermy. Seitan bespoke PBR&B, gentrify Echo Park taxidermy XOXO small batch chambray four loko kale chips tofu
+                                </p>
+                            </div>
+                        </div>
+                    </div><!-- row -->
+                </div><!-- container-fluid -->
+        </section>
+
+        <section class = "partner-orgs">
+                <div class="container-fluid max-width">
+                    <div class = "row partner-img">
+                        <h3> WE ARE PARTNERS WITH THE FOLLOWING ORGANIZATIONS</h3>
+                    </div>
+                    <div class="row">
+                        <div class = "col-md-4 col-sm-4 col-xs-4 partner-img">
+                            <div class="">
+                                <img src = "img/partner_orgs/logo.png">
+                            </div>
+                        </div>
+
+                         <div class = "col-md-4 col-sm-4 col-xs-4 partner-img">
+                            <div class="">
+                                <img src = "img/partner_orgs/sfhac-logo1.png">
+                            </div>
+                        </div>
+
+                        <div class = "col-md-4 col-sm-4 col-xs-4 partner-img">
+                            <div class="">
+                                <h3> SF Bay Area Renters'<br>Federation</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+          <div id = "contact" class ="container-fluid max-width">
+
+                    <div class = "partner-img">
+                        <h3>Stay in Touch!</h3>
+                        <!-- <h3 class => Join our email list, stay in touch, and let your voice be heard<h3> -->
+                       <div class = "small-width">
+                            <div class = "row">
+                                <div class = "col-md-6 col-sm-6 col-xs-6">
+                                    <img src = "img/Twitter.png">
+                                </div>
+                                <div class = "col-md-6 col-sm-6 col-xs-6">
+                                    <img src = "img/Facebook.png">
+                                </div>
+                            </div>
                         </div>
 
                     </div>
-                </div>
-            </div>
+
+                    <!-- <div class="row">
+                        <div class="col-md-12">
+                          <form>
+                            <input id="Email" name="Email" type="text"  placeholder="Email Address">
+                            <button id="ButtonSubmit" onclick="postContactToGoogle()" type="button" >Send</button>
+                          </form>
+                        </div>
+                    </div><!-- row --> -->
+          </div>
+
+
+
         </section>
 
-        <section id = "slide-6" class = "homeSlide">
-            <div class="bcg">
-
-                <div class="hsContainer">
-                    <div class="hsContent"
-                     data--200-top = "opacity:0"
-                     data--500-top ="opacity:1 position: fixed; top: 206px; width: 100%; left: 0;"
-                     data-anchor-target= "#slide-5 .contentContainer"
-                    >
+    <footer>
 
 
 
-                            <h2> Let your Voice be Heard</h2>
-                    </div>
-                </div><!-- hsContainer -->
-            </div><!-- bcg -->
-        </section>
+    </footer>
 
 
 
 
-    </main>
 
 
 
@@ -233,17 +318,48 @@
 
     </div>
 
+    <script>
+        function postContactToGoogle() {
+            var email = $('#Email').val();
+
+                $.ajax({
+                    url:"https://docs.google.com/forms/d/1MFF8eiy3lfDow3DY4vaDNfre0YqvMy4mhY5zOJf5ZJg/formResponse",
+                    data: { "entry_1750303937": email},
+                    type: "POST",
+                    dataType: "xml",
+                    statusCode: {
+                        0: function () {
+                            alert("Thank you!");
+                        },
+                        200: function () {
+                            alert("Thank you!");
+                        }
+                    }
+                });
+        }
+    </script>
+
+
+    </script>
+
+
+
+
 
 
     <script src="js/lib/jquery.js"></script>
-
     <script src="js/lib/bootstrap.min.js"></script>
-
     <script src="js/lib/jquery.easing.min.js"></script>
 
+      <script src = "js/lib/enquire.min.js"></script>
+      <script src='js/lib/scrollReveal.min.js'></script>
+
     <script src = "js/lib/skrollr.min.js"></script>
+    <script src = "js/lib/modernizr-2.7.1.min.js"></script>
+
 
     <script src = "js/custom.js"></script>
+
 
 
 </body>
