@@ -77,6 +77,26 @@ module.exports = React.createClass({
       ? <img style={imgStyle} src={this.props.project.picture} />
       : null
 
+    var nextHearing = (
+      <div>
+        <h4> Next Hearing: </h4>
+        <p> No hearings scheduled. </p>
+      </div>
+    )
+    if (this.props.project.hearings.length > 0) {
+      nextHearing = (
+        <div>
+          <h4> Next Hearing: </h4>
+          <span>Date: </span>
+          <p> {this.props.project.hearings[0].date || ''} </p>
+          <span>Descrption: </span>
+          <p> {this.props.project.hearings[0].description || ''} </p>
+          <span>Preliminary Recommendations: </span>
+          <p> {this.props.project.hearings[0].preliminaryRecommendation || ''} </p>
+        </div>
+      )
+    }
+
     return (
       <div className='projectProfile'>
         <div className='glyphicon glyphicon-remove' style={closeStyle} onClick={this.close}></div><br />
@@ -95,15 +115,7 @@ module.exports = React.createClass({
         <p> {this.props.project.description} </p>
         <button className='btn-info' onClick={this.showEmailForm}>Subscribe for updates</button>
         <button className='btn-info' onClick={this.goToHearingForm} style={marginLeft}>Add a Hearing</button>
-        <h4> Next Hearing: </h4>
-        <span>Date: </span>
-        <p> { (this.props.project.hearings && this.props.project.hearings.length) ?  this.props.project.hearings[0].date : ''} </p>
-        <span>Location: </span>
-        <p> { (this.props.project.hearings && this.props.project.hearings.length) ?  this.props.project.hearings[0].location : ''} </p>
-        <span>Descrption: </span>
-        <p> {(this.props.project.hearings && this.props.project.hearings.length) ?  this.props.project.hearings[0].description : ''} </p>
-        <span>Preliminary Recommendations: </span>
-        <p> { (this.props.project.hearings && this.props.project.hearings.length) ?  this.props.project.hearings[0].preliminaryRecommendation: ''} </p>
+        {nextHearing}
       </div>
     )
   }
