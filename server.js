@@ -26,6 +26,9 @@ var port = process.env.PORT || 5000
 // connect to database
 mongoose.connect('mongodb://jmcelroy:sfinprogress@ds061731.mongolab.com:61731/sf-in-progress')
 
+// SCHEMAS
+// ================================================
+
 // The SF Planning Commission holds a weekly meeting where they rule on various
 // items concerning development projects.
 //
@@ -74,7 +77,6 @@ var projectHearingSchema = new mongoose.Schema({
   , action: String
 })
 
-// database schemas
 var projectSchema = new mongoose.Schema({
   address: String
   , city: String
@@ -93,7 +95,7 @@ var projectSchema = new mongoose.Schema({
   , hearings: [projectHearingSchema]
 })
 
-// database model
+// models
 var Project = mongoose.model('Project', projectSchema)
 var ProjectHearing = mongoose.model('ProjectHearing', projectHearingSchema)
 
@@ -223,13 +225,19 @@ app.post('/hearings/:project_id', function (req, resp) {
 	var hearing = new ProjectHearing({
 		projectId: projectId
 		, location: req.body.location
-		, date: req.body.date // TODO: make sure this gets saved as real date
-		, time: req.body.time // TODO: make sure this is a timestamp
-		, documents: req.body.documents
-		, type: req.body.type
+		, date: req.body.date // TODO: make sure this is getting saved as timestamp
+		, packetUrl: req.body.packetUrl
+		, documents: req.body.documents // any documents in addition to the pdf url
+		, type: req.body.type // continuance, consent, regular, review
 		, description: req.body.description
-		, preliminaryRecommendation: req.body.preliminaryRecommendation
-  	, finalRecommendation: req.body.finalRecommendation
+		, staffContact: {
+			name: req.body.staffContactName
+			, phone: req.body.staffContactPhone
+		}
+		// i think these last two pieces of info would be added after a hearing?
+		// so they may not be necessary for the form
+		// , preliminaryRecommendation: req.body.preliminaryRecommendation
+  	// 	, action: req.body.action 
 	})
 
 	Project.update(
