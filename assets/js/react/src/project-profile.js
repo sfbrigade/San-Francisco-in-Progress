@@ -96,7 +96,12 @@ module.exports = React.createClass({
         <button className='btn-info' onClick={this.showEmailForm}>Subscribe for updates</button>
         <button className='btn-info' onClick={this.goToHearingForm} style={marginLeft}>Add a Hearing</button>
         <h4> Next Hearing: </h4>
-        <p> {this.props.project.hearings} </p>
+        <span>Date: </span>
+        <p> {this.props.project.hearings[0].date} </p>
+        <span>Descrption: </span>
+        <p> {this.props.project.hearings[0].description} </p>
+        <span>Preliminary Recommendations: </span>
+        <p> {this.props.project.hearings[0].preliminaryRecommendation} </p>
       </div>
     )
   }
