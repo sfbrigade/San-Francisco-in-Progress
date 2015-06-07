@@ -114,7 +114,12 @@ app.get('/map', function (req,resp){
 
 // form for admins to add new projects
 app.get('/projects/new', function (req, resp) {
-	resp.sendFile(path.join(__dirname, '/assets', '/submission-form.html'))
+	resp.sendFile(path.join(__dirname, '/assets', '/new-project-form.html'))
+})
+
+// form for everyone to add new hearings
+app.get('/hearings/new/:project_id', function (req, resp) {
+	resp.sendFile(path.join(__dirname, '/assets', '/new-hearing-form.html'))
 })
 
 // form for admins to update a project
