@@ -71,6 +71,10 @@
   color: #ffffff;
 }
 
+.navbar-default .navbar-right {
+  margin-right: 0px;
+}
+
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #b4b3b3;
