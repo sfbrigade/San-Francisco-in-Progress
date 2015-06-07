@@ -216,7 +216,7 @@ app.post('/subscribe/:project_id', function (req, resp) {
 	Project.update(
 		{_id: projectId}
 		, { '$push' : {emails: req.body.email} }
-		, function (err, resp) {
+		, function (err, numAffected) {
 			resp.json({message: req.body.email + ' subscribed to project ' + projectId})
 		}
 	)
