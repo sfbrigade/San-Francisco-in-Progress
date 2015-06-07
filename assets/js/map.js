@@ -139,6 +139,7 @@ var createGeoJSON = function createGeoJSON(projects){
 		        address: project.address || 'Address not specified',
 		        neighborhood: project.neighborhood || 'Neighborhood not specified',
 		        description: project.description || 'No description',
+						sponsorFirm: project.sponsorFirm || 'No Sponor Firm',
 		     	zoning: project.zoning || 'No zoning specified',
 		        units: project.units || 'Units unknown',
 		        status: project.status || 'No status specified',
