@@ -257,7 +257,7 @@ var filterState = {
 var filterMapboxMarkers = function filterMapboxMarkers(marker){
 	// this function tells mapbox to filter markers
 	// to reflect the current filter state
-	if (filterState.neighborhood[marker.properties.neighborhood] &&
+	if (marker && filterState.neighborhood[marker.properties.neighborhood] &&
 		filterState.projectStatus[marker.properties.statusCategory] &&
 		filterState.developmentType[marker.properties.zoning]) {
 		if (parseInt(marker.properties.units) >= filterState.minimumUnits) {
