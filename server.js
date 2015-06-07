@@ -26,6 +26,9 @@ var port = process.env.PORT || 5000
 // connect to database
 mongoose.connect('mongodb://jmcelroy:sfinprogress@ds061731.mongolab.com:61731/sf-in-progress')
 
+// SCHEMAS
+// ================================================
+
 // The SF Planning Commission holds a weekly meeting where they rule on various
 // items concerning development projects.
 //
@@ -53,6 +56,7 @@ mongoose.connect('mongodb://jmcelroy:sfinprogress@ds061731.mongolab.com:61731/sf
 //   action:
 //     Approve with Conditions as amended by staff, incorporating the desing
 //     comments from Commissioners; with a minimum 13’ setback on Sutter Street
+
 var projectHearingSchema = new mongoose.Schema({
   projectId: mongoose.Schema.Types.ObjectId
   , location: String
@@ -73,7 +77,6 @@ var projectHearingSchema = new mongoose.Schema({
   , action: String
 })
 
-// database schemas
 var projectSchema = new mongoose.Schema({
   address: String
   , city: String
@@ -92,7 +95,7 @@ var projectSchema = new mongoose.Schema({
   , hearings: [projectHearingSchema]
 })
 
-// database model
+// models
 var Project = mongoose.model('Project', projectSchema)
 var ProjectHearing = mongoose.model('ProjectHearing', projectHearingSchema)
 
@@ -130,7 +133,7 @@ app.get('/projects', function (req, resp){
 })
 
 // save a new project
-app.post('/projects', function(req, resp) {
+app.post('/projects', function (req, resp) {
 	var saveProject = function(coords) {
 		var project = new Project({
 			name: req.body.name || ''
@@ -163,25 +166,25 @@ app.post('/projects', function(req, resp) {
 	}.bind(this))
 })
 
-app.get('/projects/featured', function(req, resp) {
-	return Project.find({featured: true}, function(err, projects) {
+app.get('/projects/featured', function (req, resp) {
+	return Project.find({featured: true}, function (err, projects) {
 		if (err) resp.send(err)
 		resp.json(projects)
 	})
 })
 
 // get a particular project
-app.get('/projects/:project_id', function(req, resp){
+app.get('/projects/:project_id', function (req, resp){
 	var id = mongoose.Types.ObjectId(req.params.project_id)
 
-	return Project.findById(id, function(err, project){
+	return Project.findById(id, function (err, project){
 		if(err) resp.send(err)
 		resp.json(project)
 	})
 })
 
 // update / replace a particular project
-app.post('/projects/:project_id', function(req, resp) {
+app.post('/projects/:project_id', function (req, resp) {
 	var id = mongoose.Types.ObjectId(req.params.project_id)
 	var newDoc = req.body
 	var options = null
@@ -192,10 +195,10 @@ app.post('/projects/:project_id', function(req, resp) {
 	})
 })
 
-app.delete('/projects/:project_id', function(req, resp) {
+app.delete('/projects/:project_id', function (req, resp) {
 	var id = mongoose.Types.ObjectId(req.params.project_id)
 
-	Project.findOne({_id: id}, function(err, project) {
+	Project.findOne({_id: id}, function (err, project) {
 		project.remove()
 		resp.sendStatus(200)
 	})
@@ -222,13 +225,19 @@ app.post('/hearings/:project_id', function (req, resp) {
 	var hearing = new ProjectHearing({
 		projectId: projectId
 		, location: req.body.location
-		, date: req.body.date // TODO: make sure this gets saved as real date
-		, time: req.body.time // TODO: make sure this is a timestamp
-		, documents: req.body.documents
-		, type: req.body.type
+		, date: req.body.date // TODO: make sure this is getting saved as timestamp
+		, packetUrl: req.body.packetUrl
+		, documents: req.body.documents // any documents in addition to the pdf url
+		, type: req.body.type // continuance, consent, regular, review
 		, description: req.body.description
-		, preliminaryRecommendation: req.body.preliminaryRecommendation
-  	, finalRecommendation: req.body.finalRecommendation
+		, staffContact: {
+			name: req.body.staffContactName
+			, phone: req.body.staffContactPhone
+		}
+		// i think these last two pieces of info would be added after a hearing?
+		// so they may not be necessary for the form
+		// , preliminaryRecommendation: req.body.preliminaryRecommendation
+  	// 	, action: req.body.action 
 	})
 
 	Project.update(
