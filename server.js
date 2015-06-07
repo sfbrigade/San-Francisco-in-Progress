@@ -53,6 +53,7 @@ mongoose.connect('mongodb://jmcelroy:sfinprogress@ds061731.mongolab.com:61731/sf
 //   action:
 //     Approve with Conditions as amended by staff, incorporating the desing
 //     comments from Commissioners; with a minimum 13’ setback on Sutter Street
+
 var projectHearingSchema = new mongoose.Schema({
   projectId: mongoose.Schema.Types.ObjectId
   , location: String
@@ -130,7 +131,7 @@ app.get('/projects', function (req, resp){
 })
 
 // save a new project
-app.post('/projects', function(req, resp) {
+app.post('/projects', function (req, resp) {
 	var saveProject = function(coords) {
 		var project = new Project({
 			name: req.body.name || ''
@@ -163,25 +164,25 @@ app.post('/projects', function(req, resp) {
 	}.bind(this))
 })
 
-app.get('/projects/featured', function(req, resp) {
-	return Project.find({featured: true}, function(err, projects) {
+app.get('/projects/featured', function (req, resp) {
+	return Project.find({featured: true}, function (err, projects) {
 		if (err) resp.send(err)
 		resp.json(projects)
 	})
 })
 
 // get a particular project
-app.get('/projects/:project_id', function(req, resp){
+app.get('/projects/:project_id', function (req, resp){
 	var id = mongoose.Types.ObjectId(req.params.project_id)
 
-	return Project.findById(id, function(err, project){
+	return Project.findById(id, function (err, project){
 		if(err) resp.send(err)
 		resp.json(project)
 	})
 })
 
 // update / replace a particular project
-app.post('/projects/:project_id', function(req, resp) {
+app.post('/projects/:project_id', function (req, resp) {
 	var id = mongoose.Types.ObjectId(req.params.project_id)
 	var newDoc = req.body
 	var options = null
@@ -192,10 +193,10 @@ app.post('/projects/:project_id', function(req, resp) {
 	})
 })
 
-app.delete('/projects/:project_id', function(req, resp) {
+app.delete('/projects/:project_id', function (req, resp) {
 	var id = mongoose.Types.ObjectId(req.params.project_id)
 
-	Project.findOne({_id: id}, function(err, project) {
+	Project.findOne({_id: id}, function (err, project) {
 		project.remove()
 		resp.sendStatus(200)
 	})

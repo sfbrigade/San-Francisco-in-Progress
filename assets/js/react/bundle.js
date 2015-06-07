@@ -10,9 +10,11 @@ eventBus = _.extend({}, Backbone.Events);
 
 eventBus.on("select:project", function showProfile(project) {
   // When a project is selected on the map:
-  // hide the sidebar filters and project list
+  // hide the sidebar and show project profile
   $("#collapse").addClass("hidden");
   $("#projectList-container").addClass("hidden");
+  $("#sidebar").animate({
+    width: "90%" }, 250);
   // show profile in the sidebar
   React.render(React.createElement(ProjectProfile, { project: project }), document.getElementById("projectProfile-container"));
 });
@@ -21,13 +23,22 @@ eventBus.on("close:profile", function toggleSidebarView() {
   // unhide sidebar content when a project profile is closed
   $("#collapse").removeClass("hidden");
   $("#projectList-container").removeClass("hidden");
+  $("#sidebar").animate({
+    width: "350px" }, 250);
 });
 
 // show the list of featured projects on page load
 $(document).ready(function () {
-  $.get("/projects/featured", function (projects) {
-    React.render(React.createElement(ProjectList, { projects: projects }), document.getElementById("projectList-container"));
-  });
+  if (window.location.href.indexOf("/map") > 0) {
+    $.get("/projects/featured", function (projects) {
+      React.render(React.createElement(ProjectList, { projects: projects }), document.getElementById("projectList-container"));
+    });
+  }
+  if (window.location.href.indexOf("/calendar") > 0) {
+    // get proposals data
+    var hearings = [];
+    React.render(React.createElement(Calendar, { hearings: hearings }));
+  }
 });
 
 },{"./project-list.js":2,"./project-profile.js":3,"backbone":4,"react":151}],2:[function(require,module,exports){
@@ -118,7 +129,8 @@ module.exports = React.createClass({
     };
   },
   createURL: function () {
-    return "/admin/projects/" + this.props.project.id;
+    var id = this.props.project._id || this.props.project.id;
+    return "/admin/projects/" + this.props.project._id;
   },
   close: function () {
     var projectProfile = this.getDOMNode();
@@ -127,11 +139,6 @@ module.exports = React.createClass({
     eventBus.trigger("close:profile");
   },
   render: function () {
-    var containerStyle = {
-      backgroundColor: "inherit",
-      color: "inherit"
-    };
-
     var closeStyle = {
       float: "right",
       cursor: "pointer",
@@ -139,7 +146,8 @@ module.exports = React.createClass({
     };
 
     var imgStyle = {
-      width: "100%"
+      float: "right",
+      width: "50%"
     };
 
     var marginBottom = {
@@ -159,7 +167,7 @@ module.exports = React.createClass({
 
     return React.createElement(
       "div",
-      { className: "projectProfile", style: containerStyle },
+      { className: "projectProfile" },
       React.createElement("div", { className: "glyphicon glyphicon-remove", style: closeStyle, onClick: this.close }),
       React.createElement("br", null),
       React.createElement(

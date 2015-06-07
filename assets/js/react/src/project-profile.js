@@ -19,7 +19,7 @@ module.exports = React.createClass({
   }
   , createURL: function() {
     var id = this.props.project._id || this.props.project.id
-    return '/admin/projects/' + id
+    return '/admin/projects/' + this.props.project._id
   }
   , close: function() {
     var projectProfile = this.getDOMNode()
@@ -28,11 +28,6 @@ module.exports = React.createClass({
     eventBus.trigger('close:profile')
   },
   render: function() {
-    var containerStyle = {
-      backgroundColor: 'inherit',
-      color: 'inherit'
-    }
-
     var closeStyle = {
       float: 'right',
       cursor: 'pointer',
@@ -40,7 +35,8 @@ module.exports = React.createClass({
     };
 
     var imgStyle = {
-      width: '100%'
+      float: 'right',
+      width: '50%'
     }
 
     var marginBottom = {
@@ -61,7 +57,7 @@ module.exports = React.createClass({
       : null
 
     return (
-      <div className='projectProfile' style={containerStyle}>
+      <div className='projectProfile'>
         <div className='glyphicon glyphicon-remove' style={closeStyle} onClick={this.close}></div><br />
         <div style={marginBottom}>
           <h3 style={addressStyle}> {this.props.project.address} </h3>
