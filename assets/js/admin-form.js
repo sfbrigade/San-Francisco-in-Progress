@@ -13,7 +13,6 @@ if (projectId !== 'projects') {
 		}
 
 		$('form').attr('action', '/projects/' + projectId)
-
 		$('.btn-danger').removeClass('invisible').click(function() {
 			$.ajax({
 				url: '/projects/' + projectId

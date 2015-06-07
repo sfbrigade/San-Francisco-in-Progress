@@ -38,7 +38,7 @@ mongoose.connect('mongodb://jmcelroy:sfinprogress@ds061731.mongolab.com:61731/sf
 //     Commission Chambers
 //     Room 400, City Hall
 //     1 Dr. Carlton B. Goodlett Place
-//   date: 12:00 PM, June 11, 2015 
+//   date: 12:00 PM, June 11, 2015
 //   documents: ""
 //   type: "regular"
 //   id: "2013.1238CV"
@@ -60,7 +60,7 @@ mongoose.connect('mongodb://jmcelroy:sfinprogress@ds061731.mongolab.com:61731/sf
 var projectHearingSchema = new mongoose.Schema({
   projectId: mongoose.Schema.Types.ObjectId
   , location: String
-  , date: Date 
+  , date: Date
   , documents: String
   , type: {
     type: String
@@ -114,7 +114,12 @@ app.get('/map', function (req,resp){
 
 // form for admins to add new projects
 app.get('/projects/new', function (req, resp) {
-	resp.sendFile(path.join(__dirname, '/assets', '/submission-form.html'))
+	resp.sendFile(path.join(__dirname, '/assets', '/new-project-form.html'))
+})
+
+// form for everyone to add new hearings
+app.get('/hearings/new/:project_id', function (req, resp) {
+	resp.sendFile(path.join(__dirname, '/assets', '/new-hearing-form.html'))
 })
 
 // form for admins to update a project
@@ -147,7 +152,7 @@ app.post('/projects', function (req, resp) {
 			, website: req.body.website || ''
 			, picture: req.body.picture || ''
 			, statusCategory: determineStatusCategory(req.body.status) || ''
-			, coordinates: [coords.latitude, coords.longitude] || []
+			, coordinates: [(coords.latitude).toString(), (coords.longitude).toString()] || []
 			, featured: req.body.featured || false
 			, sponsorFirm: req.body.sponsorFirm || ''
 		})
@@ -162,7 +167,7 @@ app.post('/projects', function (req, resp) {
 
 	var address = req.body.address + ' ' + req.body.city
 	geocode(address, function(latitude,longitude) {
-		saveProject({'latitude': latitude, 'longitude': longitude})
+		saveProject({'latitude': (latitude).toString(), 'longitude': (longitude).toString()})
 	}.bind(this))
 })
 
@@ -221,7 +226,7 @@ app.post('/subscribe/:project_id', function (req, resp) {
 // project hearing form submission
 app.post('/hearings/:project_id', function (req, resp) {
 	var projectId = mongoose.Types.ObjectId(req.params.projectId)
-
+  console.log(projectId)
 	var hearing = new ProjectHearing({
 		projectId: projectId
 		, location: req.body.location
@@ -237,14 +242,18 @@ app.post('/hearings/:project_id', function (req, resp) {
 		// i think these last two pieces of info would be added after a hearing?
 		// so they may not be necessary for the form
 		// , preliminaryRecommendation: req.body.preliminaryRecommendation
-  	// 	, action: req.body.action 
+  	// 	, action: req.body.action
 	})
+  var options = {};
 
 	Project.update(
 		{_id: projectId}
-		, { '$push' : {hearings: hearing} }
+		, { $push : {hearings: hearing} }
+    , options
 		, function (err, numAffected) {
 			resp.sendStatus(201)
+      console.log(err);
+      console.log(numAffected);
 		}
 	)
 
