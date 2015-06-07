@@ -70,8 +70,7 @@ p, div {
 }
 
 .container-full, .form-container{
-	/*margin: 0 auto; */
-	margin: 2em 2em;
+	margin: 0 auto;
   width: 100%;
 }
 
