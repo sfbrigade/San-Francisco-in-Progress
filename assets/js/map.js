@@ -105,7 +105,9 @@ var createGeoJSON = function createGeoJSON(projects){
 		features: []
 	};
 
-	_.each(projects, function(project) {
+	_.each(projects, function (project) {
+		if (isNaN(project.coordinates[0])) return
+
 		var markerType;
 		switch (project.zoning) {
 			case "Residential":
