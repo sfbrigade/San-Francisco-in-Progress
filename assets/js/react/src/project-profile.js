@@ -97,11 +97,13 @@ module.exports = React.createClass({
         <button className='btn-info' onClick={this.goToHearingForm} style={marginLeft}>Add a Hearing</button>
         <h4> Next Hearing: </h4>
         <span>Date: </span>
-        <p> {this.props.project.hearings[0].date} </p>
+        <p> { (this.props.project.hearings && this.props.project.hearings.length) ?  this.props.project.hearings[0].date : ''} </p>
+        <span>Location: </span>
+        <p> { (this.props.project.hearings && this.props.project.hearings.length) ?  this.props.project.hearings[0].location : ''} </p>
         <span>Descrption: </span>
-        <p> {this.props.project.hearings[0].description} </p>
+        <p> {(this.props.project.hearings && this.props.project.hearings.length) ?  this.props.project.hearings[0].description : ''} </p>
         <span>Preliminary Recommendations: </span>
-        <p> {this.props.project.hearings[0].preliminaryRecommendation} </p>
+        <p> { (this.props.project.hearings && this.props.project.hearings.length) ?  this.props.project.hearings[0].preliminaryRecommendation: ''} </p>
       </div>
     )
   }
