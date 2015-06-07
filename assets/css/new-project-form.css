@@ -52,6 +52,7 @@ p, div {
 }
 .project-brief-text, .community-benefits-text, .other-info-text, .supervisor-input {
 	border: 2.5px solid #020E32;
+	font-size: 12pt;
 	font-family: 'Crimson Text'
 }
 
@@ -68,8 +69,9 @@ p, div {
 	text-align: center;
 }
 
-.container-full {
-	margin: 0 auto;
+.container-full, .form-container{
+	/*margin: 0 auto; */
+	margin: 1em;
   width: 100%;
 }
 
@@ -106,6 +108,7 @@ p, div {
 	resize: none;
 	height: 72vh;
 	padding: .5em;
+	font-size: 12pt;
 }
 
 .other-info-text {
