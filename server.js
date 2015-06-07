@@ -58,41 +58,41 @@ mongoose.connect('mongodb://jmcelroy:sfinprogress@ds061731.mongolab.com:61731/sf
 //     comments from Commissioners; with a minimum 13’ setback on Sutter Street
 
 var projectHearingSchema = new mongoose.Schema({
-  projectId: mongoose.Schema.Types.ObjectId
-  , location: String
-  , date: Date
-  , documents: String
-  , type: {
-    type: String
-    , enum: ['continuance', 'consent', 'regular', 'review']
-  }
-  , id: String
-  , packetUrl: String
-  , staffContact: {
-    name: String
-    , phone: String
-  }
-  , description: String
-  , preliminaryRecommendation: String
-  , action: String
+	projectId: mongoose.Schema.Types.ObjectId
+	, location: String
+	, date: Date
+	, documents: String
+	, type: {
+		type: String
+		, enum: ['continuance', 'consent', 'regular', 'review']
+	}
+	, id: String
+	, packetUrl: String
+	, staffContact: {
+		name: String
+		, phone: String
+	}
+	, description: String
+	, preliminaryRecommendation: String
+	, action: String
 })
 
 var projectSchema = new mongoose.Schema({
-  address: String
-  , city: String
-  , neighborhood: String
-  , description: String
-  , benefits: String
-  , zoning: String
-  , units: Number
-  , status: String
-  , supervisor: String
-  , statusCategory: String
-  , picture: String
-  , coordinates: Array
-  , featured: Boolean
-  , sponsorFirm: String
-  , hearings: [projectHearingSchema]
+	address: String
+	, city: String
+	, neighborhood: String
+	, description: String
+	, benefits: String
+	, zoning: String
+	, units: Number
+	, status: String
+	, supervisor: String
+	, statusCategory: String
+	, picture: String
+	, coordinates: Array
+	, featured: Boolean
+	, sponsorFirm: String
+	, hearings: [projectHearingSchema]
 })
 
 // models
@@ -230,8 +230,8 @@ app.post('/hearings/:project_id', function (req, resp) {
 	var hearing = new ProjectHearing({
 		projectId: projectId
 		, location: req.body.location
-    // TODO: make sure this is getting saved as timestamp. The result will be
-    // NaN if the date is not an ISO string format or numeric value.
+		// TODO: make sure this is getting saved as timestamp. The result will be
+		// NaN if the date is not an ISO string format or numeric value.
 		, date: req.body.date
 		, packetUrl: req.body.documents
 		, documents: req.body.documents // any documents in addition to the pdf url
@@ -247,18 +247,18 @@ app.post('/hearings/:project_id', function (req, resp) {
   	// , action: req.body.action
 	})
   var options = {};
+
 	Project.findByIdAndUpdate(
-    projectId
+		projectId
 		, { $push : {hearings: hearing} }
-    , options
+		, options
 		, function (err, numAffected) {
 			resp.sendStatus(201)
 		})
-
 })
 
 app.all('*', function(req, res){
-  res.sendStatus(404);
+	res.sendStatus(404);
 })
 
 // START THE SERVER
