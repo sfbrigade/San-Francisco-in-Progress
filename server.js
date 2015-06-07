@@ -155,7 +155,7 @@ app.post('/projects', function (req, resp) {
 			, coordinates: [(coords.latitude).toString(), (coords.longitude).toString()] || []
 			, featured: req.body.featured || false
 			, sponsorFirm: req.body.sponsorFirm || ''
-      , hearings: []
+			, hearings: []
 		})
 
 		project.save(function(err){
@@ -241,12 +241,12 @@ app.post('/hearings/:project_id', function (req, resp) {
 			name: req.body.staffContactName
 			, phone: req.body.staffContactPhone
 		}
-    , preliminaryRecommendation: req.body.preliminaryRecommendation
-    // This is the outcome of the meeting. This is published in the minutes
-    // about 1 month after the meeting.
-  	// , action: req.body.action
+		, preliminaryRecommendation: req.body.preliminaryRecommendation
+		// This is the outcome of the meeting. This is published in the minutes
+		// about 1 month after the meeting.
+		// , action: req.body.action
 	})
-  var options = {};
+	var options = {};
 
 	Project.findByIdAndUpdate(
 		projectId
