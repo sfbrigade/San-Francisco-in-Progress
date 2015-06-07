@@ -65,6 +65,10 @@ module.exports = React.createClass({
       , display: 'inline'
     }
 
+    var marginLeft = {
+      marginLeft: '10px'
+    }
+
     var projectImage = this.props.project.picture
       ? <img style={imgStyle} src={this.props.project.picture} />
       : null
@@ -75,8 +79,6 @@ module.exports = React.createClass({
         <div style={marginBottom}>
           <h3 style={addressStyle}> {this.props.project.address} </h3>
           <a href={this.createURL()} style={editBtnStyle}>(Edit)</a>
-          <a href={this.hearingURL()}
-          style={editBtnStyle}>(Add a Hearing)</a>
         </div>
         <div>{projectImage}</div>
         <h4> Sponsor Firm: </h4>
@@ -87,7 +89,8 @@ module.exports = React.createClass({
         <p> {this.props.project.units} </p>
         <h4> Description: </h4>
         <p> {this.props.project.description} </p>
-        <button className='btn-info' onClick={this.showEmailForm}>Subscribe for updates to this project</button>
+        <button className='btn-info' onClick={this.showEmailForm}>Subscribe for updates</button>
+        <button className='btn-info' onClick={this.goToHearingForm} style={marginLeft}>Add a Hearing</button>
       </div>
     )
   }
