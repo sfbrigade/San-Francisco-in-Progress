@@ -248,7 +248,7 @@ app.post('/hearings/:project_id', function (req, resp) {
 
 	Project.update(
 		{_id: projectId}
-		, { '$push' : {hearings: hearing} }
+		, { $push : {hearings: hearing} }
     , options
 		, function (err, numAffected) {
 			resp.sendStatus(201)
