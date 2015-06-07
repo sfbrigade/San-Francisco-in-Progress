@@ -105,7 +105,9 @@ var createGeoJSON = function createGeoJSON(projects){
 		features: []
 	};
 
-	_.each(projects, function(project) {
+	_.each(projects, function (project) {
+		if (isNaN(project.coordinates[0])) return
+
 		var markerType;
 		switch (project.zoning) {
 			case "Residential":
@@ -123,10 +125,13 @@ var createGeoJSON = function createGeoJSON(projects){
 		else if (project.statusCategory == "planning") markerColor = "#307de1"; //blue
 		else if (project.statusCategory == "building") markerColor = '#ff3b52'; //red
 
+		if(isNaN(project.coordinates[0])) {
+			project.coordinates = [0, 0];
+		}
 		var markerGeoJson = {
     		type: "Feature",
 	        geometry: {
-	        	"type": "Point", 
+	        	"type": "Point",
 	        	"coordinates": project.coordinates
 	        },
 	        properties: {
@@ -139,9 +144,10 @@ var createGeoJSON = function createGeoJSON(projects){
 		        status: project.status || 'No status specified',
 		        statusCategory: project.statusCategory ||'No status specified',
 		        picture: project.picture || '',
+						hearings: project.hearings || [],
 		        sponsorFirm: project.sponsorFirm || '',
 		        'marker-size': 'medium',
-		        'marker-color': markerColor || '#cccccc', 
+		        'marker-color': markerColor || '#cccccc',
 		        'marker-symbol': markerType
     		}
 		};
@@ -158,7 +164,7 @@ var setOneActiveMarker = function(marker) {
 }
 
 var placeMarkers = function(geoJSON){
-
+	console.log(geoJSON);
 	var markerLayer = L.mapbox.featureLayer(geoJSON)
 		.setFilter(filterMapboxMarkers)
 		.addTo(window.map)
@@ -183,7 +189,7 @@ var showAllMarkers = function() {
 	window.map.markers.setFilter(filterMapboxMarkers)
 }
 
-var cachedGeoJSON 
+var cachedGeoJSON
 
 var filterState = {
 	projectSelected: null,
@@ -218,7 +224,7 @@ var filterState = {
 		"South of Market, Other": true,
 		"TB Combo": true,
 		"VisVal": true,
-		"Western Addition": true,	
+		"Western Addition": true,
 		"WSoMa": true
 	},
 	minimumUnits: 0,
@@ -249,7 +255,7 @@ var filterState = {
 };
 
 var filterMapboxMarkers = function filterMapboxMarkers(marker){
-	// this function tells mapbox to filter markers 
+	// this function tells mapbox to filter markers
 	// to reflect the current filter state
 	if (filterState.neighborhood[marker.properties.neighborhood] &&
 		filterState.projectStatus[marker.properties.statusCategory] &&
@@ -258,7 +264,7 @@ var filterMapboxMarkers = function filterMapboxMarkers(marker){
 			return true;
 		}
 		return false
-	} 
+	}
 	else {
 		return false;
 	}

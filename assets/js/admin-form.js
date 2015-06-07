@@ -13,7 +13,6 @@ if (projectId !== 'projects') {
 		}
 
 		$('form').attr('action', '/projects/' + projectId)
-
 		$('.btn-danger').removeClass('invisible').click(function() {
 			$.ajax({
 				url: '/projects/' + projectId
@@ -25,15 +24,3 @@ if (projectId !== 'projects') {
 		})
 	})
 }
-
-$('#upload-button').on('click', function(argument){
-	filepicker.setKey("AeM62uStiTHCOvwWEpFipz");
-	filepicker.pick(
-	  function(Blob){
-			$('#property-image-url').val(Blob.url);
-			$('.upload-btn').addClass('hidden');
-			$('#property-image').attr('src', Blob.url);
-			$('#property-image').removeClass('hidden');
-	  }
-	)
-})

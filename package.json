@@ -16,6 +16,8 @@
     "request": "^2.55",
     "node-geocoder": "^2.21",
     "mongoose": "^4.0.1",
+    "backbone": "1.2.1",
+    "jquery": "^2.1.4",
     "watchify": "^2.2.1"
   },
   "dependencies": {
