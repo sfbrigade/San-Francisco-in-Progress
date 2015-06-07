@@ -1,36 +1,58 @@
+
+h3{
+	color: #4A4A4A;
+}
+h2, h4{
+	color: #CBDEEF;
+}
+h5{
+	color: #a9a9a9;
+}
+p, div {
+    font-family: 'Montserrat', sans-serif;
+}
+
 .header {
 	padding: 2em;
-	box-shadow: 2px 2px 4px #D3D3D3;
-	border-radius: 0;
+	background-color: #020E32;
 }
 
 .publish {
-	width: 25vw;
-	border-radius: 0;
+	width: 15vw;
+	height: 3vw;
+	background-color: #17ac3b;
 	color: white;
-	background-color: grey;
+	font-size: 12pt;
+	border-radius: 1px;
+
 }
 
 .email-us{
 	margin-right: 1em!important;
+	color:white;
 }
 
 .project {
 	padding: 1em;
 }
 
-.project span, .column h3, .upload-btn, .project-brief, .right-col-links a, .related-link, .autosave-text {
-	color: #10A1FF;
+.project span, .column h3, .upload-btn, .right-col-links a, .related-link, .autosave-text {
+	color: #17AC3B;
 	font-weight: 200;
-	text-shadow: 2px 2px 2px #e5e4e4;
+	border-style: none;
+	/*text-shadow: 2px 2px 2px #e5e4e4;*/
 }
 
 #property-image {
 	width: 100%;
 }
 
-.upload-btn, .project-brief-text, .community-benefits-text, .other-info-text, .supervisor-input {
-	border: 2px solid #10A1FF;
+.upload-btn{
+	font-family: 'Crimson Text'
+}
+.project-brief-text, .community-benefits-text, .other-info-text, .supervisor-input {
+	border: 2.5px solid #020E32;
+	font-family: 'Crimson Text'
 }
 
 .supervisor-input{
@@ -61,20 +83,22 @@
 }
 
 .upload-btn {
-	border-radius: 0;
+	border-radius: 0px;
 	width: 100%;
 	height: 30vh;
+	background-color: #f2f2f2;
 }
 
 .project-brief {
 	margin-top: 3em;
+	color: #4b4b4b;
 }
 
 .project-brief-text {
 	resize: none;
 	width: 100%;
 	height: 30vh;
-	padding: 0.5em;
+	padding: 1em;
 }
 
 .community-benefits-text, .other-info-text {
@@ -94,4 +118,9 @@
 
 .autosave-text {
 	margin-top: 18.7vh;
+}
+
+label {
+	padding: .3em;
+	font-size: 11pt;
 }
