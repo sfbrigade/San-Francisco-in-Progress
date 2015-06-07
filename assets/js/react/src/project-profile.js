@@ -1,5 +1,6 @@
 var React = require('react')
-, Backbone = require('backbone');
+, Backbone = require('backbone')
+, EmailForm = require('./email-subscribe-form.js')
 
 eventBus = _.extend({}, Backbone.Events)
 
@@ -15,6 +16,16 @@ module.exports = React.createClass({
       , picture: 'http://i.infopls.com/images/transamerican-tower.JPG'
       , description: 'Really awesome high-rise'
     }
+  }
+  , showEmailForm: function () {
+    var projectProfile = this.getDOMNode()
+    React.unmountComponentAtNode(projectProfile)
+    $(projectProfile).remove()
+    var id = this.props.project._id || this.props.project.id
+    React.render(
+      <EmailForm id={id} address={this.props.project.address} />
+      , document.getElementById('projectProfile-container')
+    )
   }
   , createURL: function() {
     var id = this.props.project._id || this.props.project.id
@@ -76,6 +87,7 @@ module.exports = React.createClass({
         <p> {this.props.project.units} </p>
         <h4> Description: </h4>
         <p> {this.props.project.description} </p>
+        <button className='btn-info' onClick={this.showEmailForm}>Subscribe for updates to this project</button>
       </div>
     )
   }
