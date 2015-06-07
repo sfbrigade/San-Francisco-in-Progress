@@ -155,6 +155,7 @@ app.post('/projects', function (req, resp) {
 			, coordinates: [(coords.latitude).toString(), (coords.longitude).toString()] || []
 			, featured: req.body.featured || false
 			, sponsorFirm: req.body.sponsorFirm || ''
+      , hearings: []
 		})
 
 		project.save(function(err){
@@ -225,18 +226,16 @@ app.post('/subscribe/:project_id', function (req, resp) {
 
 // project hearing form submission
 app.post('/hearings/:project_id', function (req, resp) {
-  console.log(req.params.project_id)
 	var projectId = mongoose.Types.ObjectId(req.params.project_id)
-  console.log(projectId)
 	var hearing = new ProjectHearing({
 		projectId: projectId
 		, location: req.body.location
     // TODO: make sure this is getting saved as timestamp. The result will be
     // NaN if the date is not an ISO string format or numeric value.
 		, date: req.body.date
-		, packetUrl: req.body.packetUrl
+		, packetUrl: req.body.documents
 		, documents: req.body.documents // any documents in addition to the pdf url
-		, type: req.body.type // continuance, consent, regular, review
+		, type: req.body.hearing-type // continuance, consent, regular, review
 		, description: req.body.description
 		, staffContact: {
 			name: req.body.staffContactName
@@ -248,17 +247,14 @@ app.post('/hearings/:project_id', function (req, resp) {
   	// , action: req.body.action
 	})
   var options = {};
-
+  console.log(hearing)
 	Project.findByIdAndUpdate(
     projectId
 		, { $push : {hearings: hearing} }
     , options
 		, function (err, numAffected) {
 			resp.sendStatus(201)
-      console.log(err);
-      console.log(numAffected);
-		}
-	)
+		})
 
 })
 
@@ -287,7 +283,6 @@ var determineStatusCategory = function determineStatusCategory(status) {
 	else if (status.substring(0,2) === "BP") {
 		statusCategory = "building"
 	}
-
 	return statusCategory
 }
 

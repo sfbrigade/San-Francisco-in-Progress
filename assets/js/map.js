@@ -125,6 +125,9 @@ var createGeoJSON = function createGeoJSON(projects){
 		else if (project.statusCategory == "planning") markerColor = "#307de1"; //blue
 		else if (project.statusCategory == "building") markerColor = '#ff3b52'; //red
 
+		if(isNaN(project.coordinates[0])) {
+			project.coordinates = [0, 0];
+		}
 		var markerGeoJson = {
     		type: "Feature",
 	        geometry: {
@@ -141,6 +144,7 @@ var createGeoJSON = function createGeoJSON(projects){
 		        status: project.status || 'No status specified',
 		        statusCategory: project.statusCategory ||'No status specified',
 		        picture: project.picture || '',
+						hearings: project.hearings || [],
 		        sponsorFirm: project.sponsorFirm || '',
 		        'marker-size': 'medium',
 		        'marker-color': markerColor || '#cccccc',

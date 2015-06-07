@@ -21,7 +21,7 @@ module.exports = React.createClass({
     var projectProfile = this.getDOMNode()
     React.unmountComponentAtNode(projectProfile)
     $(projectProfile).remove()
-    var id = this.props.project._id || this.props.project.id
+    var id = this.props.project._id || this.props.project.id;
     React.render(
       <EmailForm id={id} address={this.props.project.address} />
       , document.getElementById('projectProfile-container')
@@ -95,6 +95,8 @@ module.exports = React.createClass({
         <p> {this.props.project.description} </p>
         <button className='btn-info' onClick={this.showEmailForm}>Subscribe for updates</button>
         <button className='btn-info' onClick={this.goToHearingForm} style={marginLeft}>Add a Hearing</button>
+        <h4> Next Hearing: </h4>
+        <p> {this.props.project.hearings} </p>
       </div>
     )
   }
