@@ -14,7 +14,11 @@ Install the npm libraries
 
 `npm install`
 
-Start the server
+Bundle React files
+
+`npm run reactbuild`
+
+Open a new tab and start the server
 
 `npm start`
 
