@@ -30,9 +30,13 @@ module.exports = React.createClass({
   , createURL: function() {
     var id = this.props.project._id || this.props.project.id
     return '/admin/projects/' + id
-}
+  }
   , hearingURL: function() {
-    return '/hearings/new/' + this.props.project.id
+    var id = this.props.project._id || this.props.project.id
+    return '/hearings/new/' + id
+  }
+  , goToHearingForm: function() {
+    window.location.href = this.hearingURL()
   }
   , close: function() {
     var projectProfile = this.getDOMNode()
