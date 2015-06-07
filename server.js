@@ -49,7 +49,7 @@ var projectHearingSchema = new mongoose.Schema({
   projectId: mongoose.Schema.Types.ObjectId
   , location: String
   , date: Date
-  , time: Timestamp 
+  , time: Date
   , documents: String
   , type: String  // continuance, consent, regular, review
   , description: String
@@ -60,7 +60,7 @@ var projectHearingSchema = new mongoose.Schema({
 // database model
 var Project = mongoose.model('Project', projectSchema)
 var ProjectHearing = mongoose.model('ProjectHearing', projectHearingSchema)
-var CommissionHearing = mongoose.model('ComissionHearing', commissionHearingSchema)
+// var CommissionHearing = mongoose.model('ComissionHearing', commissionHearingSchema)
 
 // ROUTES
 // ================================================
@@ -189,7 +189,7 @@ app.post('/subscribe/:project_id', function (req, resp) {
 // project hearing form submission
 app.post('/hearings/:project_id', function (req, resp) {
 	var projectId = mongoose.Types.ObjectId(req.params.projectId)
-
+  console.log(projectId) 
 	var hearing = new ProjectHearing({
 		projectId: projectId
 		, location: req.body.location
@@ -201,12 +201,16 @@ app.post('/hearings/:project_id', function (req, resp) {
 		, preliminaryRecommendation: req.body.preliminaryRecommendation
   	, finalRecommendation: req.body.finalRecommendation
 	})
+  var options = {};
 
 	Project.update(
 		{_id: projectId}
 		, { '$push' : {hearings: hearing} }
+    , options
 		, function (err, numAffected) {
 			resp.sendStatus(201)
+      console.log(err);
+      console.log(numAffected);
 		}
 	)
 

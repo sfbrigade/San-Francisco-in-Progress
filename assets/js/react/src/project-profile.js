@@ -1,4 +1,3 @@
-
 var React = require('react')
 , Backbone = require('backbone');
 
@@ -18,7 +17,10 @@ module.exports = React.createClass({
     }
   }
   , createURL: function() {
-    return '/admin/projects/' + this.props.project._id
+    return '/admin/projects/' + this.props.project.id
+  }
+  , hearingURL: function() {
+    return '/hearings/new/' + this.props.project.id
   }
   , close: function() {
     var projectProfile = this.getDOMNode()
@@ -55,8 +57,8 @@ module.exports = React.createClass({
       , display: 'inline'
     }
 
-    var projectImage = this.props.project.picture 
-      ? <img style={imgStyle} src={this.props.project.picture} /> 
+    var projectImage = this.props.project.picture
+      ? <img style={imgStyle} src={this.props.project.picture} />
       : null
 
     return (
@@ -65,18 +67,19 @@ module.exports = React.createClass({
         <div style={marginBottom}>
           <h3 style={addressStyle}> {this.props.project.address} </h3>
           <a href={this.createURL()} style={editBtnStyle}>(Edit)</a>
+          <a href={this.hearingURL()}
+          style={editBtnStyle}>(Add a Hearing)</a>
         </div>
         <div>{projectImage}</div>
-        <h4> Sponsor Firm: </h4> 
+        <h4> Sponsor Firm: </h4>
         <p>{this.props.project.sponsorFirm} </p>
         <h4> Status: </h4>
         <p> {this.props.project.status} </p>
         <h4> Net new housing units: </h4>
         <p> {this.props.project.units} </p>
-        <h4> Description: </h4> 
+        <h4> Description: </h4>
         <p> {this.props.project.description} </p>
       </div>
     )
   }
 })
-

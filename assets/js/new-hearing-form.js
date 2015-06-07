@@ -8,6 +8,7 @@ if (projectId !== 'projects') {
 
 		$('#title').html('Add a Hearing to ' + project.address)
 
-		$('form').attr('action', '/projects/' + projectId)
+		$('form').attr('action', '/hearings/' + projectId)
 
+	})
 }
