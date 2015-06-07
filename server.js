@@ -241,13 +241,12 @@ app.post('/hearings/:project_id', function (req, resp) {
 			name: req.body.staffContactName
 			, phone: req.body.staffContactPhone
 		}
-    // , preliminaryRecommendation: req.body.preliminaryRecommendation
+    , preliminaryRecommendation: req.body.preliminaryRecommendation
     // This is the outcome of the meeting. This is published in the minutes
     // about 1 month after the meeting.
   	// , action: req.body.action
 	})
   var options = {};
-  console.log(hearing)
 	Project.findByIdAndUpdate(
     projectId
 		, { $push : {hearings: hearing} }
