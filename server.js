@@ -25,7 +25,8 @@ var port = process.env.PORT || 5000
 
 // connect to database
 mongoose.connect('mongodb://jmcelroy:sfinprogress@ds061731.mongolab.com:61731/sf-in-progress')
-// database schema
+
+// database schemas
 var projectSchema = new mongoose.Schema({
   address: String
   , city: String
@@ -41,33 +42,25 @@ var projectSchema = new mongoose.Schema({
   , coordinates: Array
   , featured: Boolean
   , sponsorFirm: String
+  , hearings: Array // array of project hearings
 })
 
 var projectHearingSchema = new mongoose.Schema({
-  project_id: mongoose.Schema.Types.ObjectId
+  projectId: mongoose.Schema.Types.ObjectId
+  , location: String
+  , date: Date
+  , time: Timestamp 
+  , documents: String
   , type: String  // continuance, consent, regular, review
-  , id: String
-  , representative: {
-    name: String
-    , phone: String
-  }
   , description: String
   , preliminary_recommendation: String
   , final_recommendation: String
-})
-
-var commissionHearingSchema = new mongoose.Schema({
-  start_time: Date
-  , end_time: Date
-  , address: String
-  , agenda: [projectHearingSchema]
 })
 
 // database model
 var Project = mongoose.model('Project', projectSchema)
 var ProjectHearing = mongoose.model('ProjectHearing', projectHearingSchema)
 var CommissionHearing = mongoose.model('ComissionHearing', commissionHearingSchema)
-
 
 // ROUTES
 // ================================================
@@ -159,9 +152,9 @@ app.post('/projects/:project_id', function(req, resp) {
 	var newDoc = req.body
 	var options = null
 
-	Project.findOneAndUpdate({_id: id}, newDoc, options, function(err, project) {
+	Project.findOneAndUpdate({_id: id}, newDoc, options, function (err, project) {
 		project.save()
-		resp.sendFile(path.join(__dirname, '/assets', '/project-submitted.html'))
+		resp.json({message: "project updated", project: project})
 	})
 })
 
@@ -172,6 +165,30 @@ app.delete('/projects/:project_id', function(req, resp) {
 		project.remove()
 		resp.sendStatus(200)
 	})
+})
+
+// project hearing form submission
+app.post('/hearings/:project_id', function (req, resp) {
+	var projectId = mongoose.Types.ObjectId(req.params.projectId)
+
+	var hearing = new ProjectHearing({
+		projectId: projectId
+		, location: req.body.location
+		, date: req.body.date // TODO: make sure this gets saved as real date
+		, time: req.body.time // TODO: make sure this is a timestamp
+		, documents: req.body.documents
+		, type: req.body.type
+		, description: req.body.description
+	})
+
+	Project.update(
+		{_id: projectId}
+		, { '$push' : {hearings: hearing} }
+		, function (err, numAffected) {
+			res.sendStatus(201)
+		}
+	)
+	
 })
 
 app.all('*', function(req, res){
