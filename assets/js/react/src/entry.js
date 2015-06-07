@@ -30,7 +30,11 @@ eventBus.on('close:profile', function toggleSidebarView() {
 // show the list of featured projects on page load
 $(document).ready(function() {
 	if (window.location.href.indexOf('/map') > 0) {
+<<<<<<< HEAD
 		$.get('/projects/featured', function (projects) {
+=======
+		$.get('/projects/featured', function(projects) {
+>>>>>>> 09504cf0053f0452b9081194d83563a10819c0f4
 			React.render(<ProjectList projects={projects} />,
 				document.getElementById('projectList-container'));
 		})

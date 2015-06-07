@@ -19,7 +19,7 @@ module.exports = React.createClass({
   , createURL: function() {
     var id = this.props.project._id || this.props.project.id
     return '/admin/projects/' + id
-  }
+}
   , hearingURL: function() {
     return '/hearings/new/' + this.props.project.id
   }
