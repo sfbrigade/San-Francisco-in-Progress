@@ -225,12 +225,15 @@ app.post('/subscribe/:project_id', function (req, resp) {
 
 // project hearing form submission
 app.post('/hearings/:project_id', function (req, resp) {
-	var projectId = mongoose.Types.ObjectId(req.params.projectId)
+  console.log(req.params.project_id)
+	var projectId = mongoose.Types.ObjectId(req.params.project_id)
   console.log(projectId)
 	var hearing = new ProjectHearing({
 		projectId: projectId
 		, location: req.body.location
-		, date: req.body.date // TODO: make sure this is getting saved as timestamp
+    // TODO: make sure this is getting saved as timestamp. The result will be
+    // NaN if the date is not an ISO string format or numeric value.
+		, date: req.body.date
 		, packetUrl: req.body.packetUrl
 		, documents: req.body.documents // any documents in addition to the pdf url
 		, type: req.body.type // continuance, consent, regular, review
@@ -239,15 +242,15 @@ app.post('/hearings/:project_id', function (req, resp) {
 			name: req.body.staffContactName
 			, phone: req.body.staffContactPhone
 		}
-		// i think these last two pieces of info would be added after a hearing?
-		// so they may not be necessary for the form
-		// , preliminaryRecommendation: req.body.preliminaryRecommendation
-  	// 	, action: req.body.action
+    // , preliminaryRecommendation: req.body.preliminaryRecommendation
+    // This is the outcome of the meeting. This is published in the minutes
+    // about 1 month after the meeting.
+  	// , action: req.body.action
 	})
   var options = {};
 
-	Project.update(
-		{_id: projectId}
+	Project.findByIdAndUpdate(
+    projectId
 		, { $push : {hearings: hearing} }
     , options
 		, function (err, numAffected) {
