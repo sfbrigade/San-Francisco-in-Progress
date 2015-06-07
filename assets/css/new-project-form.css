@@ -1,0 +1,129 @@
+
+h3{
+	color: #4A4A4A;
+}
+h2, h4{
+	color: #CBDEEF;
+}
+h5{
+	color: #a9a9a9;
+}
+p, div {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.header {
+	padding: 2em;
+	background-color: #020E32;
+}
+
+.publish {
+	width: 15vw;
+	height: 3vw;
+	background-color: #17ac3b;
+	color: white;
+	font-size: 12pt;
+	border-radius: 1px;
+
+}
+
+.email-us{
+	margin-right: 1em!important;
+	color:white;
+}
+
+.project {
+	padding: 1em;
+}
+
+.project span, .column h3, .upload-btn, .right-col-links a, .related-link, .autosave-text {
+	color: #17AC3B;
+	font-weight: 200;
+	border-style: none;
+	/*text-shadow: 2px 2px 2px #e5e4e4;*/
+}
+
+#property-image {
+	width: 100%;
+}
+
+.upload-btn{
+	font-family: 'Crimson Text'
+}
+.project-brief-text, .community-benefits-text, .other-info-text, .supervisor-input {
+	border: 2.5px solid #020E32;
+	font-size: 12pt;
+	font-family: 'Crimson Text'
+}
+
+.supervisor-input{
+	width: 21vw!important;
+	padding: 1.5em;
+	float:right;
+	word-wrap: break-word;
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	margin-right: 4vw;
+	resize: none;
+	text-align: center;
+}
+
+.container-full, .form-container{
+	/*margin: 0 auto; */
+	margin: 2em 2em;
+  width: 100%;
+}
+
+.column {
+	width: 33.3vw;
+	padding: 2em;
+}
+
+.left-col {
+	margin-top: 8.2%;
+}
+
+.upload-btn {
+	border-radius: 0px;
+	width: 100%;
+	height: 30vh;
+	background-color: #f2f2f2;
+}
+
+.project-brief {
+	margin-top: 3em;
+	color: #4b4b4b;
+}
+
+.project-brief-text {
+	resize: none;
+	width: 100%;
+	height: 30vh;
+	padding: 1em;
+}
+
+.community-benefits-text, .other-info-text {
+	width: 100%;
+	resize: none;
+	height: 72vh;
+	padding: .5em;
+	font-size: 12pt;
+}
+
+.other-info-text {
+	height: 30vh;
+}
+
+.right-col-links {
+	margin-top: 10vh;
+}
+
+.autosave-text {
+	margin-top: 18.7vh;
+}
+
+label {
+	padding: .3em;
+	font-size: 11pt;
+}

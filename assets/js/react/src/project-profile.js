@@ -84,11 +84,14 @@ module.exports = React.createClass({
       </div>
     )
     if (this.props.project.hearings.length > 0) {
+      var date = this.props.project.hearings[0].date ? new Date(this.props.project.hearings[0].date) : ''
       nextHearing = (
         <div>
           <h4> Next Hearing: </h4>
           <span>Date: </span>
-          <p> {this.props.project.hearings[0].date || ''} </p>
+          <p> {date.toDateString()} </p>
+          <span>Time: </span>
+          <p> {date.toTimeString()} </p>
           <span>Description: </span>
           <p> {this.props.project.hearings[0].description || ''} </p>
           <span>Preliminary Recommendations: </span>
