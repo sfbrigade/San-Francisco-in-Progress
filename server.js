@@ -249,7 +249,7 @@ app.post('/hearings/:project_id', function (req, resp) {
 		, date: req.body.date
 		, packetUrl: req.body.documents
 		, documents: req.body.documents // any documents in addition to the pdf url
-		, type: req.body.hearing-type // continuance, consent, regular, review
+		, type: req.body.hearing_type // continuance, consent, regular, review
 		, description: req.body.description
 		, staffContact: {
 			name: req.body.staffContactName
