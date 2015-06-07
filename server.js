@@ -188,7 +188,7 @@ app.post('/hearings/:project_id', function (req, resp) {
 			res.sendStatus(201)
 		}
 	)
-	
+
 })
 
 app.all('*', function(req, res){
