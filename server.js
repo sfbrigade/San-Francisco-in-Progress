@@ -6,6 +6,9 @@ var express = require('express')
 , path = require('path')
 , request = require('request')
 , geocoder = require('node-geocoder')('google','https', {apiKey:'AIzaSyBtoo72MlIo8Dwq0QPIAmAXIZWyrAAr9CQ'})
+, request = require('request')
+, createEmail = require('./example-email.js')
+// , mandrill = require('node-mandrill')('7ZUL0_LO1EUZVpEF0FbzGw')
 
 // create server
 var app = express()
@@ -213,11 +216,21 @@ app.delete('/projects/:project_id', function (req, resp) {
 // email subscribe to a project
 app.post('/subscribe/:project_id', function (req, resp) {
 	var projectId = mongoose.Types.ObjectId(req.params.project_id)
+	, email = req.body.email
 
-	Project.update(
+	Project.findOneAndUpdate(
 		{_id: projectId}
-		, { '$push' : {emails: req.body.email} }
-		, function (err, numAffected) {
+		, { '$push' : {emails: email} }
+		, function (err, project) {
+			var message = createEmail(email, project.address, null)
+			console.log('Sending this message: ', message, ' to ', email)
+			// send email via mandrill
+			request.post('https://mandrillapp.com/api/1.0/messages/send.json', {form: message}, function (err, resp) {
+				if (err) console.log('Mandrill error: ', err)
+				else {
+					console.log('Mandrill resp', resp.body)
+				}
+			})
 			resp.json({message: req.body.email + ' subscribed to project ' + projectId})
 		}
 	)
@@ -227,6 +240,7 @@ app.post('/subscribe/:project_id', function (req, resp) {
 // project hearing form submission
 app.post('/hearings/:project_id', function (req, resp) {
 	var projectId = mongoose.Types.ObjectId(req.params.project_id)
+
 	var hearing = new ProjectHearing({
 		projectId: projectId
 		, location: req.body.location
@@ -235,7 +249,7 @@ app.post('/hearings/:project_id', function (req, resp) {
 		, date: req.body.date
 		, packetUrl: req.body.documents
 		, documents: req.body.documents // any documents in addition to the pdf url
-		, type: req.body.hearing-type // continuance, consent, regular, review
+		, type: req.body.hearing_type // continuance, consent, regular, review
 		, description: req.body.description
 		, staffContact: {
 			name: req.body.staffContactName
