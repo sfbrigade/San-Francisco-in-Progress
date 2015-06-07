@@ -189,7 +189,7 @@ app.post('/subscribe/:project_id', function (req, resp) {
 // project hearing form submission
 app.post('/hearings/:project_id', function (req, resp) {
 	var projectId = mongoose.Types.ObjectId(req.params.projectId)
-  console.log(projectId) 
+  console.log(projectId)
 	var hearing = new ProjectHearing({
 		projectId: projectId
 		, location: req.body.location
@@ -205,7 +205,7 @@ app.post('/hearings/:project_id', function (req, resp) {
 
 	Project.update(
 		{_id: projectId}
-		, { '$push' : {hearings: hearing} }
+		, { $push : {hearings: hearing} }
     , options
 		, function (err, numAffected) {
 			resp.sendStatus(201)
