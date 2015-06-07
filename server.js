@@ -53,8 +53,8 @@ var projectHearingSchema = new mongoose.Schema({
   , documents: String
   , type: String  // continuance, consent, regular, review
   , description: String
-  , preliminary_recommendation: String
-  , final_recommendation: String
+  , preliminaryRecommendation: String
+  , finalRecommendation: String
 })
 
 // database model
@@ -172,6 +172,20 @@ app.delete('/projects/:project_id', function(req, resp) {
 	})
 })
 
+// email subscribe to a project
+app.post('/subscribe/:project_id', function (req, resp) {
+	var projectId = mongoose.Types.ObjectId(req.params.project_id)
+
+	Project.update(
+		{_id: projectId}
+		, { '$push' : {emails: req.body.email} }
+		, function (err, resp) {
+			resp.json({message: req.body.email + ' subscribed to project ' + projectId})
+		}
+	)
+
+})
+
 // project hearing form submission
 app.post('/hearings/:project_id', function (req, resp) {
 	var projectId = mongoose.Types.ObjectId(req.params.projectId)
@@ -184,13 +198,15 @@ app.post('/hearings/:project_id', function (req, resp) {
 		, documents: req.body.documents
 		, type: req.body.type
 		, description: req.body.description
+		, preliminaryRecommendation: req.body.preliminaryRecommendation
+  	, finalRecommendation: req.body.finalRecommendation
 	})
 
 	Project.update(
 		{_id: projectId}
 		, { '$push' : {hearings: hearing} }
 		, function (err, numAffected) {
-			res.sendStatus(201)
+			resp.sendStatus(201)
 		}
 	)
 
