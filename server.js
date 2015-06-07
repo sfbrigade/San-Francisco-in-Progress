@@ -169,6 +169,15 @@ app.delete('/projects/:project_id', function(req, resp) {
 
 // email subscribe to a project
 app.post('/subscribe/:project_id', function (req, resp) {
+	var projectId = mongoose.Types.ObjectId(req.params.project_id)
+
+	Project.update(
+		{_id: projectId}
+		, { '$push' : {emails: req.body.email} }
+		, function (err, resp) {
+			resp.json({message: req.body.email + ' subscribed to project ' + projectId})
+		}
+	)
 
 })
 
@@ -192,7 +201,7 @@ app.post('/hearings/:project_id', function (req, resp) {
 		{_id: projectId}
 		, { '$push' : {hearings: hearing} }
 		, function (err, numAffected) {
-			res.sendStatus(201)
+			resp.sendStatus(201)
 		}
 	)
 
