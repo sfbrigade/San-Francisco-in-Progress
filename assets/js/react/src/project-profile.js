@@ -89,7 +89,7 @@ module.exports = React.createClass({
           <h4> Next Hearing: </h4>
           <span>Date: </span>
           <p> {this.props.project.hearings[0].date || ''} </p>
-          <span>Descrption: </span>
+          <span>Description: </span>
           <p> {this.props.project.hearings[0].description || ''} </p>
           <span>Preliminary Recommendations: </span>
           <p> {this.props.project.hearings[0].preliminaryRecommendation || ''} </p>
