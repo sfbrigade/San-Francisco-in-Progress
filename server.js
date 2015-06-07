@@ -217,24 +217,24 @@ app.delete('/projects/:project_id', function (req, resp) {
 app.post('/subscribe/:project_id', function (req, resp) {
 	var projectId = mongoose.Types.ObjectId(req.params.project_id)
 	, email = req.body.email
+	, options = {}
 
-	Project.findOneAndUpdate(
-		{_id: projectId}
+	Project.findByIdAndUpdate(
+		projectId
 		, { '$push' : {emails: email} }
+		, {}
 		, function (err, project) {
 			var message = createEmail(email, project.address, null)
-			console.log('Sending this message: ', message, ' to ', email)
 			// send email via mandrill
-			request.post('https://mandrillapp.com/api/1.0/messages/send.json', {form: message}, function (err, resp) {
+			request.post('https://mandrillapp.com/api/1.0/messages/send.json', {form: message.confirmation}, function (err, resp) {
 				if (err) console.log('Mandrill error: ', err)
 				else {
 					console.log('Mandrill resp', resp.body)
 				}
 			})
-			resp.json({message: req.body.email + ' subscribed to project ' + projectId})
+			resp.json({message: req.body.email + ' subscribed to project ' + projectId, project: project})
 		}
 	)
-
 })
 
 // project hearing form submission
@@ -266,7 +266,20 @@ app.post('/hearings/:project_id', function (req, resp) {
 		projectId
 		, { $push : {hearings: hearing} }
 		, options
-		, function (err, numAffected) {
+		, function (err, project) {
+				// send email to subscribers to this project
+				var subscribers = project.emails
+				console.log('SUBSCRIBERS ', subscribers)
+
+				// email is null for now (defaults to mcelroyjessica@gmail.com)
+				var message = createEmail(null, project.address)
+
+				request.post('https://mandrillapp.com/api/1.0/messages/send.json', {form: message.announcement}, function (err, resp) {
+					if (err) console.log('Mandrill error: ', err)
+					else {
+						console.log('Mandrill resp', resp.body)
+				}
+			})
 			resp.sendStatus(201)
 		})
 })
