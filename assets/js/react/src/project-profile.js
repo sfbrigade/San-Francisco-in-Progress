@@ -18,7 +18,8 @@ module.exports = React.createClass({
     }
   }
   , createURL: function() {
-    return '/admin/projects/' + this.props.project._id
+    var id = this.props.project._id || this.props.project.id
+    return '/admin/projects/' + id
   }
   , close: function() {
     var projectProfile = this.getDOMNode()
