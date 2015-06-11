@@ -21,6 +21,7 @@
     "watchify": "^2.2.1"
   },
   "dependencies": {
+    "express": "^4.12.3",
     "moment": "^2.9.0",
     "node-mandrill": "^1.0.1",
     "react": "^0.12.2",
