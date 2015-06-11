@@ -21,6 +21,14 @@
     "watchify": "^2.2.1"
   },
   "dependencies": {
+    "6to5ify": "^3.1.2",
+    "request": "^2.55",
+    "mongoose": "^4.0.1",
+    "jquery": "^2.1.4",
+    "watchify": "^2.2.1",
+    "body-parser": "^1.12",
+    "node-geocoder": "^2.21",
+    "backbone": "1.2.1",
     "express": "^4.12.3",
     "moment": "^2.9.0",
     "node-mandrill": "^1.0.1",
