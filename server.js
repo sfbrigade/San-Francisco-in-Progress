@@ -196,6 +196,7 @@ app.get('/projects/:project_id', function (req, resp){
 app.post('/projects/:project_id', function (req, resp) {
 	var id = mongoose.Types.ObjectId(req.params.project_id)
 	var newDoc = req.body
+	newDoc.featured = req.body.featured == 'true'
 	var options = null
 
 	Project.findOneAndUpdate({_id: id}, newDoc, options, function (err, project) {

@@ -12,6 +12,8 @@ if (projectId !== 'projects') {
 			$('[name="' + key + '"]').val(project[key]).prop('checked', true)
 		}
 
+		$('[name="featured"]').val('true').prop('checked', project['featured'])
+
 		$('form').attr('action', '/projects/' + projectId)
 		$('.btn-danger').removeClass('invisible').click(function() {
 			$.ajax({
