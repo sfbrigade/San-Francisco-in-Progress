@@ -139,6 +139,7 @@ var createGeoJSON = function createGeoJSON(projects){
 		        address: project.address || 'Address not specified',
 		        neighborhood: project.neighborhood || 'Neighborhood not specified',
 		        description: project.description || 'No description',
+						sponsorFirm: project.sponsorFirm || 'No Sponor Firm',
 		     	zoning: project.zoning || 'No zoning specified',
 		        units: project.units || 'Units unknown',
 		        status: project.status || 'No status specified',
@@ -257,7 +258,7 @@ var filterState = {
 var filterMapboxMarkers = function filterMapboxMarkers(marker){
 	// this function tells mapbox to filter markers
 	// to reflect the current filter state
-	if (filterState.neighborhood[marker.properties.neighborhood] &&
+	if (marker && filterState.neighborhood[marker.properties.neighborhood] &&
 		filterState.projectStatus[marker.properties.statusCategory] &&
 		filterState.developmentType[marker.properties.zoning]) {
 		if (parseInt(marker.properties.units) >= filterState.minimumUnits) {
