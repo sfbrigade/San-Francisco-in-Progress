@@ -1,8 +1,7 @@
 #navlist li {
 			display: inline;
 			list-style-type: none;
-			padding-right: 20px;
-			color: white; 
+			color: #DEE2FF; 
 			font-family: "Open Sans", sans-serif;
     		font-size: 1.8vw;
 		}
@@ -10,12 +9,12 @@
 		#navcontainer { 
 			float: right; 
 			margin-right: 2cm;
-		}
+		} 
 		
 		#title { 
 			text-align: center;
 			color: #DEE2FF; 
-			font-family: "Open Sans", sans-serif;
+			font-family: "Lato", sans-serif;
     		font-size: 6.3vw;
 		}
 		
@@ -102,4 +101,55 @@
 		#imgcontainer { 
 			width: 30%;
 			height: auto;
+		}
+		
+		
+		/* nav bar */ 
+		
+		
+		ul.nav {
+			list-style-type: none;
+			overflow: hidden;
+		}
+
+		li.nav {
+				float: left;
+				margin: 0px;
+				padding: 5px;
+				}
+
+		a.nav:link, a.nav:visited {
+			display: block;
+			font-weight: bold;
+			color: #DEE2FF;
+			background-color: #343753;
+			text-align: center;
+			padding: 5px;
+			text-decoration: none;
+			text-transform: uppercase;
+			border-radius: 5px;
+		}
+
+		a.nav:hover, a.nav:active {
+			background-color: black;
+			color: #DEE2FF;
+			border-radius: 5px;
+		}
+		
+		#navbar { 
+			position: absolute
+			top: 0; 
+			height: 100px; 
+			width: 100%; 
+			background: white; 
+		}
+		
+		#top {
+		  position: fixed;
+		  top: 0;
+		  left: 0;
+		  z-index: 999;
+		  width: 100%;
+		  padding-bottom: 10px; 
+		  background-color: rgba(74, 79, 119,0.8);
 		}
