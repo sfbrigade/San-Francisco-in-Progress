@@ -1,0 +1,190 @@
+#navlist li {
+			display: inline;
+			list-style-type: none;
+			color: #DEE2FF; 
+			font-family: "Open Sans", sans-serif;
+    		font-size: 1.8vw;
+		}
+		
+		#navcontainer { 
+			float: right; 
+			margin-right: 2cm;
+		} 
+		
+		#title { 
+			text-align: center;
+			color: #DEE2FF; 
+			font-family: "Lato", sans-serif;
+    		font-size: 6.3vw;
+		}
+		
+		#center { 
+			text-align: center; 
+			font-family: "Open Sans", sans-serif; 
+			font-size: 3em; 
+			font-size: 5.8vw;
+			color: #DEE2FF;
+			width: 50%; 
+		}
+		
+		body { 
+			background-color: #5C6395; 
+		}
+		
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+		
+		buttonContainer {  
+			position: absolute; 
+			
+		}
+
+		.button-panel {    
+			display: table;
+			margin: 0 auto;
+			text-align: center
+		}
+
+		.button {
+			background-color: #9EF7A1;
+			color: #5C6395;
+			float: right;
+			padding: 10px;
+			border-radius: 3px;
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+		}
+
+		/*
+		.big-btn {
+			width: 200px;
+			height: 30px;
+		}
+		*/
+	
+		
+		a { 
+			color: white;
+		}
+		
+		a:link { 
+			text-decoration: none; 
+		}
+		
+		#callToAction { 
+			color: 5C6394;
+			font-family: "Open Sans", sans-serif;
+			
+		}
+		
+		#link { 
+			margin: auto;
+			width: 60%;
+			border: none;
+			padding: 20px;
+			width: 27%;
+			height: 30px;
+			font-size: 25;
+			font-family: "Open Sans", sans-serif; 
+			display: inline;
+			
+		}
+
+		#caption { 
+			color: #D4D9FF;
+			font-family: ovo; 
+			font-size: 3.9vw; 
+
+		}
+	
+		#imgcontainer { 
+			width: 30%;
+			height: auto;
+		}
+		
+		
+		/* nav bar */ 
+		
+		
+		ul.nav {
+			list-style-type: none;
+			overflow: hidden;
+		}
+
+		li.nav {
+				float: left;
+				margin: 0px;
+				padding: 5px;
+				}
+
+		a.nav:link, a.nav:visited {
+			display: block;
+			font-weight: bold;
+			color: #DEE2FF;
+			background-color: #343753;
+			text-align: center;
+			padding: 5px;
+			text-decoration: none;
+			text-transform: uppercase;
+			border-radius: 5px;
+		}
+
+		a.nav:hover, a.nav:active {
+			background-color: black;
+			color: #DEE2FF;
+			border-radius: 5px;
+		}
+		
+		#navbar { 
+			position: absolute
+			top: 0; 
+			height: 100px; 
+			width: 100%; 
+			background: white; 
+		}
+		
+		#top {
+		  position: fixed;
+		  top: 0;
+		  left: 0;
+		  z-index: 999;
+		  width: 100%;
+		  padding-bottom: 10px; 
+		  background-color: rgba(74, 79, 119,0.8);
+		}
+		
+		.logo{ 
+				position: absolute; 
+				left: 5px;
+				top: 5px;
+		}
+		
+		.logowrap { 
+			width: 50vw; 
+		}
+		
+		#logo1 { 
+			height: 100%; 
+		}
+		
+		#placeholder { 
+			height: 300px; 
+			width: 300px; 
+			background: black;
+		} 
+		
+		.center { 
+			text-align: center; 
+		}
+		
+		.logoBox { 
+			position: absolute; 
+			left: 10px;
+			top: 5px;
+			border: none; 
+			height: 77%; 
+			width: 20vw; 			
+		
+		}
