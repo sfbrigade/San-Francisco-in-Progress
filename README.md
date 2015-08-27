@@ -37,6 +37,11 @@ SF In Progress is an open source project with the goal of creating more awarenes
 
 Any additions to the tech stack should first be discussed and agreed upon by project contributors as a group to keep it as newcomer friendly as possible.
 
+### Live Sites
+
+New site: http://sanfrancisco-in-progress.herokuapp.com/
+Old site: http://www.sfinprogress.org/
+
 ### Getting Started
 To get started, simply fork the project and follow the above instructions to setup a local development environment.
 
