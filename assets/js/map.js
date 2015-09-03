@@ -71,7 +71,7 @@ var bindEvents = function bindFilterEvents(){
 var initializeMap = function initializeMap(){
 	L.mapbox.accessToken = 'pk.eyJ1Ijoiam1jZWxyb3kiLCJhIjoiVVg5eHZldyJ9.FFzKtamuKHb_8_b_6fAOFg';
 	// gray tiles: jmcelroy.lje09j35
-	var map = L.mapbox.map('map-container', 'examples.map-i86nkdio', {
+	var map = L.mapbox.map('map-container', 'mapbox.light', {
 		zoomControl: false,
 		legendControl: {
 			position: 'bottomright'
