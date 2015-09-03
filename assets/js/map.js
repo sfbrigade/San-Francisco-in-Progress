@@ -166,9 +166,16 @@ var setOneActiveMarker = function(marker) {
 
 var placeMarkers = function(geoJSON){
 	console.log(geoJSON);
+
+	var markers = new L.MarkerClusterGroup();
+
 	var markerLayer = L.mapbox.featureLayer(geoJSON)
 		.setFilter(filterMapboxMarkers)
-		.addTo(window.map)
+		.eachLayer(function(layer){
+			markers.addLayer(layer);
+		});
+
+	window.map.addLayer(markers);
 
 	markerLayer.on('click', function(e) {
 		// suppress Mapbox tooltip
