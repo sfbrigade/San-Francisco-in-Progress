@@ -72,17 +72,25 @@ var initializeMap = function initializeMap(){
 	L.mapbox.accessToken = 'pk.eyJ1Ijoiam1jZWxyb3kiLCJhIjoiVVg5eHZldyJ9.FFzKtamuKHb_8_b_6fAOFg';
 	// gray tiles: jmcelroy.lje09j35
 	var map = L.mapbox.map('map-container', 'mapbox.light', {
-		zoomControl: false,
-		legendControl: {
-			position: 'bottomright'
-		}
-	}).setView([37.77, -122.47], 13);
+			zoomControl: false,
+			legendControl: {
+				position: 'bottomright'
+			}
+		}).setView([37.77, -122.47], 13),
+		spinner = new Spinner().spin();
+
 	// putting zoom control in top-right corner
 	new L.Control.Zoom({ position: 'topright' }).addTo(map);
+
+	// Show spinner on top of the map while data is loading
+	$('#map-container').append(spinner.el);
+
 	// get data and place markers when it returns
 	fetchAllProjects(function(data) {
-		cachedGeoJSON = createGeoJSON(data)
-		placeMarkers(cachedGeoJSON)
+		spinner.stop();
+
+		cachedGeoJSON = createGeoJSON(data);
+		placeMarkers(cachedGeoJSON);
 	});
 	return map;
 };
