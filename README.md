@@ -36,7 +36,11 @@ Any additions to the tech stack should first be discussed and agreed upon by pro
 ### Live Sites
 
 New site: http://sanfrancisco-in-progress.herokuapp.com/
+
 Old site: http://www.sfinprogress.org/
+
+Heroku Dev Site: https://sf-in-progress-development.herokuapp.com/
+- Push to branch 'deploy' to deploy to this site
 
 ### Getting Started
 To get started, simply fork the project and follow the above instructions to setup a local development environment.
