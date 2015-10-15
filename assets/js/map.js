@@ -108,24 +108,12 @@ var createGeoJSON = function createGeoJSON(projects){
 	_.each(projects, function (project) {
 		if (isNaN(project.coordinates[0])) return
 
-		var markerType;
-		switch (project.zoning) {
-			case "Residential":
-				markerType = "building";
-				break;
-			case "Mixed Use":
-				markerType = "town";
-				break;
-			default:
-				markerType = "building";
-		}
+        // TODO distinguish key projects
+        var defaultColor = "#5BC9E3";
+        var keyProjectsColor = "#1E658A";
+        var markerColor = defaultColor;
 
-		var markerColor;
-		if (project.statusCategory === "construction") markerColor = "#04ff54"; //green
-		else if (project.statusCategory == "planning") markerColor = "#307de1"; //blue
-		else if (project.statusCategory == "building") markerColor = '#ff3b52'; //red
-
-		if(isNaN(project.coordinates[0])) {
+        if(isNaN(project.coordinates[0])) {
 			project.coordinates = [0, 0];
 		}
 		var markerGeoJson = {
@@ -139,17 +127,15 @@ var createGeoJSON = function createGeoJSON(projects){
 		        address: project.address || 'Address not specified',
 		        neighborhood: project.neighborhood || 'Neighborhood not specified',
 		        description: project.description || 'No description',
-						sponsorFirm: project.sponsorFirm || 'No Sponor Firm',
-		     	zoning: project.zoning || 'No zoning specified',
 		        units: project.units || 'Units unknown',
 		        status: project.status || 'No status specified',
 		        statusCategory: project.statusCategory ||'No status specified',
 		        picture: project.picture || '',
-						hearings: project.hearings || [],
+                hearings: project.hearings || [],
 		        sponsorFirm: project.sponsorFirm || '',
+                zoning: project.zoning || 'Zoning not specified',
 		        'marker-size': 'medium',
-		        'marker-color': markerColor || '#cccccc',
-		        'marker-symbol': markerType
+		        'marker-color': markerColor,
     		}
 		};
 		featureCollection.features.push(
