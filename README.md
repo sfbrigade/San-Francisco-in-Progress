@@ -4,7 +4,7 @@ How to Run SF in Progress locally
 
 Clone the repo from your command line
 
-`git clone git@github.com:jmcelroy5/SF-in-Progress.git`
+`git clone https://github.com/sfbrigade/san-francisco-in-progress`
 
 Change to the directory SF-in-Progress
 
