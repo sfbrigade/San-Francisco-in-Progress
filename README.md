@@ -4,11 +4,11 @@ How to Run SF in Progress locally
 
 Clone the repo from your command line
 
-`git clone git@github.com:jmcelroy5/SF-in-Progress.git`
+`git clone https://github.com/sfbrigade/San-Francisco-in-Progress.git` 
 
 Change to the directory SF-in-Progress
 
-`cd SF-in-Progress`
+`cd San-Francisco-in-Progress`
 
 Install the npm libraries
 
