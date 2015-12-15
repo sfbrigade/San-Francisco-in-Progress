@@ -1,77 +1,20 @@
+// globals for the map
+var cachedGeoJSON;
+var markerClusterGroup;
+var markerLayer;
+var map;
+
+$(document).ready(function() {
+	initializeMap();
+	bindEvents();
+});
+
+// instantiate Backbone event listener
 var eventBus = _.extend({}, Backbone.Events)
-
-var tooltipTemplate = function tooltipTemplate(data){
-	var template = _.template($("#tooltip").html());
-	return template(data);
-};
-
-var bindEvents = function bindFilterEvents(){
-	// Add event listeners to filter checkboxes
-	$("#legend .filter-status input").on('click', function(e){
-		var property = $(e.currentTarget).attr('name');
-		var newVal = $(e.currentTarget).prop('checked');
-		filterState.setOne(property, newVal, 'projectStatus');
-	});
-	$("#legend .filter-type input").on('click', function(e){
-		var property = $(e.currentTarget).attr('name');
-		var newVal = $(e.currentTarget).prop('checked');
-		filterState.setOne(property, newVal, 'developmentType');
-	});
-	$("#sidebar input").on('click', function(e){
-		var property = $(e.currentTarget).attr('name');
-		var newVal = $(e.currentTarget).prop('checked');
-		filterState.setOne(property, newVal, 'neighborhood');
-	});
-	$("#select-all").on('click', function(){
-		filterState.setAllNeighborhoods(true);
-	});
-	$("#clear-all").on('click', function(){
-		filterState.setAllNeighborhoods(false);
-	});
-
-	//make all checkboxes look selected
-	$("#sidebar input").prop("checked", true);
-	$("#legend input").prop("checked", true);
-
-	// set up slider for unit range -- Eric
-	$("#min_units").on('change', function(e) {
-		filterState.minimumUnits = e.target.value;
-		filterMapboxMarkers();
-	});
-
-	$("#min_units").on('change input', function(e) {
-		$("#min_units_display").html(e.target.value);
-	});
-
-	$( "#collapse" ).accordion({
-      collapsible: true,
-      active: false,
-      heightStyle: 'content'
-    });
-
-	eventBus.on('select:project', function onShowProfile() {
-		$('#sidebar .btn').addClass('hidden');
-	})
-    // when a project profile is dismissed, show all markers again
-    eventBus.on('close:profile', function onCloseProfile() {
-    	$('#sidebar .btn').removeClass('hidden');
-    	showAllMarkers();
-    });
-
-    $('#sidebar .btn').click(function(e) {
-    	if ($(this).hasClass('btn-info')) return;
-    	$('#sidebar .btn').toggleClass('btn-info btn-link'); // change active button
-    	$('#projectProfile-container').toggleClass('hidden'); // hide/show project list
-    	$('#projectList-container').toggleClass('hidden'); // hide/show project list
-    	$('#filter-container').toggleClass('hidden'); // hide/show filters
-    });
-
-};
 
 var initializeMap = function initializeMap(){
 	L.mapbox.accessToken = 'pk.eyJ1Ijoiam1jZWxyb3kiLCJhIjoiVVg5eHZldyJ9.FFzKtamuKHb_8_b_6fAOFg';
-	// gray tiles: jmcelroy.lje09j35
-	var map = L.mapbox.map('map-container', 'mapbox.light', {
+	map = L.mapbox.map('map-container', 'mapbox.light', {
 		zoomControl: false,
 		legendControl: {
 			position: 'bottomright'
@@ -87,18 +30,14 @@ var initializeMap = function initializeMap(){
 	return map;
 };
 
+// fetch all projects from database (handled by server.js)
 var fetchAllProjects = function(callback) {
 	$.get('/projects', function(data) {
 		callback(data);
 	});
 };
 
-var fetchOneProject = function(id, callback) {
-	$.get('/projects/' + id, function(project) {
-		callback(project);
-	});
-}
-
+// given a list of projects, convert them to geoJSON objects
 var createGeoJSON = function createGeoJSON(projects){
 	var featureCollection = {
 		type: "FeatureCollection",
@@ -145,23 +84,20 @@ var createGeoJSON = function createGeoJSON(projects){
 	return featureCollection;
 };
 
-
-var setOneActiveMarker = function(marker) {
-	window.map.markers.setGeoJSON(marker);
-}
-
+// given an array of geoJSON objects, add them to the map as a markerLayer
 var placeMarkers = function(geoJSON){
 	console.log(geoJSON);
 
-	var markers = new L.MarkerClusterGroup();
+	markerClusterGroup = new L.MarkerClusterGroup();
 
-	var markerLayer = L.mapbox.featureLayer(geoJSON)
+    // add a layer for each geoJSON object
+	markerLayer = L.mapbox.featureLayer(geoJSON)
 		.setFilter(filterMapboxMarkers)
 		.eachLayer(function(layer){
-			markers.addLayer(layer);
+			markerClusterGroup.addLayer(layer);
 		});
 
-	window.map.addLayer(markers);
+	map.addLayer(markerClusterGroup);
 
 	markerLayer.on('click', function(e) {
 		// suppress Mapbox tooltip
@@ -173,21 +109,18 @@ var placeMarkers = function(geoJSON){
 		// trigger event w/ project so profile renders
 		eventBus.trigger('select:project', project)
 	})
-
-	// so we can access it later
-	window.map.markers = markerLayer
 };
 
-var showAllMarkers = function() {
-	window.map.markers.setGeoJSON(cachedGeoJSON)
-	window.map.markers.setFilter(filterMapboxMarkers)
-}
-
-var cachedGeoJSON
-
-var filterState = {
-	projectSelected: null,
-	neighborhood: {
+// object that keeps track of which filter boxes are selected/unselected
+var FilterState = Backbone.NestedModel.extend({
+  defaults: {
+    'minimumUnits': 0,
+    'projectSelected': null,
+    'developmentType': {
+      "Mixed Use": true,
+      "Residential": true
+	},
+    'neighborhood': {
 		"Balboa Park": true,
 		"Bayshore": true,
 		"Bernal Heights": true,
@@ -220,52 +153,132 @@ var filterState = {
 		"VisVal": true,
 		"Western Addition": true,
 		"WSoMa": true
-	},
-	minimumUnits: 0,
-	developmentType: {
-		"Mixed Use": true,
-		"Residential": true
-	},
-	projectStatus: {
-		"construction": true,
-		"planning": true,
-		"building": true
-	},
-	setOne: function(property, newVal, filterToSet){
-		// property is the filter name (e.g. Bayshore)
-		// newVal is a boolean (show or not show)
-		// filterToSet is the filter category (e.g. neighborhood)
-		this[filterToSet][property] = newVal;
-		window.map.markers.setFilter(filterMapboxMarkers)
-	},
-	setAllNeighborhoods: function(set){
-		// set is a boolean: true to select all and false to clear all
-		$("#sidebar input").prop("checked", set);
-		_.each(this.neighborhood, function(val, key){
-			filterState.neighborhood[key] = set;
-		});
-		window.map.markers.setFilter(filterMapboxMarkers)
-	}
-};
+     },
+  'projectStatus': {
+    "construction": true,
+    "planning": true,
+    "building": true
+  }
+  }
+})
 
+var filterState = new FilterState();
+
+/* given a marker, check whether it should be shown based on
+ * the current filter state
+ */
 var filterMapboxMarkers = function filterMapboxMarkers(marker){
-	// this function tells mapbox to filter markers
-	// to reflect the current filter state
-	if (marker && filterState.neighborhood[marker.properties.neighborhood] &&
-		filterState.projectStatus[marker.properties.statusCategory] &&
-		filterState.developmentType[marker.properties.zoning]) {
-		if (parseInt(marker.properties.units) >= filterState.minimumUnits) {
+	if (marker && filterState.get('neighborhood.'.concat(marker.properties.neighborhood)) &&
+		filterState.get('projectStatus.'.concat(marker.properties.statusCategory)) &&
+		filterState.get('developmentType.'.concat(marker.properties.zoning))) {
+		if (parseInt(marker.properties.units) >= filterState.get('minimumUnits')) {
 			return true;
 		}
 		return false
 	}
-	else {
-		return false;
-	}
+    return false;
 	// TODO: Make a loading indicator appear because this is slow
 };
 
-$(document).ready(function() {
-	bindEvents();
-	window.map = initializeMap();
-});
+var setOneActiveMarker = function(marker) {
+	map.markers.setGeoJSON(marker);
+}
+
+var tooltipTemplate = function tooltipTemplate(data){
+	var template = _.template($("#tooltip").html());
+	return template(data);
+};
+
+// Add event listeners to filter checkboxes so they update the filter state
+var bindEvents = function bindFilterEvents(){
+  // listener for projectStatus filter
+  $("#legend .filter-status input").on('click', function(e){
+    var property = $(e.currentTarget).attr('name');
+    var newVal = $(e.currentTarget).prop('checked');
+    filterState.set('projectStatus.'.concat(property), newVal);
+  });
+  // listener for developmentType filter
+  $("#legend .filter-type input").on('click', function(e){
+    var property = $(e.currentTarget).attr('name');
+    var newVal = $(e.currentTarget).prop('checked');
+    filterState.set('developmentType.'.concat(property), newVal);
+  });
+  // listener for neighborhood filter
+  $("#sidebar input").on('click', function(e){
+    var property = $(e.currentTarget).attr('name');
+    var newVal = $(e.currentTarget).prop('checked');
+    filterState.set('neighborhood.'.concat(property), newVal);
+  });
+  // listener for select all neighborhoods
+  $("#select-all").on('click', function(){
+    setAllNeighborhoods(true);
+  });
+  // listener for clear all neighborhoods
+  $("#clear-all").on('click', function(){
+    setAllNeighborhoods(false);
+  });
+
+  // make all checkboxes look selected
+  $("#sidebar input").prop("checked", true);
+  $("#legend input").prop("checked", true);
+
+  // set up slider for unit range -- Eric
+  $("#min_units").on('change', function(e) {
+    filterState.set('minimumUnits', e.target.value);
+  });
+
+  $("#min_units").on('change input', function(e) {
+    $("#min_units_display").html(e.target.value);
+  });
+
+  $( "#collapse" ).accordion({
+    collapsible: true,
+    active: false,
+    heightStyle: 'content'
+  });
+
+  // when an individual marker is clicked, hide sidebar
+  eventBus.on('select:project', function onShowProfile() {
+    $('#sidebar .btn').addClass('hidden');
+  })
+  // when a project profile is dismissed, show all markers again
+  eventBus.on('close:profile', function onCloseProfile() {
+    $('#sidebar .btn').removeClass('hidden');
+    showAllMarkers();
+  });
+
+  $('#sidebar .btn').click(function(e) {
+    if ($(this).hasClass('btn-info')) return;
+    $('#sidebar .btn').toggleClass('btn-info btn-link'); // change active button
+    $('#projectProfile-container').toggleClass('hidden'); // hide/show project list
+    $('#projectList-container').toggleClass('hidden'); // hide/show project list
+    $('#filter-container').toggleClass('hidden'); // hide/show filters
+  });
+
+};
+
+// when the filter state changes, refresh the markers
+filterState.bind('change', function(model, newVal){
+    console.log('filter state changed');
+    markerClusterGroup.clearLayers();
+    markerLayer.setFilter(filterMapboxMarkers)
+               .eachLayer(function(layer){
+                    markerClusterGroup.addLayer(layer)
+               })
+
+    console.log('filters applied');
+})
+
+// either show or hide all neighborhoods
+var setAllNeighborhoods = function(newVal){
+    // newVal is a boolean: true to select all and false to clear all
+    $("#sidebar input").prop("checked", newVal);
+    _.each(filterState.get('neighborhood'), function(val, key){
+    	filterState.set('neighborhood.'.concat(key), newVal);
+    });
+}
+
+var showAllMarkers = function() {
+	markerLayer.setGeoJSON(cachedGeoJSON)
+	markerLayer.setFilter(filterMapboxMarkers)
+}
