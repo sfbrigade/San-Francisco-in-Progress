@@ -184,6 +184,7 @@ var filterMapboxMarkers = function filterMapboxMarkers(marker) {
 };
 
 var setOneActiveMarker = function(marker) {
+    if(typeof map.markers == 'undefined') return;
     map.markers.setGeoJSON(marker);
 }
 
@@ -247,7 +248,7 @@ var bindEvents = function bindFilterEvents() {
         // when a project profile is dismissed, show all markers again
     eventBus.on('close:profile', function onCloseProfile() {
         $('#sidebar .btn').removeClass('hidden');
-        showAllMarkers();
+        // showAllMarkers();
     });
 
     $('#sidebar .btn').click(function(e) {
