@@ -229,20 +229,14 @@ var bindEvents = function bindFilterEvents() {
     $('#sidebar .btn').click(function(e) {
         if ($(this).hasClass('btn-info')) return;
         $('#sidebar .btn').toggleClass('btn-info btn-link'); // change active button
-        $('#projectProfile-container').toggleClass('hidden'); // hide/show project list
-        $('#projectList-container').toggleClass('hidden'); // hide/show project list
-        $('#filter-container').toggleClass('hidden'); // hide/show filters
+        $('.project-nav').toggleClass('hidden'); // hide/show project list
     });
 
 };
 
 // when the filter state changes, refresh the markers
 filterState.bind('change', function(model, newVal) {
-    markerClusterGroup.clearLayers();
-    markerLayer.setFilter(filterMapboxMarkers)
-        .eachLayer(function(layer) {
-            markerClusterGroup.addLayer(layer)
-        })
+  showAllMarkers();
 })
 
 // either show or hide all neighborhoods
