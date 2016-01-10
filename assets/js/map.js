@@ -1,6 +1,6 @@
 // globals for the map
 var cachedGeoJSON;
-var markerClusterGroup;
+var markerClusterGroup = new L.MarkerClusterGroup();
 var markerLayer;
 var map;
 
@@ -27,7 +27,7 @@ var initializeMap = function initializeMap() {
     // get data and place markers when it returns
     fetchAllProjects(function(data) {
         cachedGeoJSON = createGeoJSON(data)
-        placeMarkers(cachedGeoJSON)
+        showAllMarkers();
     });
     return map;
 };
@@ -85,33 +85,6 @@ var createGeoJSON = function createGeoJSON(projects) {
 
     });
     return featureCollection;
-};
-
-// given an array of geoJSON objects, add them to the map as a markerLayer
-var placeMarkers = function(geoJSON) {
-    console.log(geoJSON);
-
-    markerClusterGroup = new L.MarkerClusterGroup();
-
-    // add a layer for each geoJSON object
-    markerLayer = L.mapbox.featureLayer(geoJSON)
-        .setFilter(filterMapboxMarkers)
-        .eachLayer(function(layer) {
-            markerClusterGroup.addLayer(layer);
-        });
-
-    map.addLayer(markerClusterGroup);
-
-    markerLayer.on('click', function(e) {
-        // suppress Mapbox tooltip
-        e.layer.closePopup();
-        var project = e.layer.feature.properties;
-        var marker = e.layer.toGeoJSON();
-        // clear all except the active marker
-        setOneActiveMarker(marker);
-        // trigger event w/ project so profile renders
-        eventBus.trigger('select:project', project);
-    })
 };
 
 // object that keeps track of which filter boxes are selected/unselected
@@ -184,7 +157,9 @@ var filterMapboxMarkers = function filterMapboxMarkers(marker) {
 };
 
 var setOneActiveMarker = function(marker) {
-    map.markers.setGeoJSON(marker);
+    markerClusterGroup.clearLayers();
+    markerLayer.setGeoJSON(marker);
+    markerClusterGroup.addLayer(markerLayer);
 }
 
 var tooltipTemplate = function tooltipTemplate(data) {
@@ -240,7 +215,7 @@ var bindEvents = function bindFilterEvents() {
         heightStyle: 'content'
     });
 
-    // when an individual marker is clicked, hide sidebar
+    // when an individual marker is clicked, hide filter sidebar
     eventBus.on('select:project', function onShowProfile() {
             $('#sidebar .btn').addClass('hidden');
         })
@@ -250,6 +225,7 @@ var bindEvents = function bindFilterEvents() {
         showAllMarkers();
     });
 
+    // switch between 'Projects to Support' and filter views
     $('#sidebar .btn').click(function(e) {
         if ($(this).hasClass('btn-info')) return;
         $('#sidebar .btn').toggleClass('btn-info btn-link'); // change active button
@@ -262,13 +238,11 @@ var bindEvents = function bindFilterEvents() {
 
 // when the filter state changes, refresh the markers
 filterState.bind('change', function(model, newVal) {
-    console.log('filter state changed');
     markerClusterGroup.clearLayers();
     markerLayer.setFilter(filterMapboxMarkers)
         .eachLayer(function(layer) {
             markerClusterGroup.addLayer(layer)
         })
-    console.log('filters applied');
 })
 
 // either show or hide all neighborhoods
@@ -281,6 +255,23 @@ var setAllNeighborhoods = function(newVal) {
 }
 
 var showAllMarkers = function() {
-    markerLayer.setGeoJSON(cachedGeoJSON);
-    markerLayer.setFilter(filterMapboxMarkers);
+    markerClusterGroup.clearLayers();
+    markerLayer = L.mapbox.featureLayer(cachedGeoJSON)
+        .setFilter(filterMapboxMarkers)
+        .eachLayer(function(layer) {
+            markerClusterGroup.addLayer(layer);
+        });
+
+    map.addLayer(markerClusterGroup);
+
+    markerLayer.on('click', function(e) {
+        // suppress Mapbox tooltip
+        e.layer.closePopup();
+        var project = e.layer.feature.properties;
+        var marker = e.layer.toGeoJSON();
+        // clear all except the active marker
+        setOneActiveMarker(marker);
+        // trigger event w/ project so profile renders
+        eventBus.trigger('select:project', project);
+    })
 }

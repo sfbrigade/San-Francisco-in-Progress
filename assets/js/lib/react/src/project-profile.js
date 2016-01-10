@@ -79,43 +79,43 @@ module.exports = React.createClass({
 
     var nextHearing = (
       <div>
-        <h4> Next Hearing: </h4>
-        <p> No hearings scheduled. </p>
+        <h4>Next Hearing:</h4>
+        <p>No hearings scheduled.</p>
       </div>
     )
     if (this.props.project.hearings.length > 0) {
       var date = this.props.project.hearings[0].date ? new Date(this.props.project.hearings[0].date) : ''
       nextHearing = (
         <div>
-          <h4> Next Hearing: </h4>
+          <h4>Next Hearing:</h4>
           <span>Date: </span>
-          <p> {date.toDateString()} </p>
+          <p>{date.toDateString()}</p>
           <span>Time: </span>
-          <p> {date.toTimeString()} </p>
+          <p>{date.toTimeString()}</p>
           <span>Description: </span>
-          <p> {this.props.project.hearings[0].description || ''} </p>
+          <p>{this.props.project.hearings[0].description || ''}</p>
           <span>Preliminary Recommendations: </span>
-          <p> {this.props.project.hearings[0].preliminaryRecommendation || ''} </p>
+          <p>{this.props.project.hearings[0].preliminaryRecommendation || ''}</p>
         </div>
       )
     }
 
     return (
       <div className='projectProfile'>
-        <div className='glyphicon glyphicon-remove' style={closeStyle} onClick={this.close}></div><br />
+        <div className='glyphicon glyphicon-remove' style={closeStyle} onClick={this.close}></div><br>
         <div style={marginBottom}>
           <h3 style={addressStyle}> {this.props.project.address} </h3>
           <a href={this.createURL()} style={editBtnStyle}>(Edit)</a>
         </div>
         <div>{projectImage}</div>
-        <h4> Sponsor Firm: </h4>
-        <p>{this.props.project.sponsorFirm} </p>
-        <h4> Status: </h4>
-        <p> {this.props.project.status} </p>
-        <h4> Net new housing units: </h4>
-        <p> {this.props.project.units} </p>
-        <h4> Description: </h4>
-        <p> {this.props.project.description} </p>
+        <h4>Sponsor Firm:</h4>
+        <p>{this.props.project.sponsorFirm}</p>
+        <h4>Status:</h4>
+        <p>{this.props.project.status}</p>
+        <h4>Net new housing units:</h4>
+        <p>{this.props.project.units}</p>
+        <h4>Description:</h4>
+        <p>{this.props.project.description}</p>
         <button className='btn-info' onClick={this.showEmailForm}>Subscribe for updates</button>
         <button className='btn-info' onClick={this.goToHearingForm} style={marginLeft}>Add a Hearing</button>
         {nextHearing}
