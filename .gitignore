@@ -1,4 +1,6 @@
 env/
 node_modules/
+.idea/
 .DS_Store
 assets/js/react/bundle.js
+npm-debug.log

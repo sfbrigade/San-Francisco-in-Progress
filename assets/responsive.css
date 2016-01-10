@@ -1,47 +1,55 @@
+/* Chrome, Firefox, or IE has already loaded its default bias css */
+body {
+	padding-top: 50px;
+	font-family: "Open Sans", sans-serif;
+	color: #fff;
+}
+
 #navlist li {
 			display: inline;
 			list-style-type: none;
-			color: #DEE2FF; 
+			color: #DEE2FF;
 			font-family: "Open Sans", sans-serif;
     		font-size: 1.8vw;
 		}
-		
-		#navcontainer { 
-			float: right; 
+
+		#navcontainer {
+			float: right;
 			margin-right: 2cm;
-		} 
-		
-		#title { 
-			text-align: center;
-			color: #DEE2FF; 
-			font-family: "Lato", sans-serif;
-    		font-size: 6.3vw;
 		}
-		
-		#center { 
-			text-align: center; 
-			font-family: "Open Sans", sans-serif; 
-			font-size: 3em; 
+
+		#title {
+			text-align: center;
+			color: #DEE2FF;
+			font-weight: 800;
+    		font-size: 8vw;
+			letter-spacing: 14px;
+		}
+
+		#center {
+			text-align: center;
+			font-family: "Open Sans", sans-serif;
+			font-size: 3em;
 			font-size: 5.8vw;
 			color: #DEE2FF;
-			width: 50%; 
+			width: 50%;
 		}
-		
-		body { 
-			background-color: #5C6395; 
+
+		body {
+			background-color: #1D3F77;
 		}
-		
+
 		img {
 			max-width: 100%;
 			height: auto;
 		}
-		
-		buttonContainer {  
-			position: absolute; 
-			
+
+		buttonContainer {
+			position: absolute;
+
 		}
 
-		.button-panel {    
+		.button-panel {
 			display: table;
 			margin: 0 auto;
 			text-align: center
@@ -50,36 +58,27 @@
 		.button {
 			background-color: #9EF7A1;
 			color: #5C6395;
-			float: right;
 			padding: 10px;
 			border-radius: 3px;
 			-moz-border-radius: 3px;
 			-webkit-border-radius: 3px;
 		}
 
-		/*
-		.big-btn {
-			width: 200px;
-			height: 30px;
-		}
-		*/
-	
-		
-		a { 
+		a {
 			color: white;
 		}
-		
-		a:link { 
-			text-decoration: none; 
+
+		a:link {
+			text-decoration: none;
 		}
-		
-		#callToAction { 
+
+		#callToAction {
 			color: 5C6394;
 			font-family: "Open Sans", sans-serif;
-			
+
 		}
-		
-		#link { 
+
+		#link {
 			margin: auto;
 			width: 60%;
 			border: none;
@@ -87,27 +86,25 @@
 			width: 27%;
 			height: 30px;
 			font-size: 25;
-			font-family: "Open Sans", sans-serif; 
+			font-family: "Open Sans", sans-serif;
 			display: inline;
-			
+
 		}
 
-		#caption { 
+		#caption {
 			color: #D4D9FF;
-			font-family: ovo; 
-			font-size: 3.9vw; 
+			font-family: ovo;
+			font-size: 3.9vw;
 
 		}
-	
-		#imgcontainer { 
+
+		#imgcontainer {
 			width: 30%;
 			height: auto;
 		}
-		
-		
-		/* nav bar */ 
-		
-		
+
+		/* nav bar */
+
 		ul.nav {
 			list-style-type: none;
 			overflow: hidden;
@@ -136,55 +133,164 @@
 			color: #DEE2FF;
 			border-radius: 5px;
 		}
-		
-		#navbar { 
-			position: absolute
-			top: 0; 
-			height: 100px; 
-			width: 100%; 
-			background: white; 
+
+		#navbar {
+			position: absolute;
+			top: 0;
+			height: 100px;
+			width: 100%;
+			background: white;
 		}
-		
+
 		#top {
 		  position: fixed;
 		  top: 0;
 		  left: 0;
 		  z-index: 999;
 		  width: 100%;
-		  padding-bottom: 10px; 
+		  padding-bottom: 10px;
 		  background-color: rgba(74, 79, 119,0.8);
 		}
-		
-		.logo{ 
-				position: absolute; 
+
+		.logo{
+				position: absolute;
 				left: 5px;
 				top: 5px;
 		}
-		
-		.logowrap { 
-			width: 50vw; 
+
+		.logowrap {
+			width: 50vw;
 		}
-		
-		#logo1 { 
-			height: 100%; 
+
+		#logo1 {
+			height: 100%;
 		}
-		
-		#placeholder { 
-			height: 300px; 
-			width: 300px; 
+
+		#placeholder {
+			height: 300px;
+			width: 300px;
 			background: black;
-		} 
-		
-		.center { 
-			text-align: center; 
 		}
-		
-		.logoBox { 
-			position: absolute; 
+
+		.center {
+			text-align: center;
+		}
+
+		.logoBox {
+			position: absolute;
 			left: 10px;
 			top: 5px;
-			border: none; 
-			height: 77%; 
-			width: 20vw; 			
-		
+			border: none;
+			height: 77%;
+			width: 20vw;
+
 		}
+
+
+
+		/* Old */
+
+div.indent 	{
+			margin-left: 1em;
+			}
+
+div.home 	{
+			padding: 20px;
+  			width: 90%    !important;
+	  		height: auto   !important;
+	  		}
+
+div.history	{
+			width: 65vw    !important;
+			margin: 0 auto;
+			text-align: center;
+			border: 2px solid #DEE2FF;
+			background-color: #DEE2FF;
+			border-radius: 15px;
+			padding: 30px;
+			z-index: -1;
+			text-align: left;
+			}
+
+.spacer {
+			height: 80px;
+			width: 100%;
+			z-index: -5;
+			border: none;
+		}
+
+.placeholder {
+
+				width: 25%;
+			}
+
+/* big numbers */
+
+div.list {
+  width: 500px;
+  margin: 20px auto;
+}
+
+/* list styles */
+
+ol {
+  list-style: none;
+  color: #DEE2FF;
+}
+
+ol li.listli {
+  font: bold 24pt helvetica, arial, sans-serif;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+li.listli p {
+  font: 12pt helvetica, arial, sans-serif;
+  color: #DEE2FF;
+  padding-left: 60px;
+}
+
+span {
+  position: absolute;
+  line-height: 25px;
+}
+
+.home-summary-point {
+	width: 100%;
+	margin-bottom: 90px;
+}
+
+.home-summary-point > h1, h2 {
+	font-size: 40px;
+	text-align: center;
+	max-width: 700px;
+	display: block;
+	margin: auto;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.home-summary-point > h2 {
+	font-size: 20px;
+	font-family: 'Lora', serif;
+}
+
+.icon-title > h1 {
+font-family: 'Lora', serif;
+}
+
+.home-summary-point > img {
+	margin: auto;
+	display: block;
+}
+
+.home-summary-point > .button {
+	display: block;
+	margin: auto;
+}
+
+#get-involved-button {
+	font-size: 40px;
+	text-align: center;
+	width: 300px;
+}
