@@ -20,14 +20,22 @@ var initializeMap = function initializeMap() {
             position: 'bottomright'
         }
     }).setView([37.77, -122.47], 13);
+
+    spinner = new Spinner().spin();
+
     // putting zoom control in top-right corner
     new L.Control.Zoom({
         position: 'topright'
     }).addTo(map);
+
+	// Show spinner on top of the map while data is loading
+	$('#map-container').append(spinner.el);
+
     // get data and place markers when it returns
     fetchAllProjects(function(data) {
         cachedGeoJSON = createGeoJSON(data)
         showAllMarkers();
+		spinner.stop();
     });
     return map;
 };
