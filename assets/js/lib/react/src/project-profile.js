@@ -102,7 +102,7 @@ module.exports = React.createClass({
 
     return (
       <div className='projectProfile'>
-        <div className='glyphicon glyphicon-remove' style={closeStyle} onClick={this.close}></div><br>
+        <div className='glyphicon glyphicon-remove' style={closeStyle} onClick={this.close}></div><br/>
         <div style={marginBottom}>
           <h3 style={addressStyle}> {this.props.project.address} </h3>
           <a href={this.createURL()} style={editBtnStyle}>(Edit)</a>
