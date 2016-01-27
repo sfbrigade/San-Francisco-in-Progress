@@ -30,6 +30,7 @@ SF In Progress is an open source project with the goal of creating more awarenes
 * React.js to render the Map Page of San Francisco Properties
 * MongoDB for data storage
 * MapBox API for map tile and leaflet API.
+* Browserify + Watchify for automatically re-compiling source code into a minified, single JS file (assets/js/lib/react/bundle.js)
 
 Any additions to the tech stack should first be discussed and agreed upon by project contributors as a group to keep it as newcomer friendly as possible.
 
@@ -52,7 +53,8 @@ We use Trello to keep track of bugs/new features we want to implement. Please e 
 1. Fork the project
 2. Create a topic branch.
 3. Implement your feature or bug fix
-4. Commit and push your changes
-5. Submit a pull request.
+4. Commit your changes to the branch
+5. Publish your branch (git push origin <BRANCHNAME>)
+6. Submit a pull request on Github.com
 
 Thanks for reading!
