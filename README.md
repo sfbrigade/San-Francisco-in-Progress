@@ -54,7 +54,7 @@ We use Trello to keep track of bugs/new features we want to implement. Please e 
 2. Create a topic branch.
 3. Implement your feature or bug fix
 4. Commit your changes to the branch
-5. Publish your branch (git push origin <BRANCHNAME>)
+5. Publish your branch (git push origin BRANCHNAME)
 6. Submit a pull request on Github.com
 
 Thanks for reading!
