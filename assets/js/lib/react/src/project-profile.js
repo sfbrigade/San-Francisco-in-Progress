@@ -17,6 +17,11 @@ module.exports = React.createClass({
       , description: 'Really awesome high-rise'
     }
   }
+
+  , componentDidMount: function() {
+      $('[data-toggle="tooltip"]').tooltip()
+  }
+
   , showEmailForm: function () {
     var projectProfile = this.getDOMNode()
     React.unmountComponentAtNode(projectProfile)
@@ -35,6 +40,7 @@ module.exports = React.createClass({
     var id = this.props.project._id || this.props.project.id
     return '/hearings/new/' + id
   }
+
   , goToHearingForm: function() {
     window.location.href = this.hearingURL()
   }
@@ -108,7 +114,7 @@ module.exports = React.createClass({
           <a href={this.createURL()} style={editBtnStyle}>(Edit)</a>
         </div>
         <div>{projectImage}</div>
-        <h4>Sponsor Firm:</h4>
+        <h4 data-toggle="tooltip" data-placement="right" title="A firm that sponsors the housing project">Sponsor Firm:</h4>
         <p>{this.props.project.sponsorFirm}</p>
         <h4>Status:</h4>
         <p>{this.props.project.status}</p>
