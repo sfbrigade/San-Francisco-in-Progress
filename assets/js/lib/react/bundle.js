@@ -202,7 +202,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function () {
-    $("[data-toggle=\"tooltip\"]").tooltip();
+    $("[data-toggle=\"tooltip\"]").tooltip({ trigger: "hover click" });
   },
 
   showEmailForm: function () {
@@ -211,6 +211,11 @@ module.exports = React.createClass({
     $(projectProfile).remove();
     var id = this.props.project._id || this.props.project.id;
     React.render(React.createElement(EmailForm, { id: id, address: this.props.project.address }), document.getElementById("projectProfile-container"));
+  },
+
+  getTooltip: function (status) {
+    var tooltip_texts = { "BP Filed": "Tooltip BP filed", "PL Approved": "Tooltip PL Approved" };
+    return tooltip_texts[status];
   },
   createURL: function () {
     var id = this.props.project._id || this.props.project.id;
@@ -248,6 +253,10 @@ module.exports = React.createClass({
 
     var editBtnStyle = {
       display: "inline"
+    };
+
+    var inlineStyle = {
+      display: "inline-block"
     };
 
     var addressStyle = {
@@ -356,7 +365,7 @@ module.exports = React.createClass({
       ),
       React.createElement(
         "h4",
-        { "data-toggle": "tooltip", "data-placement": "right", title: "A firm that sponsors the housing project" },
+        { style: inlineStyle, "data-toggle": "tooltip", "data-placement": "right", title: "Tooltip for sponsor firm" },
         "Sponsor Firm:"
       ),
       React.createElement(
@@ -366,13 +375,17 @@ module.exports = React.createClass({
       ),
       React.createElement(
         "h4",
-        null,
+        { style: inlineStyle, "data-toggle": "tooltip", "data-placement": "right", title: "Tooltip for status" },
         "Status:"
       ),
       React.createElement(
-        "p",
+        "div",
         null,
-        this.props.project.status
+        React.createElement(
+          "p",
+          { style: inlineStyle, "data-toggle": "tooltip", "data-placement": "right", title: this.getTooltip(this.props.project.status) },
+          this.props.project.status
+        )
       ),
       React.createElement(
         "h4",

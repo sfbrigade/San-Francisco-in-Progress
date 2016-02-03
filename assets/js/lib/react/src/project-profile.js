@@ -19,7 +19,7 @@ module.exports = React.createClass({
   }
 
   , componentDidMount: function() {
-      $('[data-toggle="tooltip"]').tooltip()
+      $('[data-toggle="tooltip"]').tooltip({trigger: 'hover click'});
   }
 
   , showEmailForm: function () {
@@ -31,6 +31,11 @@ module.exports = React.createClass({
       <EmailForm id={id} address={this.props.project.address} />
       , document.getElementById('projectProfile-container')
     )
+  }
+
+  , getTooltip: function(status) {
+    var tooltip_texts = { 'BP Filed': 'Tooltip BP filed', 'PL Approved' : 'Tooltip PL Approved'};
+    return tooltip_texts[status];
   }
   , createURL: function() {
     var id = this.props.project._id || this.props.project.id
@@ -68,6 +73,10 @@ module.exports = React.createClass({
 
     var editBtnStyle = {
       display: 'inline'
+    }
+
+    var inlineStyle = {
+      display: 'inline-block'
     }
 
     var addressStyle = {
@@ -114,10 +123,12 @@ module.exports = React.createClass({
           <a href={this.createURL()} style={editBtnStyle}>(Edit)</a>
         </div>
         <div>{projectImage}</div>
-        <h4 data-toggle="tooltip" data-placement="right" title="A firm that sponsors the housing project">Sponsor Firm:</h4>
+        <h4 style={inlineStyle} data-toggle="tooltip" data-placement="right" title="Tooltip for sponsor firm">Sponsor Firm:</h4>
         <p>{this.props.project.sponsorFirm}</p>
-        <h4>Status:</h4>
-        <p>{this.props.project.status}</p>
+        <h4 style={inlineStyle} data-toggle="tooltip" data-placement="right" title="Tooltip for status">Status:</h4>
+        <div>
+        <p style={inlineStyle} data-toggle='tooltip' data-placement='right' title={this.getTooltip(this.props.project.status)}>{this.props.project.status}</p>
+        </div>
         <h4>Net new housing units:</h4>
         <p>{this.props.project.units}</p>
         <h4>Description:</h4>

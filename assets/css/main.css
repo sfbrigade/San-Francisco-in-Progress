@@ -118,8 +118,3 @@ ul {
 .hidden{
   visibility: hidden;
 }
-
-.tooltip {
-	z-index: 1000;
-	background-color: green;
-}
