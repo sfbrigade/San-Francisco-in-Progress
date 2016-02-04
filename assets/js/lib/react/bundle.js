@@ -213,10 +213,6 @@ module.exports = React.createClass({
     React.render(React.createElement(EmailForm, { id: id, address: this.props.project.address }), document.getElementById("projectProfile-container"));
   },
 
-  getTooltip: function (status) {
-    var tooltip_texts = { "BP Filed": "Tooltip BP filed", "PL Approved": "Tooltip PL Approved" };
-    return tooltip_texts[status];
-  },
   createURL: function () {
     var id = this.props.project._id || this.props.project.id;
     return "/admin/projects/" + id;
@@ -365,7 +361,7 @@ module.exports = React.createClass({
       ),
       React.createElement(
         "h4",
-        { style: inlineStyle, "data-toggle": "tooltip", "data-placement": "right", title: "Tooltip for sponsor firm" },
+        { style: inlineStyle, "data-toggle": "tooltip", "data-placement": "right", title: "Placeholder Tooltip for sponsor firm" },
         "Sponsor Firm:"
       ),
       React.createElement(
@@ -375,17 +371,13 @@ module.exports = React.createClass({
       ),
       React.createElement(
         "h4",
-        { style: inlineStyle, "data-toggle": "tooltip", "data-placement": "right", title: "Tooltip for status" },
+        { style: inlineStyle, "data-toggle": "tooltip", "data-placement": "right", title: "Placeholder Tooltip for status" },
         "Status:"
       ),
       React.createElement(
-        "div",
+        "p",
         null,
-        React.createElement(
-          "p",
-          { style: inlineStyle, "data-toggle": "tooltip", "data-placement": "right", title: this.getTooltip(this.props.project.status) },
-          this.props.project.status
-        )
+        this.props.project.status
       ),
       React.createElement(
         "h4",

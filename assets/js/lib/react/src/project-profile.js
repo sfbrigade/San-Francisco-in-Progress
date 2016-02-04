@@ -33,10 +33,6 @@ module.exports = React.createClass({
     )
   }
 
-  , getTooltip: function(status) {
-    var tooltip_texts = { 'BP Filed': 'Tooltip BP filed', 'PL Approved' : 'Tooltip PL Approved'};
-    return tooltip_texts[status];
-  }
   , createURL: function() {
     var id = this.props.project._id || this.props.project.id
     return '/admin/projects/' + id
@@ -123,12 +119,10 @@ module.exports = React.createClass({
           <a href={this.createURL()} style={editBtnStyle}>(Edit)</a>
         </div>
         <div>{projectImage}</div>
-        <h4 style={inlineStyle} data-toggle="tooltip" data-placement="right" title="Tooltip for sponsor firm">Sponsor Firm:</h4>
+        <h4 style={inlineStyle} data-toggle="tooltip" data-placement="right" title="Placeholder Tooltip for sponsor firm">Sponsor Firm:</h4>
         <p>{this.props.project.sponsorFirm}</p>
-        <h4 style={inlineStyle} data-toggle="tooltip" data-placement="right" title="Tooltip for status">Status:</h4>
-        <div>
-        <p style={inlineStyle} data-toggle='tooltip' data-placement='right' title={this.getTooltip(this.props.project.status)}>{this.props.project.status}</p>
-        </div>
+        <h4 style={inlineStyle} data-toggle="tooltip" data-placement="right" title="Placeholder Tooltip for status">Status:</h4>
+        <p>{this.props.project.status}</p>
         <h4>Net new housing units:</h4>
         <p>{this.props.project.units}</p>
         <h4>Description:</h4>
