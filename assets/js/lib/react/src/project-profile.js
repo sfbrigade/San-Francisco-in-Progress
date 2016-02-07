@@ -17,6 +17,11 @@ module.exports = React.createClass({
       , description: 'Really awesome high-rise'
     }
   }
+
+  , componentDidMount: function() {
+      $('[data-toggle="tooltip"]').tooltip({trigger: 'hover click'});
+  }
+
   , showEmailForm: function () {
     var projectProfile = this.getDOMNode()
     React.unmountComponentAtNode(projectProfile)
@@ -27,6 +32,7 @@ module.exports = React.createClass({
       , document.getElementById('projectProfile-container')
     )
   }
+
   , createURL: function() {
     var id = this.props.project._id || this.props.project.id
     return '/admin/projects/' + id
@@ -35,6 +41,7 @@ module.exports = React.createClass({
     var id = this.props.project._id || this.props.project.id
     return '/hearings/new/' + id
   }
+
   , goToHearingForm: function() {
     window.location.href = this.hearingURL()
   }
@@ -62,6 +69,10 @@ module.exports = React.createClass({
 
     var editBtnStyle = {
       display: 'inline'
+    }
+
+    var inlineStyle = {
+      display: 'inline-block'
     }
 
     var addressStyle = {
@@ -108,9 +119,9 @@ module.exports = React.createClass({
           <a href={this.createURL()} style={editBtnStyle}>(Edit)</a>
         </div>
         <div>{projectImage}</div>
-        <h4>Sponsor Firm:</h4>
+        <h4 style={inlineStyle} data-toggle="tooltip" data-placement="right" title="Placeholder Tooltip for sponsor firm">Sponsor Firm:</h4>
         <p>{this.props.project.sponsorFirm}</p>
-        <h4>Status:</h4>
+        <h4 style={inlineStyle} data-toggle="tooltip" data-placement="right" title="Placeholder Tooltip for status">Status:</h4>
         <p>{this.props.project.status}</p>
         <h4>Net new housing units:</h4>
         <p>{this.props.project.units}</p>

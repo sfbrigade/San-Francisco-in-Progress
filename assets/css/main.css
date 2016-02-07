@@ -45,7 +45,7 @@
   position: absolute;
   /* height of navbar */
   top: 50px;
-  width: 100%; 
+  width: 100%;
   height: 100%;
   display: inline-block;
   z-index: 0;
@@ -106,11 +106,11 @@ ul {
   content: "";
   display: table;
 }
- 
+
 .clearfix:after {
   clear: both;
 }
- 
+
 .clearfix {
   zoom: 1; /* ie 6/7 */
 }
