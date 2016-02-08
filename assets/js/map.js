@@ -77,7 +77,7 @@ var createGeoJSON = function createGeoJSON(projects) {
                 neighborhood: project.neighborhood || 'Neighborhood not specified',
                 description: project.description || 'No description',
                 units: project.units || 'Units unknown',
-                status: project.status || 'No status specified',
+                status: this.formatStatus(project.status) || 'No status specified',
                 statusCategory: project.statusCategory || 'No status specified',
                 picture: project.picture || '',
                 hearings: project.hearings || [],
@@ -93,6 +93,19 @@ var createGeoJSON = function createGeoJSON(projects) {
 
     });
     return featureCollection;
+};
+
+// replace 'BP' and 'PL' codes with complete text
+var formatStatus = function(str){
+  var abbrevs = { 'BP' : 'Building Permit',
+                  'PL' : 'Planning Permit'};
+  for (var code in abbrevs){
+    if (abbrevs.hasOwnProperty(code)){
+      str = str.split(code).join(abbrevs[code]);
+    }
+  };
+
+  return str;
 };
 
 // object that keeps track of which filter boxes are selected/unselected
