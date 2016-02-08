@@ -7,8 +7,8 @@ eventBus = _.extend({}, Backbone.Events);
 
 eventBus.on('select:project', function showProfile(project) {
 	// When a project is selected on the map:
-	// hide the sidebar and show project profile
-    $(".project-nav").addClass("hidden");
+	// show project profile
+
 	$( "#sidebar" ).animate({
     width: "90%",
   }, 250);
@@ -19,11 +19,7 @@ eventBus.on('select:project', function showProfile(project) {
 
 eventBus.on('close:profile', function toggleSidebarView() {
 	// unhide sidebar content when a project profile is closed
-	$('#projectList-container').removeClass('hidden');
-    // switch active button to featured projects list
-    if ($("#sidebar .sidebar-btn-support").hasClass('btn-link')){
-      $('#sidebar .btn').toggleClass('btn-info btn-link');
-    }
+
 	$( "#sidebar" ).animate({
     width: "350px",
   }, 250);

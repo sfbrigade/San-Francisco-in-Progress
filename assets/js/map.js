@@ -238,11 +238,13 @@ var bindEvents = function bindFilterEvents() {
 
     // when an individual marker is clicked, hide filter sidebar
     eventBus.on('select:project', function onShowProfile() {
-            $('#sidebar .btn').addClass('hidden');
-        })
+        $('#sidebar .btn').addClass('hidden-sidebar');
+        $(".project-nav").addClass("hidden-sidebar");
+    })
         // when a project profile is dismissed, show all markers again
     eventBus.on('close:profile', function onCloseProfile() {
-        $('#sidebar .btn').removeClass('hidden');
+        $('#sidebar .btn').removeClass('hidden-sidebar');
+        $(".project-nav").removeClass("hidden-sidebar");
         showAllMarkers();
     });
 
