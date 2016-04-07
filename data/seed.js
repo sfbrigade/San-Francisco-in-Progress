@@ -20,7 +20,7 @@ var projectSchema = new mongoose.Schema({
 // database model
 var Project = mongoose.model('Project', projectSchema);
 
-var socrataURL = 'https://data.sfgov.org/resource/858q-nwrm.json?$select=';
+var socrataURL = 'https://data.sfgov.org/resource/ra2x-jzmk.json';
 
 var determineZoning = function determineZoning (zoningGeneralized) {
 	var zoning;
